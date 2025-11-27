@@ -1,0 +1,45 @@
+/bootstrap/compiled.php
+/bootstrap/cache/
+.env.*.php
+.env.php
+/node_modules
+/public/hot
+/public/storage
+/public/uploads
+/storage/*.key
+/vendor
+/temp
+/.idea
+/.vscode
+/.vagrant
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+.DS_Store
+.idea/
+updates/
+composer.lock
+*.lock
+resources/lang/en.json
+
+.env
+updates.zip
+ecommerce.zip
+install.zip
+/nbproject/private/
+/nbproject
+matrimonial_laravel.zip
+
+# Logs & debug
+*.log
+error_log
+
+# Database dumps
+*.sql
+
+# Top-level uploads (user content, not tracked)
+/uploads
+
+# Large archives / backups
+*.zip

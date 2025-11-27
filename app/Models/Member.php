@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Models;
+use App\User;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Member extends Model
+{
+    use SoftDeletes;
+    protected $fillable = [
+        'user_id','gender','birthday','marital_status_id','on_behalves_id','current_package_id','remaining_interest','id_upload_path','remaining_contact_view','remaining_photo_gallery','auto_profile_match','package_validity','verification_id'
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class)->withTrashed();
+    }
+
+    public function on_behalves(){
+        return $this->belongsTo(OnBehalf::class)->withTrashed();
+    }
+
+    public function marital_status(){
+        return $this->belongsTo(MaritalStatus::class)->withTrashed();
+    }
+
+    public function package()
+    {
+        return $this->belongsTo(Package::class,'current_package_id')->withTrashed();
+    }
+
+}

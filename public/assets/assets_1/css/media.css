@@ -1,0 +1,1039 @@
+#premiummatches
+{
+    margin-top:18% !important;
+}
+#footer
+{
+       margin-top:15% !important ;
+}
+@media only screen 
+  and (min-device-width: 210px) 
+  and (max-device-width:320px)
+{
+  #home_user
+  {
+      margin-top:50% !important;
+  }
+  #footer {
+    margin-top: 50% !important;
+    background-color: #ffffff;
+    box-shadow: -1px 1px 2px 0px #111;
+}
+#premiummatches {
+    margin-top: 70% !important;
+}
+    .navbarnav {
+     width: 0% !important; 
+    display: flex;
+}
+ 
+
+   
+    .profile-side {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    margin: 5px 0;
+    height: max-content !important;
+}
+ 
+  .inbox-name {
+    margin-left: 5%;
+    display: none;
+}
+.inbox-user-image {
+  width: 99%;
+  border-radius: 100%;
+}
+     /* inbox */
+     #inbox-user-image {
+      width: 7%;
+      border-radius: 100%;
+      margin-left: 27% !important;
+  }
+  .inbox-message-text {
+    background: blanchedalmond;
+    margin-top: -11%;
+    width: 57%;
+    padding: 2%;
+    height: max-content;
+    margin-left: 48% !important;
+}
+    /* end */
+  #card-memberleft span {
+    font-family: poppins;
+    font-size: 16px !important;
+}
+  #img-message2 {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    margin-left: 331%;
+}
+  .shortlist-text {
+    width: 70%;
+    text-align: left;
+}
+
+  .profile-display {
+    display: block !important;
+}
+.shortlist-text h5
+{
+  font-size:8px;
+}
+  .galler-box img {
+    width: 45%;
+    margin-top: 3%;
+}
+ .widget h1
+ {
+  font-size: 21px;
+ } 
+#profileviewer
+{
+    margin: 0px 10px;
+}
+.right-side .nav ul
+{
+  display:block;
+}
+.proof-id
+{
+  width: 40%;
+}
+.right-side {
+  width: 100%;
+
+  margin-left: -6%;
+}
+.profile-nav li {
+  list-style-type: none;
+ 
+  font-size: 11px;
+  padding: 2%;
+}
+.profile-nav {
+  display: flex;
+  width: 100% !important;
+  padding: 2%;
+}
+.cardheader1 h5
+{
+  font-size: 12px;
+}
+}
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+{
+ #home_user
+  {
+      margin-top:30% !important;
+  }
+  #footer {
+    margin-top: 50% !important;
+    background-color: #ffffff;
+    box-shadow: -1px 1px 2px 0px #111;
+}
+#premiummatches {
+    margin-top: 70% !important;
+}
+    .navbarnav {
+     width: 0% !important; 
+    display: flex;
+}
+  
+    
+      .table-responsive {
+    display: block !important;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+ 
+  .inbox-name {
+    margin-left: 5%;
+    display: none;
+}
+.inbox-user-image {
+  width: 59% !important;
+  border-radius: 100%;
+}
+  .my-popup-container
+  {
+    display: none !important;
+  }
+        /* inbox */
+        #inbox-user-image {
+          width:10%;
+          border-radius: 100%;
+          margin-left: 7% !important;
+      }
+      .inbox-message-text {
+        background: blanchedalmond;
+        margin-top: -11%;
+        width: 47%;
+        padding: 2%;
+        height: max-content;
+        margin-left: 19% !important;
+    }
+        /* end */
+  #btn-col {
+    display: flex;
+    margin-left: -99%;
+}
+  .tabcontent {
+    float: left;
+    padding: 0px 12px;
+    border: 1px solid #ccc;
+    width: 70%;
+    border-left: none;
+    height:470px;
+}
+#tab {
+  float: left;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  width: 30%;
+  height: 470px;
+  overflow-y: scroll;
+}
+#img-message2 {
+  width: 32px;
+    height: 39px;
+    border-radius: 100%;
+    margin-right: -5%;
+}
+.message-text2 {
+  margin-top: -50px;
+  border-radius: 5px;
+  background-color: #5e5e5e61;
+  width: 136px !important;
+  font-family: Montserrat;
+  height: max-content !important;
+  margin-left: 18% !important;
+}
+  .user-image {
+    margin-left: -4% !important;
+}
+
+  .message-text {
+    background-color: #5e5e5e61;
+    width: 69% !important;
+    display: inline-block !important;
+    padding: 15px !important;
+    border-radius: 5px;
+    font-family: Montserrat;
+    height: max-content !important;
+}
+#img-message {
+  width: 31px;
+  height: 39px;
+  border-radius: 100%;
+  margin-right: -5%;
+}
+
+  .shortlist-text {
+    width: 70%;
+    text-align: left;
+}
+
+  .profile-display {
+    display: block !important;
+}
+.shortlist-text h5
+{
+  font-size:8px;
+}
+ 
+  .galler-box img {
+    width: 45%;
+    margin-top: 3%;
+}
+ .widget h1
+ {
+  font-size: 21px;
+ } 
+#profileviewer
+{
+    margin: 0px 10px;
+}
+.right-side .nav ul li
+{
+  font-size:10px;
+}
+.proof-id
+{
+  width: 50%;
+}
+.right-side {
+  width: 100%;
+
+}
+.profile-nav li {
+  list-style-type: none;
+ 
+  font-size: 11px;
+  padding: 2%;
+}
+.profile-nav {
+  display: flex;
+  width: 100% !important;
+  padding: 2%;
+}
+.cardheader1 h5
+{
+  font-size: 12px;
+}
+#inbox-user-image1 {
+  width: 18%;
+  border-radius: 100%;
+  margin-left: 142%;
+}
+}
+@media only screen 
+  and (min-device-width:480px) 
+  and (max-device-width:620px)
+{
+ #home_user
+  {
+      margin-top:50% !important;
+  }
+  #footer {
+    margin-top: 50% !important;
+    background-color: #ffffff;
+    box-shadow: -1px 1px 2px 0px #111;
+}
+#premiummatches {
+    margin-top: 70% !important;
+}
+ 
+  .my-popup-container input[type="submit"], .my-popup-container input[type="button"] {
+    position: absolute;
+    top: 443px;
+    left: 561px !important;
+    width: 200px;
+    height: 43px;
+    font-family: 'Quicksand', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 700;
+    padding: 0;
+    margin: 0;
+    border: 0px;
+    background-color: #219022;
+    color: #ffffff;
+    -webkit-border-radius: 10px 0px;
+    -moz-border-radius: 10px 0px;
+    border-radius: 10px 0px;
+    -webkit-transition: background-color ease-in-out .15s;
+    -moz-transition: background-color ease-in-out .15s;
+    -o-transition: background-color ease-in-out .15s;
+    transition: background-color ease-in-out .15s;
+    cursor: pointer;
+    box-sizing: border-box;
+    box-shadow: 2px 3px 10px RGBA(0,0,0,0.3);
+    -moz-box-shadow: 2px 3px 10px RGBA(0,0,0,0.3);
+    -webkit-box-shadow: 2px 3px 10px RGBA(0,0,0,0.3);
+    outline: 0;
+}
+  .my-popup-container input[type="text"] {
+    position: absolute;
+    top: 443px;
+    left: 327px !important;
+    width: 226px !important;
+    height: 43px;
+    font-family: 'Quicksand', Arial, sans-serif;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 5px 15px;
+    background-color: RGBA(255,255,255,0.95);
+    border: 2px solid #ffcc00;
+    color: #313131;
+    text-align: center;
+    margin: 0;
+    -webkit-border-radius: 10px 0px;
+    -moz-border-radius: 10px 0px;
+    border-radius: 10px 0px;
+    -webkit-transition: border ease-in-out .15s;
+    -moz-transition: border ease-in-out .15s;
+    transition: border ease-in-out .15s;
+    box-shadow: 2px 3px 10px RGBA(0,0,0,0.3);
+    -moz-box-shadow: 2px 3px 10px RGBA(0,0,0,0.3);
+    -webkit-box-shadow: 2px 3px 10px RGBA(0,0,0,0.3);
+    box-sizing: border-box;
+}
+  .my-popup-container {
+    position: fixed;
+    left: 53% !important;
+    margin-left: -378px;
+    top: 50%;
+    margin-top: -260px !important;
+    width: 890px;
+    min-height: 533px;
+    background: url("assets_1/img/Bkg\ copy.png");
+    padding: 74px 60px 0 510px;
+    text-align: left;
+    border-radius: 0px;
+    box-sizing: border-box;
+    background-size: 520px 516px !important;
+    background-repeat: no-repeat !important;
+}
+       /* inbox */
+       #inbox-user-image {
+        width: 7%;
+        border-radius: 100%;
+        margin-left: 7% !important;
+    }
+    .inbox-message-text {
+      background: blanchedalmond;
+      margin-top: -7%;
+      width: 47%;
+      padding: 2%;
+      height: max-content;
+      margin-left: 3.5rem !important;
+  }
+      /* end */
+  .tabcontent {
+    float: left;
+    padding: 0px 12px;
+    border: 1px solid #ccc;
+    width: 70%;
+    border-left: none;
+    height:470px;
+}
+#tab {
+  float: left;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  width: 30%;
+  height: 470px;
+  overflow-y: scroll;
+}
+#img-message2 {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  margin-left: 120%;
+}
+.message-text2 {
+  margin-top: -50px;
+  border-radius: 5px;
+  background-color: #5e5e5e61;
+  width: 136px !important;
+  font-family: Montserrat;
+  height: max-content !important;
+  margin-left: 18% !important;
+}
+  .user-image {
+    margin-left: -4% !important;
+}
+
+  .message-text {
+    background-color: #5e5e5e61;
+    width: 69% !important;
+    display: inline-block !important;
+    padding: 15px !important;
+    border-radius: 5px;
+    font-family: Montserrat;
+    height: max-content !important;
+}
+#img-message {
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+  margin-right: -1%;
+}
+
+  /*  */
+  .shortlist-text {
+    width: 70%;
+    text-align: left;
+}
+
+  .profile-display {
+    display: block !important;
+}
+.shortlist-text h5
+{
+  font-size:13px;
+}
+  .galler-box img {
+    width: 45%;
+    margin-top: 3%;
+}
+ .widget h1
+ {
+  font-size: 21px;
+ } 
+#profileviewer
+{
+    margin: 0px 10px;
+}
+.right-side .nav ul li
+{
+  font-size:10px;
+}
+.proof-id
+{
+  width:80%;
+}
+.right-side {
+  width: 100%;
+
+  margin-left: -1%;
+}
+.profile-nav li {
+  list-style-type: none;
+ 
+  font-size: 13px;
+  padding: 2%;
+}
+.profile-nav {
+  display: flex;
+  width: 100% !important;
+  padding: 2%;
+}
+.cardheader1 h5
+{
+  font-size: 13px;
+}
+}
+@media only screen 
+  and (min-device-width:620px) 
+  and (max-device-width:720px)
+  {
+ #home_user
+  {
+      margin-top:50% !important;
+  }
+  #footer {
+    margin-top: 50% !important;
+    background-color: #ffffff;
+    box-shadow: -1px 1px 2px 0px #111;
+}
+#premiummatches {
+    margin-top: 70% !important;
+}
+    .my-popup-container input[type="submit"], .my-popup-container input[type="button"] {
+      position: absolute;
+      top: 443px;
+      left: 561px !important;
+      width: 200px;
+      height: 43px;
+      font-family: 'Quicksand', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 18px;
+      font-weight: 700;
+      padding: 0;
+      margin: 0;
+      border: 0px;
+      background-color: #219022;
+      color: #ffffff;
+      -webkit-border-radius: 10px 0px;
+      -moz-border-radius: 10px 0px;
+      border-radius: 10px 0px;
+      -webkit-transition: background-color ease-in-out .15s;
+      -moz-transition: background-color ease-in-out .15s;
+      -o-transition: background-color ease-in-out .15s;
+      transition: background-color ease-in-out .15s;
+      cursor: pointer;
+      box-sizing: border-box;
+      box-shadow: 2px 3px 10px RGBA(0,0,0,0.3);
+      -moz-box-shadow: 2px 3px 10px RGBA(0,0,0,0.3);
+      -webkit-box-shadow: 2px 3px 10px RGBA(0,0,0,0.3);
+      outline: 0;
+  }
+    .my-popup-container input[type="text"] {
+      position: absolute;
+      top: 443px;
+      left: 327px !important;
+      width: 226px !important;
+      height: 43px;
+      font-family: 'Quicksand', Arial, sans-serif;
+      font-size: 14px;
+      line-height: 16px;
+      padding: 5px 15px;
+      background-color: RGBA(255,255,255,0.95);
+      border: 2px solid #ffcc00;
+      color: #313131;
+      text-align: center;
+      margin: 0;
+      -webkit-border-radius: 10px 0px;
+      -moz-border-radius: 10px 0px;
+      border-radius: 10px 0px;
+      -webkit-transition: border ease-in-out .15s;
+      -moz-transition: border ease-in-out .15s;
+      transition: border ease-in-out .15s;
+      box-shadow: 2px 3px 10px RGBA(0,0,0,0.3);
+      -moz-box-shadow: 2px 3px 10px RGBA(0,0,0,0.3);
+      -webkit-box-shadow: 2px 3px 10px RGBA(0,0,0,0.3);
+      box-sizing: border-box;
+  }
+    .my-popup-container {
+      position: fixed;
+      left: 53% !important;
+      margin-left: -378px;
+      top: 50%;
+      margin-top: -260px !important;
+      width: 890px;
+      min-height: 533px;
+      background: url("assets_1/img/Bkg\ copy.png");
+      padding: 74px 60px 0 510px;
+      text-align: left;
+      border-radius: 0px;
+      box-sizing: border-box;
+      background-size: 700px 516px !important;
+      background-repeat: no-repeat !important;
+  }
+        /* inbox */
+        #inbox-user-image {
+          width: 7%;
+          border-radius: 100%;
+          margin-left: 7% !important;
+      }
+      .inbox-message-text {
+        background: blanchedalmond;
+        margin-top: -7%;
+        width: 47%;
+        padding: 2%;
+        height: max-content;
+        margin-left: 3.5rem !important;
+    }
+        /* end */
+    .tabcontent {
+      float: left;
+      padding: 0px 12px;
+      border: 1px solid #ccc;
+      width: 70%;
+      border-left: none;
+      height:470px;
+  }
+  #tab {
+    float: left;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 30%;
+    height: 470px;
+    overflow-y: scroll;
+  }
+  #img-message2 {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    margin-left: 120%;
+  }
+  .message-text2 {
+    margin-top: -50px;
+    border-radius: 5px;
+    background-color: #5e5e5e61;
+    width: 220px !important;
+    font-family: Montserrat;
+    height: max-content !important;
+    margin-left: 18% !important;
+  }
+    .user-image {
+      margin-left: -4% !important;
+  }
+  
+    .message-text {
+      background-color: #5e5e5e61;
+      width: 69% !important;
+      display: inline-block !important;
+      padding: 15px !important;
+      border-radius: 5px;
+      font-family: Montserrat;
+      height: max-content !important;
+  }
+  #img-message {
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    margin-right: -1%;
+  }
+  
+    /*  */
+    .shortlist-text {
+      width: 70%;
+      text-align: left;
+  }
+  
+    .profile-display {
+      display: block !important;
+  }
+  .shortlist-text h5
+  {
+    font-size:13px;
+  }
+      
+  .galler-box img {
+    width: 45%;
+    margin-top: 3%;
+}
+ .widget h1
+ {
+  font-size: 21px;
+ } 
+#profileviewer
+{
+    margin: 0px 10px;
+}
+.right-side .nav ul li
+{
+  font-size:10px;
+}
+.proof-id
+{
+  width:80%;
+}
+.right-side {
+  width: 100%;
+
+  margin-left: -6%;
+}
+.profile-nav li {
+  list-style-type: none;
+ 
+  font-size: 13px;
+  padding: 2%;
+}
+.profile-nav {
+  display: flex;
+  width: 100% !important;
+  padding: 2%;
+}
+.cardheader1 h5
+{
+  font-size: 13px;
+}
+
+  }
+@media only screen 
+  and (min-device-width:720px) 
+  and (max-device-width:820px)
+  {
+ #home_user
+  {
+      margin-top:50% !important;
+  }
+  #footer {
+    margin-top: 50% !important;
+    background-color: #ffffff;
+    box-shadow: -1px 1px 2px 0px #111;
+}
+#premiummatches {
+    margin-top: 70% !important;
+}
+    .my-popup-container {
+      position: fixed;
+      left: 50%;
+      margin-left: -497px !important;
+      top: 50%;
+      margin-top: -260px;
+      width: 849px !important;
+      min-height: 533px;
+      background: url("assets_1/img/Bkg\ copy.png") center top no-repeat;
+      padding: 74px 60px 0 510px;
+      text-align: left;
+      border-radius: 0px;
+      box-sizing: border-box;
+  }
+     /* inbox */
+     #inbox-user-image {
+      width: 7%;
+      border-radius: 100%;
+      margin-left:9% !important;
+  }
+    .inbox-message-text {
+      background: blanchedalmond;
+      margin-top: -7%;
+      width: 47%;
+      padding: 2%;
+      height: max-content;
+     margin-left: 4.5rem !important
+  }
+    /* end */
+    .tabcontent {
+      float: left;
+      padding: 0px 12px;
+      border: 1px solid #ccc;
+      width: 70%;
+      border-left: none;
+      height:470px;
+  }
+  #tab {
+    float: left;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 30%;
+    height: 470px;
+    overflow-y: scroll;
+  }
+  #img-message2 {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    margin-left: 120%;
+  }
+  .message-text2 {
+    margin-top: -50px;
+    border-radius: 5px;
+    background-color: #5e5e5e61;
+    width: 220px !important;
+    font-family: Montserrat;
+    height: max-content !important;
+    margin-left: 18% !important;
+  }
+    .user-image {
+      margin-left: -4% !important;
+  }
+  
+    .message-text {
+      background-color: #5e5e5e61;
+      width: 69% !important;
+      display: inline-block !important;
+      padding: 15px !important;
+      border-radius: 5px;
+      font-family: Montserrat;
+      height: max-content !important;
+  }
+  #img-message {
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    margin-right: -1%;
+  }
+  
+    /*  */
+    .shortlist-text {
+      width: 70%;
+      text-align: left;
+  }
+  
+    .profile-display {
+      display: block !important;
+  }
+  .shortlist-text h5
+  {
+    font-size:13px;
+  }
+    .galler-box img {
+      width: 45%;
+      margin-top: 3%;
+  }
+   .widget h1
+   {
+    font-size: 21px;
+   } 
+  #profileviewer
+  {
+      margin: 0px 10px;
+  }
+  .right-side .nav ul li
+  {
+    font-size:10px;
+  }
+  .proof-id
+  {
+    width:80%;
+  }
+  .right-side {
+    width: 100%;
+  
+    margin-left: -1%;
+  }
+  .profile-nav li {
+    list-style-type: none;
+   
+    font-size: 13px;
+    padding: 2%;
+  }
+  .profile-nav {
+    display: flex;
+    width: 100% !important;
+    padding: 2%;
+  }
+  .cardheader1 h5
+  {
+    font-size: 13px;
+  }
+  
+
+}
+@media only screen 
+  and (min-device-width:820px) 
+  and (max-device-width:1200px)
+  {
+  #home_user
+  {
+      margin-top:50% !important;
+  }
+  #footer {
+    margin-top: 50% !important;
+    background-color: #ffffff;
+    box-shadow: -1px 1px 2px 0px #111;
+}
+#premiummatches {
+    margin-top: 70% !important;
+}
+    .my-popup-container {
+      position: fixed;
+      left:54% !important;
+      margin-left: -460px !important;
+      top: 50%;
+      margin-top: -260px;
+      width: 890px;
+      min-height: 533px;
+      background: url("assets_1/img/Bkg\ copy.png") center top no-repeat;
+      padding: 74px 60px 0 510px;
+      text-align: left;
+      border-radius: 0px;
+      box-sizing: border-box;
+  }
+    /* inbox */
+    #inbox-user-image {
+      width: 7%;
+      border-radius: 100%;
+      margin-left: 6%;
+  }
+    .inbox-message-text {
+      background: blanchedalmond;
+      margin-top: -7%;
+      width: 47%;
+      padding: 2%;
+      height: max-content;
+      margin-left: 15% !important;
+  }
+    /* end */
+    .tabcontent {
+      float: left;
+      padding: 0px 12px;
+      border: 1px solid #ccc;
+      width: 70%;
+      border-left: none;
+      height:470px;
+  }
+  #tab {
+    float: left;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 30%;
+    height: 470px;
+    overflow-y: scroll;
+  }
+  #img-message2 {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    margin-left: 120%;
+  }
+  .message-text2 {
+    margin-top: -50px;
+    border-radius: 5px;
+    background-color: #5e5e5e61;
+    width: 220px !important;
+    font-family: Montserrat;
+    height: max-content !important;
+    margin-left: 18% !important;
+  }
+    .user-image {
+      margin-left: -4% !important;
+  }
+  
+    .message-text {
+      background-color: #5e5e5e61;
+      width: 69% !important;
+      display: inline-block !important;
+      padding: 15px !important;
+      border-radius: 5px;
+      font-family: Montserrat;
+      height: max-content !important;
+  }
+  #img-message {
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    margin-right: -1%;
+  }
+  .tab button {
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 20px 35px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 17px;
+    font-family: poppins;
+    font-weight: lighter !important;
+}
+    /*  */
+    .shortlist-text {
+      width: 70%;
+      text-align: left;
+  }
+  
+    .profile-display {
+      display: block !important;
+  }
+  .shortlist-text h5
+  {
+    font-size:13px;
+  }
+    .img-interest {
+      border-radius: 100%;
+      border-color: #3498db;
+      border-style: solid;
+      width: 17%;
+  } 
+    .galler-box img {
+      width: 45%;
+      margin-top: 3%;
+  }
+   .widget h1
+   {
+    font-size: 21px;
+   } 
+  #profileviewer
+  {
+      margin: 0px 10px;
+  }
+  .right-side .nav ul li
+  {
+    font-size:10px;
+  }
+  .proof-id
+  {
+    width:80%;
+  }
+  .right-side {
+    width: 100%;
+  
+    margin-left: 0% !important;
+  }
+  .profile-nav li {
+    list-style-type: none;
+   
+    font-size: 13px;
+    padding: 2%;
+  }
+  .profile-nav {
+    display: flex;
+    width: 100% !important;
+    padding: 2%;
+  }
+  .cardheader1 h5
+  {
+    font-size: 13px;
+  }
+  
+
+
+
+}
+
+
