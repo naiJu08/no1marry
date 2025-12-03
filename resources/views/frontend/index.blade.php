@@ -474,7 +474,7 @@ form .buttons button,
       </h1>
     </div>
     <div class="d-flex justify-content-center form">
-          <span class="logn-bt">Will Be Back In 7 Daysssss</span>
+          <span class="logn-bt">Will Be Back In 4 Daysssss</span>
 </div>
 
   </div>
