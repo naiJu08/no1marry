@@ -1,543 +1,814 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>No1 Marry.com</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link rel="icon" type="image/x-icon" href="{{ static_asset('assets/assets/img/favicon.png') }}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="{{ static_asset('assets/assets/css/bootstrap.min.css') }}">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="// https://codepen.io/sandstedt/pen/GRZeywP?editors=1000"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <link href="{{ static_asset('assets/assets/css/select2.min.css') }}" rel="stylesheet" />
-  <!-- <link rel="stylesheet" href="{{ static_asset('assets/assets/css/stylemedia.css') }}"> -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!--<link href="{{ static_asset('assets/assets/css/select2.min.css') }}" rel="stylesheet" />-->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"> -->
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://db.onlinewebfonts.com/c/3bea650d056f5bb2dcafcb462b8a0745?family=Larsseit-Medium" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  <!--<link rel="stylesheet" href="{{ static_asset('assets/assets/css/stylemedia.css') }}" rel="stylesheet">-->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
 </head>
+
 <style>
-  :root{
-    --brand:#e74f7a;
-    --dark:#151515;
-  }
-  html,body{scroll-behavior:smooth}
-  body{font-family:'Poppins', sans-serif;background:#fff;color:#212529}
-  /* Transparent glass header */
-  .navbar-glass{backdrop-filter:saturate(140%) blur(10px); background:rgba(255,255,255,0.35)!important;}
-  .navbar-transparent{background:transparent!important;}
-  .nav-link{position:relative}
-  .nav-link:after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--brand);transition:.3s}
-  .nav-link:hover:after{width:100%}
-  .btn-brand{background:var(--brand);border:0}
-  .btn-brand:hover{filter:brightness(1.05)}
-  /* Hero: fixed full-screen background (mobile-friendly) */
-  header.hero{
-    min-height:100vh;
-    position:relative;
-    display:flex;
-    align-items:center;
-    overflow:hidden;
-    color:#fff;
-  }
-  header.hero::before{
-    content:'';
-    position:fixed; /* stays fixed while page scrolls */
-    top:0;left:0;right:0;bottom:0;
-    background:url('{{ asset('assets/img/reg-bg.png') }}') center/cover no-repeat;
-    will-change:transform;
-    transform:translateZ(0);
-    z-index:0;
-  }
-  header.hero::after{
-    content:'';
-    position:absolute;
-    inset:0;
-    background:linear-gradient(120deg, rgba(21,21,21,0.75) 0%, rgba(21,21,21,0.45) 60%, rgba(231,79,122,0.55) 100%),
-               linear-gradient(to bottom, rgba(21,21,21,0.55) 0%, rgba(21,21,21,0.35) 45%, rgba(21,21,21,0.85) 100%);
-    z-index:1; /* overlay above image, below content */
-  }
-  .hero .container{position:relative; z-index:2}
-  /* Glass login card */
-  .glass-card{background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.25); backdrop-filter: blur(12px);}
-  /* .form-control:focus{box-shadow:0 0 0 .25rem rgba(231,79,122,.25); border-color:var(--brand)}
-  .input-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#999}
-  .input-with-icon{padding-left:38px}
-  .toggle-passwords{position:absolute;right:12px;top:50%;transform:translateY(-50%);cursor:pointer;color:#6c757d;z-index:2} */
-  /* Features */
-  .feature-card{
-    border-radius:20px;
-    overflow:hidden;
-    transition:transform .35s ease, box-shadow .35s ease;
-  }
-  .feature-card img{
-    height:220px;
-    object-fit:cover;
-  }
-  .feature-card:hover{transform:translateY(-6px); box-shadow:0 16px 40px rgba(0,0,0,.08)}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
 
-  /* Timeline */
-  .timeline{display:flex;gap:24px;flex-wrap:wrap}
-  .timeline .step{
-    flex:1 1 200px;
-    position:relative;
-    padding:18px 16px 16px;
-    background:#ffffff;
-    border-radius:18px;
-    box-shadow:0 12px 30px rgba(0,0,0,.04);
-    z-index:1;
-  }
-  .timeline .dot{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--brand);color:#fff;margin-bottom:8px}
-  .timeline .step:after{
-    content:'';
-    position:absolute;
-    top:20px;
-    left:60px;
-    right:16px;
-    height:2px;
-    background:linear-gradient(90deg, var(--brand), transparent);
-    z-index:0;
-  }
-  .timeline .step:last-child:after{display:none}
-
-  @media (max-width: 767.98px){
-    .timeline{gap:16px;}
-    .timeline .step{
-      padding:16px 14px 14px;
-    }
-    .timeline .step:after{display:none;}
-  }
-
-  /* Stories */
-  .story-card{
-    border-radius:20px;
-    overflow:hidden;
-    transition:transform .35s ease, box-shadow .35s ease;
-  }
-  .story-card img{
-    height:220px;
-    object-fit:cover;
-  }
-  .story-card:hover{
-    transform:translateY(-6px);
-    box-shadow:0 18px 40px rgba(0,0,0,.09);
-  }
-
-  /* CTA */
-  .cta{background:linear-gradient(120deg, #ff8fb1 0%, #ffbfa0 100%)}
-  /* Footer */
-  footer{background:#0f0f12;color:#bdbdc2}
-  footer a{color:#cfcfd6}
-  footer a:hover{color:#fff}
-
-    .text-gradient {
-    background: linear-gradient(90deg, #ff5f6d, #ffc371);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .input-group-flex {
-    display: flex;
-    align-items: center;
-    border: 1px solid #ffc1c1;
-    border-radius: 50px;
-    padding: 6px 14px;
-    /* background: #fff6f6; */
-    gap: 8px;
-    transition: all 0.3s ease;
-  }
-
-  .input-group-flex:focus-within {
-    border-color: #ff7b9c;
-    box-shadow: 0 0 8px rgba(255, 123, 156, 0.3);
-    background: #fff;
-  }
-
-  .icon-wrap {
-    color: #ff5f6d;
-    font-size: 1.1rem;
-    display: flex;
-    align-items: center;
-  }
-
-  .custom-input {
-    border: none;
-    outline: none;
-    flex: 1;
-    background: transparent !important;
-    background-color: transparent !important;
-    border: 0px !important;
-    font-size: 0.95rem;
-  }
-
-  .form-control:focus{
-    box-shadow: none !important;
-    border-color: none !important;
-  }
-
-  .custom-input::placeholder {
-    color: #c88888;
-  }
-
-  .eye-toggle {
-    cursor: pointer;
-    color: #ff7b9c;
-  }
-
-  .btn-brand {
-    background: linear-gradient(90deg, #ff5f6d, #ffc371);
-    border: none;
-  }
-
-  .btn-brand:hover {
-    background: linear-gradient(90deg, #ff7b9c, #ffd39f);
-  }
-
-  .text-brand {
-    color: #ff5f6d;
-  }
-
-  .text-brand:hover {
-    text-decoration: underline;
-  }
-
-  input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  background-color: transparent !important;
-  background-image: none !important;
-  -webkit-text-fill-color: #000 !important; /* ensure text stays visible */
-  transition: background-color 5000s ease-in-out 0s; /* prevents flash */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("/public/assets/img/Blue and Gold Traditional Indian Wedding Thank You Card (37).png");
+  background-size: cover;
+  /*background: linear-gradient(-20deg, #d558c8 0%, #24d292 100%);*/
+}
+
+.container {
+  position: relative;
+  max-width: 1100px;
+  padding: 30px;
+  margin: 0 15px;
+}
+
+.helpsupport {
+  color: #fff;
+  font-weight: 800;
+}
+
+.nb {
+  color: #FFE31A;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.container header {
+  position: relative;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+.container header::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 3px;
+  width: 27px;
+  border-radius: 8px;
+}
+
+.container form {
+  position: relative;
+  min-height: 200px;
+  overflow: hidden;
+  border-radius: 6px;
+  padding: 10px;
+  margin-top: 30px;
+  /*background-color: #caa6a670;*/
+background: rgba(255, 255, 255, 0.2);
+
+}
+
+.input-file {
+  background: #fff;
+  padding: 5px !important;
+}
+
+.container form .form {
+  display: none;
+  transition: 0.3s ease;
+}
+
+.container form .form.active-stage {
+  display: block;
+}
+
+.container form .title {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 6px 0;
+  color: #000;
+}
+
+.container form .fields {
+  display: flex;
+  align-items: center; 
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-right: 20px;
+}
+
+.text-condition a{
+    color: #fff;
+}
+
+form .fields .input-field {
+  display: flex;
+  width: calc(100% / 2 - 15px);
+  flex-direction: column;
+  margin: 4px 0;
+}
+
+.input-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #000;
+}
+
+.input-field input,
+select {
+  outline: none;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  padding: 0 15px;
+  height: 42px;
+  margin: 8px 0;
+}
+
+.input-field input:focus,
+.input-field select:focus {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.13);
+}
+
+.input-field select,
+.input-field input[type="date"] {
+  color: #000;
+  font-weight: 500;
+  background-color: #fff;
+}
+
+.input-field input[type="date"]:valid {
+  color: #333;
+}
+
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+#password {
+  width: 100%;
+  padding-right: 30px;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  color: #000;
+}
+
+.password-toggle-icon i {
+  vertical-align: middle;
+}
+
+.container form button,
+.backBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 45px;
+  max-width: 200px;
+  width: 100%;
+  border: none;
+  outline: none;
+  color: #fff;
+  border-radius: 5px;
+  background-color: #28a745;
+  transition: all 0.3s linear;
+  cursor: pointer;
+}
+
+.container form .btnText {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.logn-bt {
+  background-color: #000 !important;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  cursor:pointer;
+}
+
+.logn-a {
+  color: #fff;
+}
+
+.logn-a:hover {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 800;
+}
+
+form button:hover {
+  background-color: #265df2;
+}
+
+form button i,
+form .backBtn i {
+  margin: 0 6px;
+}
+
+form .backBtn i {
+  transform: rotate(180deg);
+}
+
+form .buttons {
+  display: flex;
+  align-items: center;
+}
+
+form .buttons button,
+.backBtn {
+  margin-right: 14px;
+}
+
+.input-file {
+  display: none;
+}
+
+.image-preview {
+  width: 100%;
+  height: 300px;
+  border: 2px solid #dddddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.image-preview__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-preview__default-text {
+  color: #000;
+  font-size: 20px;
+  position: absolute;
+  font-weight: 700;
+}
+
+@media (max-width: 750px) {
+  .container {
+    padding: 50px 0px;
+  }
+
+  .container form {
+    overflow-y: scroll;
+  }
+
+  .container form::-webkit-scrollbar {
+    display: none;
+  }
+
+  form .fields .input-field {
+    width: calc(100% / 2 - 15px);
+  }
+}
+
+@media (max-width: 550px) {
+  form .fields .input-field {
+    width: 100%;
+  }
+
+  .container form {
+    overflow-y: scroll;
+    min-height: 300px;
+  }
+
+  .container {
+    padding: 100px 0px;
+  }
+
+  body {
+    background-image: url("/public/assets/img/Blue and Gold Traditional Indian Wedding Thank You Card (39).png");
+      /*background: linear-gradient(-20deg, #d558c8 0%, #24d292 100%);*/
+
+  }
+}
+
+@media (max-width: 400px) {
+  form .fields .input-field {
+    width: 100%;
+  }
+
+  body {
+    background-image: url("/public/assets/img/Blue and Gold Traditional Indian Wedding Thank You Card (39).png");
+      /*background: linear-gradient(-20deg, #d558c8 0%, #24d292 100%);*/
+
+  }
+
+  .container {
+    padding-top: 36%;
+  }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+
+.jt {
+  position: relative;
+  font-size: 50px;
+  font-family: 'Staatliches', sans-serif;
+  text-transform: uppercase;
+  font-display: swap;
+  text-shadow: 0 0 5px #f03f34;
+  color: #e2efe9;
+}
+
+.jt__row {
+  display: block;
+}
+
+.jt__row:nth-child(1) {
+  clip-path: polygon(-10% 75%, 110% 75%, 110% 110%, -10% 110%);
+}
+
+.jt__row:nth-child(2) {
+  clip-path: polygon(-10% 50%, 110% 50%, 110% 75.3%, -10% 75.3%);
+}
+
+.jt__row:nth-child(3) {
+  clip-path: polygon(-10% 25%, 110% 25%, 110% 50.3%, -10% 50.3%);
+}
+
+.jt__row:nth-child(4) {
+  clip-path: polygon(-10% 0%, 110% 0%, 110% 25.3%, -10% 25.3%);
+}
+
+.jt__row.jt__row--sibling {
+  position: absolute;
+  top: 0;
+  left: 0;
+  user-select: none;
+  witdh: 800px;
+}
+
+.jt__text {
+  display: block;
+  transform-origin: bottom left;
+  animation: moveIn 2s 0s cubic-bezier(.36, 0, .06, 1) alternate infinite;
+}
+
+.jt__row:nth-child(1) .jt__text {
+  transform: translateY(-0.1em);
+}
+
+.jt__row:nth-child(2) .jt__text {
+  transform: translateY(-0.3em) scaleY(1.1);
+}
+
+.jt__row:nth-child(3) .jt__text {
+  transform: translateY(-0.5em) scaleY(1.2);
+}
+
+.jt__row:nth-child(4) .jt__text {
+  transform: translateY(-0.7em) scaleY(1.3);
+}
+
+.jt__row:nth-child(5) .jt__text {
+  transform: translateY(-0.9em) scaleY(1.4);
+}
+
+.jt__row:nth-child(6) .jt__text {
+  transform: translateY(-1.1em) scaleY(1.5);
+}
+
+@keyframes moveIn {
+  50%,
+  100% {
+    transform: translateY(0em);
+  }
+
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+  }
+
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+.debug .jt__row:nth-child(even) {
+  color: black;
+  background: white;
+}
+
+.debug .jt__row:nth-child(odd) {
+  color: white;
+  background: black;
+}
 </style>
+</head>
+
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light navbar-transparent fixed-top">
-    <div class="container">
-      <a class="navbar-brand d-flex align-items-center" href="#home">
-        <img src="https://images.unsplash.com/photo-1608874973456-5c6b4b0d15bf?q=80&w=200&auto=format&fit=crop" alt="No1Marry" class="rounded-circle me-2" width="36" height="36">
-        <span class="fw-bold">No1Marry</span>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="mainNav">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="#how">How it works</a></li>
-          <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
-          <li class="nav-item"><a class="nav-link" href="#stories">Success Stories</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-        </ul>
-        <div class="d-none d-lg-flex ms-3 gap-2">
-          <a href="{{ route('login') }}" class="btn btn-outline-light">Login</a>
-          <a href="{{ url('/user/registration') }}" class="btn btn-brand text-white">Register</a>
-        </div>
-      </div>
+
+
+  <div class="container">
+        <!--<img src="/public/assets/img/Blue_and_Gold_Traditional_Indian_Wedding_Thank_You_Card__36_-removebg-preview.png" height="150px">-->
+
+    <div class="d-flex justify-content-center pt-4">
+        
+
+        
+      <h1 class="jt --debug">
+        <span class="jt__row">
+          <span class="jt__text">SITE UNDER MAINTENANCES</span>
+        </span>
+        <span class="jt__row jt__row--sibling" aria-hidden="true">
+          <span class="jt__text">SITE UNDER MAINTENANCES</span>
+        </span>
+        <span class="jt__row jt__row--sibling" aria-hidden="true">
+          <span class="jt__text">SITE UNDER MAINTENANCSE</span>
+        </span>
+        <span class="jt__row jt__row--sibling" aria-hidden="true">
+          <span class="jt__text">SITE UNDER MAINTENANSCE</span>
+        </span>
+      </h1>
     </div>
-  </nav>
+    <div class="d-flex justify-content-center form">
+          <span class="logn-bt">Will Be Back In 4 Daysssss</span>
+</div>
 
-  <header id="home" class="hero py-5">
-    <div class="container">
-      <div class="row align-items-center g-4">
-        <div class="col-lg-7 text-white" data-aos="fade-right">
-          <h1 class="display-4 fw-bold">Find Your Perfect Match, the Modern Way</h1>
-          <p class="lead mb-4">Discover verified profiles and meaningful connections, powered by trust and technology.</p>
-          <div class="d-flex gap-3 flex-wrap">
-            <a href="{{ url('/user/registration') }}" class="btn btn-brand btn-lg text-white">Create Free Account</a>
-            <a href="#features" class="btn btn-outline-light btn-lg">Explore Matches</a>
-          </div>
-          <div class="d-flex gap-4 mt-4 flex-wrap">
-            <div><span class="h4 fw-bold">10k+</span><div>Matches Made</div></div>
-            <div><span class="h4 fw-bold">50k+</span><div>Active Members</div></div>
-            <div><span class="h4 fw-bold">24/7</span><div>Member Support</div></div>
-          </div>
-        </div>
-        <div class="col-lg-5" data-aos="fade-left">
-          <div class="card glass-card border-0 rounded-4 shadow-lg">
-            <div class="card-body p-4 p-md-5">
-              <h5 class="fw-bold mb-4 text-center text-gradient">💖 Member Login 💖</h5>
+  </div>
 
-              <form action="{{ route('login') }}" method="POST" class="login">
-                @csrf
-                <select name="country_code" id="dropdown11" value="91" hidden style="display:none">
-                  <option value="91">(IN) +91)</option>
-                </select>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-                <!-- Email / Phone -->
-                <div class="mb-3">
-                  <label class="form-label fw-semibold">Phone / Email</label>
-                  <div class="input-group-flex">
-                    <div class="icon-wrap">
-                      <i class="fa-solid fa-user-rectangle"></i>
-                    </div>
-                    <input
-                      type="text"
-                      class="form-control custom-input"
-                      name="email"
-                      placeholder="Enter phone or email"
-                    >
-                  </div>
-                  @error('email')
-                    <span class="invalid-feedback" role="alert" style="display:block">{{ $message }}</span>
-                  @enderror
-                </div>
+    <script>
+        $(document).ready(function () {
+            $(".nextBtn").on("click", function () {
+                var currentForm = $(this).closest(".form");
+                if (validateForm(currentForm)) {
+                    var nextForm = currentForm.next(".form");
+                    if (nextForm.length > 0) {
+                        currentForm.removeClass("active-stage");
+                        nextForm.addClass("active-stage");
+                    }
+                }
+            });
 
-                <!-- Password -->
-                <div class="mb-3">
-                  <label class="form-label fw-semibold">Password</label>
-                  <div class="input-group-flex">
-                    <div class="icon-wrap">
-                      <i class="fa-solid fa-lock-heart"></i>
-                    </div>
-                    <input
-                      type="password"
-                      id="passwordInput"
-                      class="form-control custom-input"
-                      name="password"
-                      placeholder="Enter password"
-                      required
-                    >
-                    <div class="icon-wrap eye-toggle" onclick="togglePassword()">
-                      <i id="eyeIcon" class="fa-regular fa-eye"></i>
-                    </div>
-                  </div>
-                </div>
+            $(".backBtn").on("click", function () {
+                var currentForm = $(this).closest(".form");
+                var prevForm = currentForm.prev(".form");
+                if (prevForm.length > 0) {
+                    currentForm.removeClass("active-stage");
+                    prevForm.addClass("active-stage");
+                }
+            });
 
-                <!-- Remember + Forgot -->
-                <div class="d-flex justify-content-between align-items-center mb-3 mt-2">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="remember" id="remember">
-                    <label class="form-check-label" for="remember">Remember me</label>
-                  </div>
-                  <a href="{{ route('password.request') }}" class="small text-brand">Forgot password?</a>
-                </div>
+            function validateForm(form) {
+                var isValid = true;
+                form.find('input, select').each(function () {
+                    if ($(this).prop('required') && !$(this).val()) {
+                        $(this).next('.error').show();
+                        isValid = false;
+                    } else {
+                        $(this).next('.error').hide();
+                    }
+                });
+                return isValid;
+            }
+        });
+    </script>
 
-                <!-- Login Button -->
-                <button class="btn btn-brand w-100 text-white py-2 rounded-pill shadow-sm">
-                  <i class="fa-solid fa-right-to-bracket me-2"></i>Log in
-                </button>
 
-                <div class="text-center mt-3">
-                  <span class="text-muted">New to No1Marry?</span>
-                  <a href="{{ url('/user/registration') }}" class="fw-semibold text-brand">Create account</a>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
 
-  <section id="features" class="py-5 bg-light">
-    <div class="container">
-      <div class="text-center mb-5">
-        <h2 class="fw-bold">Why Choose No1Marry</h2>
-        <p class="text-muted">Built for trust, designed for meaningful connections</p>
-      </div>
-      <div class="row g-4">
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
-          <div class="card h-100 border-0 shadow-sm feature-card">
-            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop" class="card-img-top" alt="Verified Profiles">
-            <div class="card-body">
-              <h5 class="card-title">Verified Profiles</h5>
-              <p class="card-text">Multi-step verification and moderation keep profiles genuine and respectful.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-          <div class="card h-100 border-0 shadow-sm feature-card">
-            <img src="https://images.unsplash.com/photo-1520338801623-6f2a1f74d47e?q=80&w=1200&auto=format&fit=crop" class="card-img-top" alt="Smart Matching">
-            <div class="card-body">
-              <h5 class="card-title">Smart Matchmaking</h5>
-              <p class="card-text">Personalized matches based on preferences, lifestyle, and values.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-          <div class="card h-100 border-0 shadow-sm feature-card">
-            <img src="https://images.unsplash.com/photo-1488197047962-b48492212cda?q=80&w=1200&auto=format&fit=crop" class="card-img-top" alt="Private & Secure">
-            <div class="card-body">
-              <h5 class="card-title">Private & Secure</h5>
-              <p class="card-text">Control your privacy with secure messaging and profile visibility options.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-          <div class="card h-100 border-0 shadow-sm feature-card">
-            <img src="https://images.unsplash.com/photo-1526045478516-99145907023c?q=80&w=1200&auto=format&fit=crop" class="card-img-top" alt="Support">
-            <div class="card-body">
-              <h5 class="card-title">24/7 Support</h5>
-              <p class="card-text">We’re here around the clock to ensure a seamless experience.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="how" class="py-5">
-    <div class="container">
-      <div class="text-center mb-5">
-        <h2 class="fw-bold">How It Works</h2>
-      </div>
-      <div class="timeline" data-aos="fade-up">
-        <div class="step">
-          <div class="dot">1</div>
-          <h6>Create Your Profile</h6>
-          <p class="text-muted mb-0">Tell us about your preferences and aspirations.</p>
-        </div>
-        <div class="step">
-          <div class="dot">2</div>
-          <h6>Get Matches</h6>
-          <p class="text-muted mb-0">Discover curated profiles tailored to you.</p>
-        </div>
-        <div class="step">
-          <div class="dot">3</div>
-          <h6>Connect Privately</h6>
-          <p class="text-muted mb-0">Chat securely and get to know each other.</p>
-        </div>
-        <div class="step">
-          <div class="dot">4</div>
-          <h6>Begin Your Journey</h6>
-          <p class="text-muted mb-0">Take the next steps with confidence.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="stories" class="py-5 bg-light">
-    <div class="container">
-      <div class="text-center mb-5">
-        <h2 class="fw-bold">Happy Stories</h2>
-        <p class="text-muted">Real couples, real journeys</p>
-      </div>
-      <div class="row g-4">
-        <div class="col-md-4">
-          <div class="card border-0 shadow-sm h-100 story-card">
-            <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200&auto=format&fit=crop" class="card-img-top" alt="story">
-            <div class="card-body"><h6>Tanya & Arjun</h6><p class="text-muted mb-0">“We matched in weeks and never looked back.”</p></div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card border-0 shadow-sm h-100 story-card">
-            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop" class="card-img-top" alt="story">
-            <div class="card-body"><h6>Riya & Karthik</h6><p class="text-muted mb-0">“Thoughtful matches made it effortless.”</p></div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card border-0 shadow-sm h-100 story-card">
-            <img src="https://images.unsplash.com/photo-1519744792095-2f2205e87b6f?q=80&w=1200&auto=format&fit=crop" class="card-img-top" alt="story">
-            <div class="card-body"><h6>Aisha & Nikhil</h6><p class="text-muted mb-0">“Safe, genuine and truly personal.”</p></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="py-5 cta" id="cta">
-    <div class="container">
-      <div class="row align-items-center g-4 text-white">
-        <div class="col-lg-8">
-          <h2 class="fw-bold mb-2">Start Your Love Story Today</h2>
-          <p class="mb-0">10K+ Matches Made • Trusted by thousands</p>
-        </div>
-        <div class="col-lg-4 text-lg-end">
-          <a href="{{ url('/user/registration') }}" class="btn btn-lg btn-dark">Join Now</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="py-5" id="contact">
-    <div class="container">
-      <div class="row g-4 align-items-center">
-        <div class="col-md-4">
-          <div class="d-flex align-items-center gap-3">
-            <i class="fa-solid fa-envelope text-danger fs-4"></i>
-            <div>
-              <div class="fw-semibold">Email</div>
-              <div class="text-muted">support@no1marry.com</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="d-flex align-items-center gap-3">
-            <i class="fa-solid fa-phone text-danger fs-4"></i>
-            <div>
-              <div class="fw-semibold">Phone</div>
-              <div class="text-muted">+91-00000 00000</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="d-flex align-items-center gap-3">
-            <i class="fa-brands fa-whatsapp text-danger fs-4"></i>
-            <div>
-              <div class="fw-semibold">WhatsApp</div>
-              <div class="text-muted">+91-00000 00000</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer class="py-4 border-top mt-4">
-    <div class="container">
-      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
-        <p class="mb-0 small">© {{ date('Y') }} No1Marry. All rights reserved.</p>
-        <div class="d-flex flex-wrap align-items-center gap-3">
-          <a href="{{ url('/terms_and_conditions') }}" class="small">Terms</a>
-          <a href="{{ url('/privacy_policy') }}" class="small">Privacy</a>
-          <div class="d-flex gap-2 ms-md-2">
-            <a href="#" class="text-reset" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
-            <a href="#" class="text-reset" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#" class="text-reset" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
-    // AOS animations
-    AOS.init({ once:true, duration:700, offset:80, easing:'ease-out-cubic' });
+    const passwordField = document.getElementById("password");
+    const togglePassword = document.querySelector(".password-toggle-icon i");
 
-    // Header glass effect on scroll
-    const nav = document.querySelector('.navbar');
-    const toggleNavBg = () => {
-      if(window.scrollY > 24){
-        nav.classList.add('navbar-glass');
-        nav.classList.remove('navbar-transparent');
-      }else{
-        nav.classList.add('navbar-transparent');
-        nav.classList.remove('navbar-glass');
+    togglePassword.addEventListener("click", function () {
+      if (passwordField.type === "password") {
+        passwordField.type = "text";
+        togglePassword.classList.remove("fa-eye");
+        togglePassword.classList.add("fa-eye-slash");
+      } else {
+        passwordField.type = "password";
+        togglePassword.classList.remove("fa-eye-slash");
+        togglePassword.classList.add("fa-eye");
       }
-    };
-    toggleNavBg();
-    window.addEventListener('scroll', toggleNavBg);
-
-    // Toggle password visibility
-    document.querySelectorAll('.input-with-icon').forEach((input)=>{
-      const wrapper = input.parentElement;
-      const eye = document.createElement('i');
-      eye.className = 'fa-solid fa-eye-slash toggle-passwords';
-      eye.addEventListener('click',()=>{
-        input.type = input.type === 'password' ? 'text' : 'password';
-        eye.classList.toggle('fa-eye');
-        eye.classList.toggle('fa-eye-slash');
-      });
-      if(input.getAttribute('name')==='password') wrapper.appendChild(eye);
     });
   </script>
+
+
+  <script>
+    document.onkeydown = function (e) {
+      if (event.keyCode == 123) {
+        return false;
+      }
+      if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+        return false;
+      }
+      if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+        return false;
+      }
+      if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+        return false;
+      }
+    }
+  </script>
+
+<!--<script>-->
+<!--  const form = document.querySelector("form"),-->
+<!--        nextBtn = form.querySelector(".nextBtn"),-->
+<!--        backBtn = form.querySelector(".backBtn"),-->
+<!--        submitBtn = form.querySelector(".submit"),-->
+<!--        firstInputs = form.querySelectorAll(".first input, .first select"),-->
+<!--        secondInputs = form.querySelectorAll(".second input:not([type='file']), .second select");-->
+
+<!--  nextBtn.addEventListener("click", () => {-->
+<!--    let valid = true;-->
+<!--    firstInputs.forEach(input => {-->
+<!--      if (input.tagName === "SELECT" && input.selectedIndex === 0) {-->
+<!--        valid = false;-->
+<!--      } else if (input.tagName !== "SELECT" && !input.value) {-->
+<!--        valid = false;-->
+<!--      }-->
+<!--    });-->
+<!--    if (valid) {-->
+<!--      form.classList.add('secActive');-->
+<!--    } else {-->
+<!--      alert('Please fill out all fields in the first section.');-->
+<!--    }-->
+<!--  });-->
+
+<!--  backBtn.addEventListener("click", () => form.classList.remove('secActive'));-->
+
+<!--  submitBtn.addEventListener("click", (e) => {-->
+    <!--e.preventDefault(); // Prevent the default form submission-->
+<!--    let valid = true;-->
+<!--    secondInputs.forEach(input => {-->
+<!--      if (input.tagName === "SELECT" && input.selectedIndex === 0) {-->
+<!--        valid = false;-->
+<!--      } else if (input.tagName !== "SELECT" && !input.value) {-->
+<!--        valid = false;-->
+<!--      }-->
+<!--    });-->
+<!--    if (valid) {-->
+      <!--form.submit(); -->
+<!--    } else {-->
+<!--      alert('Please fill out all fields in the second section.');-->
+<!--    }-->
+<!--  });-->
+<!--</script>-->
+
+
+<!--imagecurrent -->
+<!--<script>-->
+<!--const profileInput = document.getElementById('profile');-->
+<!--const imagePreviewContainer = document.getElementById('imagePreview');-->
+<!--const defaultText = imagePreviewContainer.querySelector('.image-preview__default-text');-->
+<!--const imagePreview = imagePreviewContainer.querySelector('.image-preview__image');-->
+
+<!--imagePreviewContainer.addEventListener('click', function() {-->
+<!--  profileInput.click();-->
+<!--});-->
+
+<!--profileInput.addEventListener('change', function() {-->
+<!--  const file = this.files[0];-->
+
+<!--  if (file) {-->
+<!--    const reader = new FileReader();-->
+
+<!--    defaultText.style.display = "none";-->
+<!--    imagePreview.style.display = "block";-->
+
+<!--    reader.addEventListener('load', function() {-->
+<!--      imagePreview.setAttribute('src', this.result);-->
+<!--    });-->
+
+<!--    reader.readAsDataURL(file);-->
+<!--  } else {-->
+<!--    defaultText.style.display = "block";-->
+<!--    imagePreview.style.display = "none";-->
+<!--    imagePreview.setAttribute('src', '');-->
+<!--  }-->
+<!--});-->
+<!--</script>-->
+
+<!--img new-->
+<script>
+  const profileInput = document.getElementById('profile');
+  const imagePreviewContainer = document.getElementById('imagePreview');
+  const defaultText = imagePreviewContainer.querySelector('.image-preview__default-text');
+  const imagePreview = imagePreviewContainer.querySelector('.image-preview__image');
+
+  imagePreviewContainer.addEventListener('click', function() {
+    profileInput.click();
+  });
+
+  profileInput.addEventListener('change', function() {
+    const file = this.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      defaultText.style.display = "none";
+      imagePreview.style.display = "block";
+
+      reader.addEventListener('load', function() {
+        imagePreview.setAttribute('src', this.result);
+        
+        // Compress the image after loading
+        compressImage(file, 0.7); // Compress image to 70% quality
+      });
+
+      reader.readAsDataURL(file);
+    } else {
+      defaultText.style.display = "block";
+      imagePreview.style.display = "none";
+      imagePreview.setAttribute('src', '');
+    }
+  });
+
+  function compressImage(imageFile, quality) {
+    const reader = new FileReader();
+    reader.readAsDataURL(imageFile);
+
+    reader.onload = function(event) {
+      const img = new Image();
+      img.src = event.target.result;
+
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Set the desired width and height for compression
+        const MAX_WIDTH = 600; // e.g., 600px max width
+        const scaleSize = MAX_WIDTH / img.width;
+
+        canvas.width = MAX_WIDTH;
+        canvas.height = img.height * scaleSize;
+
+        // Draw image onto canvas
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        // Convert canvas data to a blob with specified quality
+        canvas.toBlob(function(blob) {
+          const compressedFile = new File([blob], imageFile.name, {type: imageFile.type});
+          
+          // Replace the original file with the compressed one
+          const dataTransfer = new DataTransfer();
+          dataTransfer.items.add(compressedFile);
+          profileInput.files = dataTransfer.files;
+
+          // Proceed with form submission or further processing
+        }, imageFile.type, quality);
+      };
+    };
+  }
+</script>
+
+
+  <!-- Include jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Include moment.js -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <!-- Include daterangepicker JS -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('input[name="birthday"]').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        locale: {
+          format: 'YYYY-MM-DD'
+        }
+      });
+    });
+  </script>
+  
+  
 </body>
+
 </html>
+
+<script>
+  function get_caste_by_religion(){
+            var religion_id = $('#religion_id').val();
+            $('#caste_id').html('')
+            $.post('{{ route('castes.get_caste_by_religion.noauth') }}',{_token:'{{ csrf_token() }}', religion_id:religion_id}, function(data){
+
+              $('#caste_id').append($('<option>', {
+                        value: "",
+                        text: "Select"
+                    }));
+              for (var i = 0; i < data.length; i++) {
+                  console.log(data[i])
+                  
+                    $('#caste_id').append($('<option>', {
+                        value: data[i].id,
+                        text: data[i].name
+                    }));
+                }
+                
+                
+            });
+
+        }
+
+
+        function get_city_by_state(){
+            var state_id = $('#state_id').val();
+            $('#city_id').html('')
+            $.post('{{ route('extra.city') }}',{_token:'{{ csrf_token() }}', state_id:state_id}, function(data){
+              $('#city_id').append($('<option>', {
+                        value: "",
+                        text: "Select"
+                    }));
+              for (var i = 0; i < data.length; i++) {
+                  console.log(data[i])
+                  
+                    $('#city_id').append($('<option>', {
+                        value: data[i].id,
+                        text: data[i].name
+                    }));
+                }
+                
+                
+            });
+
+        }
+
+
+
+  $('#religion_id').on('change', function () {
+    get_caste_by_religion();
+  });
+
+  $('#state_id').on('change', function () {
+    get_city_by_state();
+  });
+  
+  $('#phone').on('change', function () {
+    var phone =$(this).val();
+    if (phone.length!=10)
+    {
+        $('#phone_validation').text("Invalid phone number");
+    }
+    else{
+        $('#phone_validation').text("");
+    }
+  });
+  
+   $('#email').on('change', function () {
+    var email =$(this).val();
+    var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+            if (!emailPattern.test(email)) {
+                $('#email_validation').text("Invalid E-mail ID");
+            } else {
+                $('#email_validation').text("");
+            }
+  });
+  
+  
+</script>
