@@ -73,7 +73,7 @@ body::before {
 }
 
 body::after {
-  background-image: url('{{ asset('assets/img/bg-reg-small.png') }}');
+  background-image: url('{{ asset('assets/img/bg2.png') }}');
 }
 
 body.reg-stage-2::before {
@@ -208,6 +208,32 @@ border-bottom: 1px solid #097009;
 
 .text-condition a{
     color: #097009;
+}
+
+.terms-consent{
+  margin: 6px 0 14px;
+  padding: 0.6rem 0.85rem;
+  border-radius: 0.75rem;
+  background: rgba(9,112,9,0.04);
+  border: 1px dashed rgba(9,112,9,0.35);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+}
+.terms-consent input[type="checkbox"]{
+  margin-top: 3px;
+  width: 18px;
+  height: 18px;
+  accent-color: #097009;
+}
+.terms-consent-text{
+  font-size: 0.86rem;
+  color: #111827;
+  line-height: 1.4;
+}
+.terms-consent-text a{
+  color: #097009;
+  font-weight: 600;
 }
 
 form .fields .input-field {
@@ -433,6 +459,11 @@ form .buttons {
 }
 .btn-rolling > * { position: relative; z-index: 1; }
 .btn-rolling:hover { color: #fff !important; }
+
+.btn-disabled {
+  opacity: 0.55;
+  cursor: not-allowed !important;
+}
 
 form .buttons button,
 .backBtn {
@@ -702,6 +733,109 @@ form .buttons button,
 .input-field select option {
   color: #2d3748;
   background-color: #ffffff;
+}
+/* Height slider */
+.height-slider-wrapper{
+  margin-top: 0.5rem;
+}
+.height-slider{
+  position: relative;
+  width: 100%;
+  height: 22px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #5ec6ff, #9be7c4, #ffe58f, #ff85c0);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.15);
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+}
+.height-slider input[type="range"]{
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  background: transparent;
+  outline: none;
+  height: 4px;
+  border: 0;
+  box-shadow: none;
+}
+.height-slider input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  appearance: none;
+  width: 6px;
+  height: 26px;
+  border-radius: 3px;
+  background: #064e3b;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.75);
+  cursor: pointer;
+}
+.height-slider input[type="range"]::-moz-range-thumb{
+  width: 6px;
+  height: 26px;
+  border-radius: 3px;
+  background: #064e3b;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.75);
+  cursor: pointer;
+  border: none;
+}
+.height-slider-value{
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1f2933;
+}
+
+/* Weight slider */
+.weight-slider-wrapper{
+  margin-top: 0.5rem;
+}
+.weight-slider{
+  position: relative;
+  width: 100%;
+  height: 22px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 0% 50%, #c7f9cc, transparent 55%),
+              radial-gradient(circle at 100% 50%, #ffafcc, transparent 55%),
+              linear-gradient(90deg, #e0f2fe, #fef9c3, #fee2e2);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.15);
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+}
+.weight-slider input[type="range"]{
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  background: transparent;
+  outline: none;
+  height: 4px;
+  border: 0;
+  box-shadow: none;
+}
+.weight-slider input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #047857;
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.9);
+  cursor: pointer;
+}
+.weight-slider input[type="range"]::-moz-range-thumb{
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #047857;
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.9);
+  cursor: pointer;
+  border: none;
+}
+.weight-slider-value{
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1f2933;
 }
 
 /* Enhanced Button */
@@ -1156,11 +1290,27 @@ form .buttons button,
                       </div>
                       <div class="input-field">
                         <label>HEIGHT (cm)</label>
-                        <input type="number" min="0" step="1" placeholder="e.g., 170" name="height" id="height">
+                        <div class="height-slider-wrapper">
+                          <div class="height-slider">
+                            <input type="range" id="height_slider" min="120" max="210" step="1" value="{{ old('height', 165) }}">
+                          </div>
+                        </div>
+                        <input type="hidden" name="height" id="height" value="{{ old('height', 165) }}">
+                        <div class="height-slider-value">
+                          <span id="height_slider_value">{{ old('height', 165) }}</span> cm
+                        </div>
                       </div>
                       <div class="input-field">
                         <label>WEIGHT (kg)</label>
-                        <input type="number" min="0" step="0.1" placeholder="e.g., 65.5" name="weight" id="weight">
+                        <div class="weight-slider-wrapper">
+                          <div class="weight-slider">
+                            <input type="range" id="weight_slider" min="35" max="150" step="0.5" value="{{ old('weight', 65) }}">
+                          </div>
+                        </div>
+                        <input type="hidden" name="weight" id="weight" value="{{ old('weight', 65) }}">
+                        <div class="weight-slider-value">
+                          <span id="weight_slider_value">{{ old('weight', 65) }}</span> kg
+                        </div>
                       </div>
                       <div class="input-field">
                         <label>EDUCATIONAL QUALIFICATIONS <sup class="required">*</sup><span class="required-chip">Required</span></label>
@@ -1177,12 +1327,17 @@ form .buttons button,
                       </div>
                     </div>
                     <div class="details address">
-                      <label>
-                        <h6 class="text-condition">
-                          <a href="https://no1marry.com/terms_and_conditions" class="text-account">Terms & Conditions</a> and
-                          <a href="https://no1marry.com/privacy_policy" class="text-account">Privacy Policy.</a>
-                        </h6>
-                      </label>
+                      <div class="terms-consent">
+                        <label class="d-flex align-items-start gap-2 mb-0">
+                          <input type="checkbox" id="terms_consent" name="terms_consent">
+                          <span class="terms-consent-text">
+                            {{ translate('I have read and agree to the') }}
+                            <a href="{{ url('/terms_and_conditions') }}" target="_blank" rel="noopener">{{ translate('Terms & Conditions') }}</a>
+                            {{ translate('and') }}
+                            <a href="{{ url('/privacy_policy') }}" target="_blank" rel="noopener">{{ translate('Privacy Policy') }}</a>.
+                          </span>
+                        </label>
+                      </div>
                     </div>
                     <div class="d-flex justify-content-center gap-3 w-100 mb-3">
                       <button type="submit" class="submit nextBtn btn-rolling" style="font-weight:800;">
@@ -1304,6 +1459,21 @@ form .buttons button,
     // Initial background corresponds to stage 1 (Basic Info)
     setBackgroundStage(1);
 
+    // Disable final submit button visually until terms are accepted
+    var $submitBtn = $('.submit.nextBtn');
+    var $termsConsent = $('#terms_consent');
+    if ($submitBtn.length && $termsConsent.length) {
+      var syncConsentState = function(){
+        if ($termsConsent.is(':checked')) {
+          $submitBtn.removeClass('btn-disabled');
+        } else {
+          $submitBtn.addClass('btn-disabled');
+        }
+      };
+      syncConsentState();
+      $termsConsent.on('change', syncConsentState);
+    }
+
     // Initialize DOB dropdowns
     (function initDOB(){
       var $d = $('#dob_day'), $m = $('#dob_month'), $y = $('#dob_year');
@@ -1320,22 +1490,29 @@ form .buttons button,
     }
 
     // Step navigation
-    $(".nextBtn").on("click", function () {
+    $(".nextBtn").on("click", function (e) {
       var currentForm = $(this).closest(".form-stage");
       assembleBirthday();
-      if (validateForm(currentForm)) {
-        currentForm.removeClass("active-stage");
-        var nextForm = currentForm.next(".form-stage");
-        if (nextForm.length > 0) {
-          setTimeout(function() {
-            nextForm.addClass("active-stage");
-            var stageIdx = nextForm.hasClass('stage-2') ? 2 : 1;
-            setStepperActive(stageIdx);
-            setBackgroundStage(stageIdx);
-            updateStageProgress(nextForm);
-          }, 300);
-        }
+
+      // If validation fails, prevent both stage change and form submission
+      if (!validateForm(currentForm)) {
+        e.preventDefault();
+        return;
       }
+
+      // If this is not the last stage, move to the next stage visually
+      currentForm.removeClass("active-stage");
+      var nextForm = currentForm.next(".form-stage");
+      if (nextForm.length > 0) {
+        setTimeout(function() {
+          nextForm.addClass("active-stage");
+          var stageIdx = nextForm.hasClass('stage-2') ? 2 : 1;
+          setStepperActive(stageIdx);
+          setBackgroundStage(stageIdx);
+          updateStageProgress(nextForm);
+        }, 300);
+      }
+      // If there is no next form (final stage), the browser will submit normally.
     });
 
     $(".backBtn").on("click", function () {
@@ -1428,6 +1605,40 @@ form .buttons button,
       setTimeout(function(){ $bar.animate({ width: percent + '%' }, 250); }, 20);
     }
 
+    // Height slider sync
+    (function initHeightSlider(){
+      var $slider = $('#height_slider');
+      var $hidden = $('#height');
+      var $label = $('#height_slider_value');
+      if ($slider.length && $hidden.length && $label.length) {
+        var sync = function(val){
+          $hidden.val(val);
+          $label.text(val);
+        };
+        sync($slider.val());
+        $slider.on('input change', function(){
+          sync($(this).val());
+        });
+      }
+    })();
+
+    // Weight slider sync
+    (function initWeightSlider(){
+      var $slider = $('#weight_slider');
+      var $hidden = $('#weight');
+      var $label = $('#weight_slider_value');
+      if ($slider.length && $hidden.length && $label.length) {
+        var sync = function(val){
+          $hidden.val(val);
+          $label.text(val);
+        };
+        sync($slider.val());
+        $slider.on('input change', function(){
+          sync($(this).val());
+        });
+      }
+    })();
+
     // Gender cards
     $('#genderCards').on('click', '.gender-card', function(){
       var val = $(this).data('value');
@@ -1473,9 +1684,6 @@ form .buttons button,
       reader.readAsDataURL(file);
       $(this).closest('.input-field').find('.error').hide();
     });
-
-    // Assemble birthday on submit as well
-    $('form').on('submit', function(){ assembleBirthday(); });
 
     function validateForm(form) {
       var isValid = true;
@@ -1530,6 +1738,15 @@ form .buttons button,
         } else {
           dobField.removeClass('invalid');
           dobField.find('.error').hide();
+        }
+      }
+
+      // Terms & Conditions consent (only present on final stage)
+      var $consent = form.find('#terms_consent');
+      if ($consent.length && !$consent.is(':checked')) {
+        isValid = false;
+        if (typeof toastr !== 'undefined') {
+          toastr.error("{{ translate('Please accept Terms & Conditions and Privacy Policy to continue.') }}");
         }
       }
 

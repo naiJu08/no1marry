@@ -655,7 +655,7 @@
                         <div class="progress-value" style="width: {{ $profileCompletion }}%"></div>
                     </div>
                     <div class="hero-actions">
-                        <a class="primary-action" href="{{ Auth::check() ? route('member_profile', Auth::id()) : 'javascript:void(0);' }}">
+                        <a class="primary-action" href="{{ Auth::check() ? route('profile_settings') : 'javascript:void(0);' }}">
                             <i class="fa-solid fa-pen-to-square"></i>
                             {{ __('Edit Profile') }}
                         </a>
@@ -715,7 +715,8 @@
     @php
         $profile_picture_show = 'ok';
         $profile_picture_privacy = optional($member->member)->profile_picture_privacy;
-        $should_blur = Auth::check() ? !in_array(Auth::user()->membership, [3, 4]) : true;
+        // Blur only when the viewing user is not a premium plan member
+        $should_blur = !Auth::check() || Auth::user()->membership != 2;
 
         if(Auth::check() && Auth::user()->user_type == 'admin'){
             $profile_picture_show = 'ok';
@@ -777,8 +778,12 @@
         $profile_picture_show = 'ok';
         $profile_picture_privacy = optional($member->member)->profile_picture_privacy;
 
+        // Blur only when the viewing user is not a premium plan member
+        $should_blur = !Auth::check() || Auth::user()->membership != 2;
+
         if(Auth::check() && Auth::user()->user_type == 'admin'){
             $profile_picture_show = 'ok';
+            $should_blur = false;
         }
         elseif($profile_picture_privacy  == '0') {
             $profile_picture_show = 'no';
@@ -796,7 +801,7 @@
     @endphp
                 <div class="match-card">
                     <div class="content-overlay1"></div>
-                    <img class="content-image @if($profile_picture_show != 'ok' || (Auth::check() && Auth::user()->membership == 1)) restricted-image @endif @if(Auth::check() ? !in_array(Auth::user()->membership, [3,4]) : true) blur @endif" @if($member->photo != "") src="{{ uploaded_asset($member->photo) }}" @else src="{{ static_asset('assets/img/avatar-place.png') }}" @endif alt="{{ $member->first_name }}">
+                    <img class="content-image @if($profile_picture_show != 'ok' || (Auth::check() && Auth::user()->membership == 1)) restricted-image @endif @if($should_blur) blur @endif" @if($member->photo != "") src="{{ uploaded_asset($member->photo) }}" @else src="{{ static_asset('assets/img/avatar-place.png') }}" @endif alt="{{ $member->first_name }}">
                     <div class="crown">
                         <img src="{{ static_asset('assets/assets_1/img/crown.png') }}" id="crown" alt="no1marry">
                     </div>
@@ -825,34 +830,24 @@
                     <div class="section-header" style="margin-bottom: 1.25rem;">
                         <h5 style="margin-bottom: 0;">{{ __('Success Stories') }}</h5>
                     </div>
-@foreach ($successStories as $story)
-                    <div class="story-card">
-                        <div class="story-thumb">
-                            <img src="{{ $story['photo'] }}" alt="{{ $story['names'] }}">
-                        </div>
-                        <div>
-                            <h6>{{ $story['names'] }}</h6>
-                            <p>{{ $story['story'] }}</p>
-                        </div>
+                    <div class="text-center py-5">
+                        <i class="fa-solid fa-heart-circle-check fa-3x mb-3 text-muted"></i>
+                        <h6 class="mb-1">{{ __('No stories to show yet') }}</h6>
+                        <p class="mb-0 text-muted small">{{ __('Keep exploring and connecting – your story could be the next one we celebrate here.') }}</p>
                     </div>
-@endforeach
                 </div>
                 <div class="glass-panel">
                     <div class="section-header" style="margin-bottom: 1.25rem;">
                         <h5 style="margin-bottom: 0;">{{ __('Upcoming Events') }}</h5>
                     </div>
-@foreach ($upcomingEvents as $event)
-                    <div class="event-card">
-                        <div class="story-thumb">
-                            <img src="{{ static_asset('assets/img/avatar-place.png') }}" alt="{{ $event['title'] }}">
-                        </div>
-                        <div>
-                            <h6>{{ $event['title'] }}</h6>
-                            <p><i class="fa-solid fa-calendar-day"></i> {{ $event['date'] }}</p>
-                            <p><i class="fa-solid fa-location-dot"></i> {{ $event['location'] }}</p>
-                        </div>
+                    <div class="text-center py-5">
+                        <!-- <div class="mb-3">
+                            <span class="badge badge-pill badge-soft-primary" style="padding:.45rem 1.1rem;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;">{{ __('Coming Soon') }}</span>
+                        </div> -->
+                        <i class="fa-solid fa-calendar-days fa-3x mb-3 text-muted"></i>
+                        <h6 class="mb-1">{{ __('No events for now') }}</h6>
+                        <p class="mb-0 text-muted small">{{ __('Stay tuned for upcoming events and exclusive community updates right here.') }}</p>
                     </div>
-@endforeach
                 </div>
             </div>
         </div>
@@ -863,7 +858,7 @@
                 <p>{{ __('Unlock priority matchmaking, personal relationship managers, and handpicked introductions tailored to your aspirations.') }}</p>
             </div>
             <div class="cta-actions">
-                <a href="javascript:void(0);">
+                <a href="{{ route('packages') }}">
                     <i class="fa-solid fa-arrow-up-right-dots"></i>
                     {{ __('Explore Plans') }}
                 </a>

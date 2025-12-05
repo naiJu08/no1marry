@@ -15,7 +15,118 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script>
   <link rel="stylesheet" href="{{ static_asset('assets/assets/css/stylemedia.css') }}">
-  
+  <style>
+    body{
+      min-height:100vh;
+      margin:0;
+      padding:0;
+      display:flex;
+      flex-direction:column;
+      background:
+        radial-gradient(circle at top left, rgba(244, 114, 182, 0.25) 0, transparent 55%),
+        radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.25) 0, transparent 55%),
+        linear-gradient(135deg, #f9fafb 0%, #e5e7eb 45%, #e0f2fe 100%);
+      color:#0f172a;
+    }
+
+    header{
+      padding:16px 0;
+      background:transparent;
+      position:relative;
+      z-index:2;
+    }
+
+    #nav-brand{
+      max-height:60px;
+    }
+
+    /* .forgot-section{
+      flex:1;
+      display:flex;
+      align-items:center;
+      padding:32px 0 56px;
+    } */
+
+    .forgot-card{
+      background:rgba(255,255,255,0.18);
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,0.45);
+      box-shadow:0 20px 55px rgba(15,23,42,0.45);
+      backdrop-filter:blur(18px);
+      min-width:340px;
+      max-width:460px;
+      margin:0 auto;
+    }
+
+    .badge-recovery{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:0.35rem 0.9rem;
+      border-radius:999px;
+      background:rgba(16,185,129,0.12);
+      color:#047857;
+      font-size:0.78rem;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+      margin-bottom:1rem;
+    }
+
+    .badge-recovery i{
+      font-size:0.9rem;
+    }
+
+    .forgot-title{
+      font-weight:800;
+      font-size:1.8rem;
+      color:#111827;
+    }
+
+    .forgot-subtitle{
+      color:#4b5563;
+      font-size:0.95rem;
+    }
+
+    .forgot-input-group .form-control{
+      height:50px;
+      border-radius:999px;
+    }
+
+    .forgot-input-group select.form-control{
+      padding-left:12px;
+      padding-right:12px;
+    }
+
+    .btn-otp{
+      border-radius:999px;
+      padding:0.75rem 1.5rem;
+      font-weight:700;
+      letter-spacing:0.04em;
+      background:linear-gradient(135deg,#16a34a,#22c55e);
+      border:none;
+      box-shadow:0 14px 32px rgba(34,197,94,0.4);
+    }
+
+    .btn-otp:hover{
+      background:linear-gradient(135deg,#15803d,#22c55e);
+      box-shadow:0 18px 42px rgba(22,163,74,0.5);
+    }
+
+    .forgot-back-link{
+      font-weight:500;
+    }
+
+    @media (max-width:576px){
+      .forgot-card{
+        padding:1.5rem !important;
+        min-width:auto;
+      }
+      .forgot-title{
+        font-size:1.55rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -60,16 +171,20 @@
              </div> -->
           </div>
     </div>
-</header>
+ </header>
 
-<section class="mt-2">
+<section class="mt-2 forgot-section">
     <div class="py-6">
         <div class="container">
             <div class="row">
                 <div class="col-xxl-5 col-xl-6 col-md-8 mx-auto">
-                    <div class="bg-white rounded shadow-sm p-4 text-left">
-                        <h1 class="h3 fw-600">{{ translate('Forgot Password?') }}</h1>
-                        <p class="mb-4 opacity-60">
+                    <div class="forgot-card p-4 p-md-5 text-left">
+                        <div class="badge-recovery">
+                          <i class="fa fa-shield-alt"></i>
+                          <span>{{ translate('Secure password recovery') }}</span>
+                        </div>
+                        <h1 class="h3 fw-600 forgot-title">{{ translate('Forgot Password?') }}</h1>
+                        <p class="mb-4 opacity-60 forgot-subtitle">
                             @if (addon_activation('otp_system'))
                                 {{translate('Enter your  Mobile number to recover your password.')}}
                             @else
@@ -84,8 +199,7 @@
                                 @else
                                     <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{ translate('Email') }}" name="email">
                                 @endif --}}
-
-                                <div class="row mt-5">
+                                <div class="row mt-5 forgot-input-group">
                                     <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4 mt-2">
                                       
                                       <select class="form-control select2 " id="dropdown_663" name="country_code">
@@ -353,14 +467,14 @@
                                     </span>
                                 @endif
                             </div>
-                            <div class="form-group text-right">
-                                <button class="btn btn-primary btn-block" type="submit">
+                            <div class="form-group text-right mt-4">
+                                <button class="btn btn-otp btn-block" type="submit">
                                     {{ translate('Send Password Reset OTP') }}
                                 </button>
                             </div>
                         </form>
                         <div class="mt-3" style="text-align: center">
-                            <a href="{{route('user.login')}}" class="text-reset opacity-60">{{translate('Back to Login')}}</a>
+                            <a href="{{route('user.login')}}" class="text-reset opacity-60 forgot-back-link">{{translate('Back to Login')}}</a>
                         </div>
                     </div>
                 </div>

@@ -115,7 +115,7 @@ $lang = \App\Models\Language::where('code', $locale)->first();
   .glass-main-content{
       min-height: calc(100vh - 220px);
       /* padding-top: 140px; */
-      padding-bottom: 80px;
+      /* padding-bottom: 80px; */
       background: transparent;
   }
 
@@ -147,13 +147,13 @@ $lang = \App\Models\Language::where('code', $locale)->first();
 
   .glass-divider{ border-color: rgba(255,255,255,0.38) !important; }
 
-  @media (max-width: 991.98px){
+  /* @media (max-width: 991.98px){
       .glass-main-content{ padding-top: 110px; }
   }
 
   @media (max-width: 575.98px){
       .glass-main-content{ padding-top: 96px; padding-bottom: 56px; }
-  }
+  } */
 
   @media only screen 
     and (min-device-width:620px) 
@@ -1228,108 +1228,42 @@ Any termination request will not result in a refund of the membership fee.
            <!--           <p class="text-center mt-3">© 2024 No1marry. All Rights Reserved.</p>-->
            <!--     </div>-->
            <!--</div>-->
-            <!-- Footer -->
-<footer class="text-center text-lg-start bg-body-tertiary text-muted"  style="background-color : #F7F7F7">
-  <!-- Section: Social media -->
-  <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-    <!-- Left -->
-    <div class="me-5 d-none d-lg-block">
-      <span>Get connected with us on social networks:</span>
-    </div>
-    <!-- Left -->
-
-    <!-- Right -->
-    <div>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-facebook-f"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-twitter"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-google"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-instagram"></i>
-      </a>
-      <!--<a href="" class="me-4 text-reset">-->
-      <!--  <i class="fab fa-linkedin"></i>-->
-      <!--</a>-->
-      <!--<a href="" class="me-4 text-reset">-->
-      <!--  <i class="fab fa-github"></i>-->
-      </a>
-    </div>
-    <!-- Right -->
-  </section>
-  <!-- Section: Social media -->
-
-  <!-- Section: Links  -->
-  <section class="">
-    <div class="container text-center text-md-start mt-5">
-      <!-- Grid row -->
-      <div class="row mt-3">
-        <!-- Grid column -->
-        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-          <!-- Content -->
-          <h6 class="text-uppercase fw-bold mb-4" style="font-weight:800">
-            <i class="fas fa-gem me-3"></i>No1 Marry.com
-          </h6>
-          <p>
-            The pioneers of online matrimony service. Today, we are the most trusted Matrimony website by Brand Trust Report. Millions of happy marriages happened and continue to happen through No.1 Marry.com
-          </p>
+           <!-- Footer -->
+<footer class="mt-5" style="background: radial-gradient(circle at 0% 0%, #1f2933, #0b1120); color:#e5e7eb;">
+  <div class="container py-5">
+    <div class="row gy-4">
+      <div class="col-md-4 text-center text-md-start">
+        <h5 class="mb-2">No1Marry<span class="text-primary">.com</span></h5>
+        <p class="small mb-3" style="color:#9ca3af;">
+          Trusted matrimony platform helping serious singles find meaningful, lifelong relationships.
+        </p>
+        <div class="d-flex justify-content-center justify-content-md-start gap-3 mt-2">
+          <a href="#" class="text-reset" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="text-reset" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
         </div>
-        <!-- Grid column -->
-
-        <!-- Grid column -->
-        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-          <!-- Links -->
-          <h6 class="text-uppercase fw-bolder mb-4" style="font-weight:800">
-            Useful links
-          </h6>
-          <p>
-            <a type="button" class="text-reset"  data-bs-toggle="modal" data-bs-target="#myModalabout">About Us</a>
-          </p>
-          <p>
-            <a type="button" class="text-reset" data-bs-toggle="modal" data-bs-target="#myModal">Help & Support</a>
-          </p>
-          <p>
-            <a type="button" class="text-reset"  data-bs-toggle="modal" data-bs-target="#myModalterm">Terms and Conditions</a>
-          </p>
-          <p>
-            <a type="button" class="text-reset"  data-bs-toggle="modal" data-bs-target="#myModalprivacy">Privacy Policy</a>
-          </p>
-        </div>
-        <!-- Grid column -->
-
-
-        <!-- Grid column -->
-        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-          <!-- Links -->
-          <h6 class="text-uppercase fw-bolder mb-4" style="font-weight:800">Contact</h6>
-          <!--<p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>-->
-          <p>
-            <i class="fas fa-envelope me-3"></i>
-            numberonemarry@gmail.com
-          </p>
-          <p><i class="fa-brands fa-whatsapp me-3"></i> + 91  8301070161</p>
-          <!--<p><i class="fas fa-print me-3"></i> +91  8281050418</p>-->
-        </div>
-        <!-- Grid column -->
       </div>
-      <!-- Grid row -->
+      <div class="col-md-4">
+        <h6 class="text-uppercase small mb-3" style="letter-spacing:.12em;color:#9ca3af;">Explore</h6>
+        <ul class="list-unstyled small mb-0">
+          <li class="mb-1"><a type="button" class="text-reset" data-bs-toggle="modal" data-bs-target="#myModalabout">About</a></li>
+          <li class="mb-1"><a type="button" class="text-reset" data-bs-toggle="modal" data-bs-target="#myModal">Help &amp; Support</a></li>
+          <li class="mb-1"><a type="button" class="text-reset" data-bs-toggle="modal" data-bs-target="#myModalterm">Terms &amp; Conditions</a></li>
+          <li class="mb-1"><a type="button" class="text-reset" data-bs-toggle="modal" data-bs-target="#myModalprivacy">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4 text-center text-md-start">
+        <h6 class="text-uppercase small mb-3" style="letter-spacing:.12em;color:#9ca3af;">Contact</h6>
+        <p class="small mb-1"><i class="fa-solid fa-envelope me-2"></i>numberonemarry@gmail.com</p>
+        <p class="small mb-1"><i class="fa-brands fa-whatsapp me-2"></i>+91 8301070161</p>
+        <p class="small mb-0" style="color:#9ca3af;">Mon–Sat, 9:00 AM – 7:00 PM IST</p>
+      </div>
     </div>
-  </section>
-  <!-- Section: Links  -->
-
-  <!-- Copyright -->
-  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-    © 2025 Copyright:
-    <a class="text-reset fw-bold" href="https://mdbootstrap.com/">No1marry.com</a>
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center pt-4 mt-4 border-top border-secondary small" style="border-color:rgba(148,163,184,.35)!important;color:#9ca3af;">
+      <span class="mb-2 mb-md-0">© {{ date('Y') }} No1Marry. All rights reserved.</span>
+      <span>Built with care in India for global families.</span>
+    </div>
   </div>
-  <!-- Copyright -->
 </footer>
-<!-- Footer -->
-        </footer>
         @if (get_setting('show_cookies_agreement') == 'on')
         <div class="aiz-cookie-alert shadow-xl">
             <div class="p-3 bg-dark rounded">

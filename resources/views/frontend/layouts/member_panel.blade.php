@@ -380,14 +380,42 @@
             width: 100%;
         }
 
+        .dashboard-tabs-wrapper ul {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
         .dashboard-tab {
-            flex: 1 1 calc(50% - 0.85rem);
+            flex: 0 0 auto;
+        }
+
+        .dashboard-tab-link {
+            padding: 0.75rem 1rem;
+            font-size: 0.85rem;
+        }
+
+        .dashboard-tab-icon {
+            width: 30px;
+            height: 30px;
         }
     }
 
     @media (max-width: 576px) {
-        .dashboard-tab {
-            flex: 1 1 100%;
+        .dashboard-tabs-wrapper ul {
+            padding: 0.75rem 0.75rem;
+            gap: 0.6rem;
+        }
+
+        .dashboard-tab-link {
+            padding: 0.65rem 0.9rem;
+            font-size: 0.8rem;
+        }
+
+        .dashboard-tab-icon {
+            width: 26px;
+            height: 26px;
+            border-radius: 999px;
         }
 
         .profile-option .notification a {
@@ -403,6 +431,12 @@
 	 
 	      <div class="dashboard-tabs-wrapper">
         <ul>
+          <li class="dashboard-tab @if(request()->routeIs('dashboard')) active @endif">
+            <a href="{{ route('dashboard') }}" class="dashboard-tab-link">
+              <span class="dashboard-tab-icon"><i class="fa fa-tachometer"></i></span>
+              {{ __('Dashboard') }}
+            </a>
+          </li>
           <li class="dashboard-tab @if(request()->routeIs('profile_settings')) active @endif">
             <a href="{{ route('profile_settings') }}" class="dashboard-tab-link">
               <span class="dashboard-tab-icon"><i class="fa fa-user"></i></span>
@@ -413,6 +447,12 @@
             <a href="{{ route('my_interests.index') }}" class="dashboard-tab-link">
               <span class="dashboard-tab-icon"><i class="fa fa-heart"></i></span>
               {{ __('My Interests') }}
+            </a>
+          </li>
+          <li class="dashboard-tab @if(request()->routeIs('interest_requests')) active @endif">
+            <a href="{{ route('interest_requests') }}" class="dashboard-tab-link">
+              <span class="dashboard-tab-icon"><i class="fa fa-inbox"></i></span>
+              {{ __('Interest Requests') }}
             </a>
           </li>
           <li class="dashboard-tab @if(request()->routeIs('my_shortlists')) active @endif">
