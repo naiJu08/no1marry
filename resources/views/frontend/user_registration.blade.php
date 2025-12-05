@@ -44,12 +44,44 @@
 }
 
 body {
+  position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url('{{ asset('assets/img/reg-bg.png') }}') center center/cover fixed no-repeat;
   background-color: #f5f7fa;
+  overflow-x: hidden;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  z-index: -1;
+}
+
+body::before {
+  background-image: url('{{ asset('assets/img/reg-bg.png') }}');
+  opacity: 1;
+}
+
+body::after {
+  background-image: url('{{ asset('assets/img/bg-reg-small.png') }}');
+}
+
+body.reg-stage-2::before {
+  opacity: 0;
+}
+
+body.reg-stage-2::after {
+  opacity: 1;
 }
 
 .container {
@@ -189,7 +221,7 @@ form .fields .input-field {
   position: relative;
   font-size: 13px;
   font-weight: 600;
-  color:#fff !important;
+  color:#000;
   letter-spacing: .4px;
   text-transform: uppercase;
 }
@@ -492,9 +524,8 @@ form .buttons button,
   }
 
   body {
-  background: url('{{ asset('assets/img/bg-reg-small.png') }}') center center/cover fixed no-repeat;
-      /*background: linear-gradient(-20deg, #d558c8 0%, #24d292 100%);*/
-
+    /* background: url('{{ asset('assets/img/bg-reg-small.png') }}') center center/cover fixed no-repeat; */
+    background-color: #f5f7fa;
   }
 }
 
@@ -504,9 +535,8 @@ form .buttons button,
   }
 
   body {
-  background: url('{{ asset('assets/img/bg-reg-small.png') }}') center center/cover fixed no-repeat;
-      /*background: linear-gradient(-20deg, #d558c8 0%, #24d292 100%);*/
-
+    /* background: url('{{ asset('assets/img/bg-reg-small.png') }}') center center/cover fixed no-repeat; */
+    background-color: #f5f7fa;
   }
 
   .container {
@@ -621,7 +651,7 @@ form .buttons button,
   display: block;
   margin-bottom: 0.6rem;
   font-weight: 600;
-  color: #4a5568;
+  color: #000000;
   font-size: 0.95rem;
 }
 
@@ -1261,6 +1291,19 @@ form .buttons button,
       $('.stepper .step-'+stepIdx).addClass('active');
     }
 
+    // Background stage helper for smooth image transition
+    function setBackgroundStage(stageIdx){
+      var $body = $('body');
+      if (stageIdx === 2) {
+        $body.addClass('reg-stage-2');
+      } else {
+        $body.removeClass('reg-stage-2');
+      }
+    }
+
+    // Initial background corresponds to stage 1 (Basic Info)
+    setBackgroundStage(1);
+
     // Initialize DOB dropdowns
     (function initDOB(){
       var $d = $('#dob_day'), $m = $('#dob_month'), $y = $('#dob_year');
@@ -1286,7 +1329,9 @@ form .buttons button,
         if (nextForm.length > 0) {
           setTimeout(function() {
             nextForm.addClass("active-stage");
-            setStepperActive(nextForm.hasClass('stage-2') ? 2 : 1);
+            var stageIdx = nextForm.hasClass('stage-2') ? 2 : 1;
+            setStepperActive(stageIdx);
+            setBackgroundStage(stageIdx);
             updateStageProgress(nextForm);
           }, 300);
         }
@@ -1300,7 +1345,9 @@ form .buttons button,
       if (prevForm.length > 0) {
         setTimeout(function() {
           prevForm.addClass("active-stage");
-          setStepperActive(prevForm.hasClass('stage-1') ? 1 : 2);
+          var stageIdx = prevForm.hasClass('stage-2') ? 2 : 1;
+          setStepperActive(stageIdx);
+          setBackgroundStage(stageIdx);
           updateStageProgress(prevForm);
         }, 300);
       }

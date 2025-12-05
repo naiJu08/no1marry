@@ -160,9 +160,64 @@
 
 .glass-nav{ width:100%; }
 .glass-nav__list{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:4px; }
-.glass-nav__item a{ display:flex; align-items:center; gap:10px; padding:10px 14px; border-radius:12px; color:rgba(15,23,42,.78); font-weight:600; text-decoration:none; }
-.glass-nav__item a:hover{ background:rgba(255,255,255,.5); color:var(--brand-primary); }
-.glass-nav__item.is-active a{ background:linear-gradient(135deg, rgba(253,44,121,0.14), rgba(253,101,91,0.14)); color:var(--brand-primary); }
+.glass-nav__item a{
+  display:flex;
+  align-items:center;
+  padding:0;
+  border-radius:999px;
+  color:rgba(15,23,42,.78);
+  font-weight:600;
+  text-decoration:none;
+}
+.glass-nav-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:6px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,.45);
+  box-shadow:0 8px 20px rgba(15,23,42,.06);
+  transition:background .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.glass-nav-pill-icon{
+  width:30px;
+  height:30px;
+  border-radius:999px;
+  background:linear-gradient(135deg, #FD2C79 0%, #FD655B 100%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:14px;
+  position:relative;
+  overflow:hidden;
+}
+.glass-nav-pill-icon::after{
+  content:"";
+  position:absolute;
+  right:-6px;
+  top:0;
+  bottom:0;
+  width:10px;
+  background:rgba(255,255,255,0.25);
+  transform:skewX(-22deg);
+}
+.glass-nav-pill-label{
+  font-weight:600;
+  font-size:.85rem;
+  color:rgba(15,23,42,.78);
+}
+.glass-nav__item a:hover .glass-nav-pill{
+  background:rgba(255,255,255,.8);
+  transform:translateY(-1px);
+  box-shadow:0 12px 24px rgba(15,23,42,.12);
+}
+.glass-nav__item.is-active .glass-nav-pill{
+  background:linear-gradient(135deg, rgba(253,44,121,0.18), rgba(253,101,91,0.18));
+  box-shadow:0 12px 26px rgba(253,44,121,0.25);
+}
+.glass-nav__item.is-active .glass-nav-pill-label{ color:var(--brand-primary); }
+.glass-nav__item.is-active .glass-nav-pill-icon{ box-shadow:0 0 0 2px rgba(255,255,255,0.8); }
 .glass-nav__cta{ margin-top:16px; }
 
 .glass-member-nav{ border-top:1px solid rgba(255,255,255,.45); background:rgba(255,255,255,.55); backdrop-filter:blur(16px); padding:6px 0; }

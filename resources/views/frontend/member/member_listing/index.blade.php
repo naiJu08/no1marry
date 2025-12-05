@@ -636,8 +636,22 @@ span.search-text {
                                 </div>
                             @endforeach
                 </div>
-                <div class="aiz-pagination glass-pagination-wrapper">
-                    {{ $users->appends(request()->input())->links('frontend.inc.pagination') }}
+                <div class="glass-pagination-wrapper">
+                    @php $paginator = $users->appends(request()->input()); @endphp
+                    @if ($paginator->hasPages())
+                        <div class="glass-pagination glass-pagination--buttons">
+                            <a href="{{ $paginator->onFirstPage() ? 'javascript:void(0);' : $paginator->previousPageUrl() }}"
+                               class="glass-page-btn {{ $paginator->onFirstPage() ? 'disabled' : '' }}">
+                                <span class="glass-page-btn__icon"><i class="las la-arrow-left"></i></span>
+                                <span class="glass-page-btn__label">{{ translate('Previous') }}</span>
+                            </a>
+                            <a href="{{ $paginator->hasMorePages() ? $paginator->nextPageUrl() : 'javascript:void(0);' }}"
+                               class="glass-page-btn {{ $paginator->hasMorePages() ? '' : 'disabled' }}">
+                                <span class="glass-page-btn__label">{{ translate('Next') }}</span>
+                                <span class="glass-page-btn__icon"><i class="las la-arrow-right"></i></span>
+                            </a>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

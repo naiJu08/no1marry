@@ -633,6 +633,22 @@
                     </div>
                 </div>
                 <div class="hero-media">
+                    <div class="hero-avatar-wrapper" style="margin-bottom: 1.5rem; display:flex; justify-content:flex-start;">
+                        <div class="profile-avatar">
+                            <div class="profile-avatar-badge">
+                                <div class="profile-avatar-backdrop"></div>
+                                <div class="profile-avatar-ring"></div>
+                                <img class="profile-avatar-image" src="@if(Auth::user()->photo != "") {{ uploaded_asset(Auth::user()->photo) }} @else {{ static_asset('assets/img/avatar-place.png') }} @endif" alt="Profile Image">
+                                <form action="{{ route('uplode.uplode_pro_pic') }}" method="POST" name="pro_form" id="pro_form" enctype="multipart/form-data">
+                                    {{ @csrf_field() }}
+                                    <label for="file-upload" class="profile-avatar-trigger" id="upload-button-pro">
+                                        <i class="fa-solid fa-camera"></i>
+                                    </label>
+                                    <input class="file-upload" type="file" name="file-upload" id="file-upload"/>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     <h4>{{ __('Let’s perfect your profile') }}</h4>
                     <p>{{ __('Profiles with complete details receive 3x more responses. Update your preferences and add recent photographs to stand out.') }}</p>
                     <div class="progress-track">

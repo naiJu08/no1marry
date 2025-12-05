@@ -1,35 +1,120 @@
 @extends('frontend.layouts.app')
 @section('content')
 <style>
-    .aiz-megabox-elem
-    {
-       height:200px;
+    .payment-page-section {
+        background: radial-gradient(circle at top, #fdfbff 0, #f5f7fb 55%, #edf0f8 100%);
+    }
+    .payment-summary-card {
+        border-radius: 24px;
+        background: #ffffff;
+        border: 1px solid rgba(226,229,241,0.9);
+        box-shadow: 0 18px 38px rgba(15,10,43,0.12);
+        overflow: hidden;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .payment-summary-header {
+        text-align: center;
+        padding: 1.6rem 1.6rem 1.2rem;
+        background: radial-gradient(circle at top, rgba(253, 101, 91, 0.08), transparent 65%);
+    }
+    .payment-summary-icon img {
+        width: 60px;
+        height: 60px;
+        border-radius: 999px;
+        object-fit: cover;
+        box-shadow: 0 8px 18px rgba(15, 10, 43, 0.25);
+    }
+    .payment-summary-title {
+        font-size: 1.1rem;
+        margin-top: .75rem;
+        margin-bottom: .25rem;
+        font-weight: 700;
+        color: #1c1635;
+    }
+    .payment-summary-subtitle {
+        font-size: .78rem;
+        text-transform: uppercase;
+        letter-spacing: .14em;
+        color: #8b86a8;
+    }
+    .payment-summary-body {
+        padding: 1.2rem 1.6rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+    .payment-summary-features {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 1.3rem 0;
+        font-size: .9rem;
+    }
+    .payment-summary-features li {
+        display: flex;
+        align-items: flex-start;
+        gap: .45rem;
+        margin-bottom: .4rem;
+    }
+    .payment-summary-features i {
+        margin-top: .18rem;
+    }
+    .payment-summary-price {
+        text-align: center;
+    }
+    .payment-summary-price .amount {
+        display: block;
+        font-size: 1.7rem;
+        font-weight: 700;
+        color: #fd655b;
+        line-height: 1.2;
+    }
+    .payment-summary-price .duration {
+        font-size: .85rem;
+        color: #8b86a8;
+    }
+    .payment-options-card {
+        border-radius: 18px;
+        border: 1px solid rgba(226,229,241,0.9);
+    }
+    .aiz-megabox-elem {
+        height: 200px;
+        border-radius: 16px;
+    }
+    @media (max-width: 991.98px) {
+        .payment-summary-card {
+            margin-bottom: 1.75rem;
+        }
     }
 </style>
-<section class="py-5 bg-white">
+<section class="py-5 payment-page-section">
     <div class="container">
         <div class="row">
             <div class="col-xxl-3 col-xl-4">
-                <div class="card shadow-none overflow-hidden">
-                    <div class="card-body">
-                        <div class="text-center mb-4 mt-3">
-                            <img class="mw-100 mx-auto mb-4" src="{{ uploaded_asset($package->image) }}" height="130">
-                            <h5 class="mb-3 h5 fw-600">{{$package->name}}</h5>
+                <div class="payment-summary-card">
+                    <div class="payment-summary-header">
+                        <div class="payment-summary-icon">
+                            <img src="{{ static_asset('assets/img/email-campaign.svg') }}" alt="{{ $package->name }}">
                         </div>
-                        <ul class="list-group list-group-raw fs-15 mb-5">
-                            <li class="list-group-item py-2">
-                                <i class="las la-check text-success mr-2"></i>
-                                {{ $package->express_interest }} {{ translate('Express Interests') }}
+                        <div class="payment-summary-title">{{$package->name}}</div>
+                        <div class="payment-summary-subtitle">{{ translate('Unlimited profiles with contacts') }}</div>
+                    </div>
+                    <div class="payment-summary-body">
+                        <ul class="payment-summary-features">
+                            <li>
+                                <i class="las la-check text-success"></i>
+                                <span>{{ $package->express_interest }} {{ translate('Express Interests') }}</span>
                             </li>
-                            <li class="list-group-item py-2">
-                                <i class="las la-check text-success mr-2"></i>
-                                {{ $package->photo_gallery }} {{ translate('Galley Photo Upload') }}
+                            <li>
+                                <i class="las la-check text-success"></i>
+                                <span>{{ $package->photo_gallery }} {{ translate('Galley Photo Upload') }}</span>
                             </li>
-                            <!--<li class="list-group-item py-2">-->
+                            <!--<li>-->
                             <!--    <i class="las la-check text-success mr-2"></i>-->
                             <!--    {{ $package->contact }} {{ translate('Contact Info View') }}-->
                             <!--</li>-->
-                            <li class="list-group-item py-2 text-line-through">
+                            <li class="text-line-through">
                                 @if( $package->auto_profile_match == 0 )
                                     <i class="las la-times text-danger mr-2"></i>
                                     <del class="opacity-60">{{ translate('Show Auto Profile Match') }}</del>
@@ -39,7 +124,7 @@
                                 @endif
                             </li>
                         </ul>
-                        <div class="mb-5 text-dark text-center">
+                        <div class="payment-summary-price">
                             @php
                               $package_price = $package->price;
                             @endphp
@@ -64,7 +149,7 @@
                                   <span class="display-4 fw-600 lh-1 mb-0">{{single_price($package_price)}}</span>
                                 @endif
                             @endif
-                            <span class="text-secondary d-block">{{$package->validity}} {{translate('Days')}}</span>
+                            <span class="duration">{{$package->validity}} {{translate('Days')}}</span>
                         </div>
                     </div>
                 </div>
@@ -76,7 +161,7 @@
                     <input type="hidden" name="amount" value="{{ $package_price }}">
                     <input type="hidden" id="payment_type" value="">
 
-                    <div class="card shadow-none">
+                    <div class="card shadow-none payment-options-card">
                         <div class="card-header p-3">
                             <h3 class="fs-16 fw-600 mb-0">
                                 {{ translate('Select a payment option')}}

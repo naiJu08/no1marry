@@ -118,41 +118,21 @@
 
     .profile-header {
         position: relative;
-        display: grid;
-        grid-template-columns: auto 1fr auto;
-        gap: clamp(1.5rem, 4vw, 3rem);
-        padding: clamp(2rem, 4vw, 3rem);
-        border-radius: 32px;
-        background: var(--member-dashboard-bg);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: clamp(1.25rem, 3vw, 2.5rem);
+        padding: clamp(1.5rem, 3vw, 2.5rem);
+        border-radius: 24px;
+        background: #ffffff;
         border: 1px solid var(--member-card-border);
-        box-shadow: var(--member-card-shadow);
-        overflow: hidden;
+        box-shadow: 0 16px 40px rgba(27, 19, 47, 0.12);
     }
 
     .profile-header::before,
     .profile-header::after {
-        content: "";
-        position: absolute;
-        width: 420px;
-        height: 420px;
-        border-radius: 50%;
-        pointer-events: none;
-        filter: blur(80px);
-        opacity: 0.55;
-        animation: float-header 14s ease-in-out infinite;
-    }
-
-    .profile-header::before {
-        background: rgba(144, 98, 255, 0.35);
-        top: -240px;
-        right: -140px;
-    }
-
-    .profile-header::after {
-        background: rgba(255, 151, 112, 0.28);
-        bottom: -260px;
-        left: -160px;
-        animation-delay: 1.9s;
+        content: none;
     }
 
     .profile-header .circle {
@@ -390,12 +370,14 @@
 
     @media (max-width: 992px) {
         .profile-header {
-            grid-template-columns: 1fr;
-            text-align: center;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
         }
 
         .profile-option {
-            justify-content: center;
+            justify-content: flex-start;
+            width: 100%;
         }
 
         .dashboard-tab {
@@ -419,48 +401,7 @@
   
 	<div>
 	 
-	  <div class="profile-header">
-		<div class="profile-avatar">
-		  <div class="profile-avatar-badge">
-		    <div class="profile-avatar-backdrop"></div>
-		    <div class="profile-avatar-ring"></div>
-		    <img class="profile-avatar-image" src="@if(Auth::user()->photo != "") {{ uploaded_asset(Auth::user()->photo) }} @else {{ static_asset('assets/img/avatar-place.png') }} @endif" alt="Profile Image">
-		    <form action="{{ route('uplode.uplode_pro_pic') }}" method="POST" name="pro_form" id="pro_form" enctype="multipart/form-data">
-				{{ @csrf_field() }}
-		      <label for="file-upload" class="profile-avatar-trigger" id="upload-button-pro">
-		        <i class="fa-solid fa-camera"></i>
-		      </label>
-		      <input class="file-upload" type="file" name="file-upload" id="file-upload"/>
-		    </form>
-		  </div>
-		</div>
-		<div class="profile-nav-info">
-		  <h3 class="user-name">{{Auth::user()->first_name}} @if(Auth::user()->membership == 2)<span class="ml-2"><img src="{{ static_asset('assets/assets_1/img/crown.png') }}" width="45px" height="45px">@endif</span></h3>
-		  <div class="address">
-			<p id="state" class="state">{{ \Carbon\Carbon::parse(Auth::user()->member->birthday)->age }}yrs</p>
-			<span id="country" class="country">({{ \Carbon\Carbon::parse(Auth::user()->member->birthday)->format('M d Y') }})</span>
-		  </div>
-		  <div class="Memberid">
-			<p id="state" class="state">Member ID : </p>
-			<span id="country" class="country">{{Auth::user()->code}}</span>
-		  </div>
-	
-		</div>
-		<div class="profile-option">
-            @php
-             $unseen_chat_threads = chat_threads();
-            $unseen_chat_thread_count = count($unseen_chat_threads);
-            @endphp
-          <div class="notification">
-            <a href="{{ route('all.messages') }}" class="btn text-reset btn-block w-100">
-            <i class="fa fa-message"></i>
-            <span class="alert-message">{{$unseen_chat_thread_count}}</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="dashboard-tabs-wrapper">
+	      <div class="dashboard-tabs-wrapper">
         <ul>
           <li class="dashboard-tab @if(request()->routeIs('profile_settings')) active @endif">
             <a href="{{ route('profile_settings') }}" class="dashboard-tab-link">

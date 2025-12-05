@@ -23,18 +23,60 @@
         flex-wrap: wrap;
     }
     .pp-avatar {
-        width: 92px;
-        height: 92px;
-        border-radius: 26px;
+        width: 150px;
+        height: 150px;
+        border-radius: 32px;
         overflow: hidden;
         flex-shrink: 0;
         background: #fff;
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.8);
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.9), 0 18px 35px rgba(15, 10, 43, 0.18);
     }
     .pp-avatar img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+    }
+    .pp-photo-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 10, 43, 0.82);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1050;
+    }
+    .pp-photo-modal {
+        position: relative;
+        max-width: 90vw;
+        max-height: 90vh;
+        background: #000;
+        border-radius: 16px;
+        padding: 0.75rem;
+        box-shadow: 0 24px 50px rgba(0, 0, 0, 0.65);
+    }
+    .pp-photo-modal img {
+        display: block;
+        max-width: 100%;
+        max-height: 80vh;
+        border-radius: 12px;
+        object-fit: contain;
+    }
+    .pp-photo-close {
+        position: absolute;
+        top: 0.35rem;
+        right: 0.5rem;
+        border: none;
+        background: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        border-radius: 999px;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        line-height: 1;
+        cursor: pointer;
     }
     .pp-hero-meta h1 {
         font-size: 1.4rem;
@@ -98,6 +140,20 @@
         gap: .35rem;
         width: 100%;
     }
+    .pp-next-nav {
+        margin-top: .75rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    .pp-next-btn {
+        white-space: nowrap;
+    }
+    .pp-next-hint {
+        margin-top: .25rem;
+        font-size: .75rem;
+        color: #8b86a8;
+    }
     .pp-tabs {
         margin-top: 1rem;
         margin-bottom: .75rem;
@@ -122,7 +178,7 @@
         box-shadow: 0 8px 16px rgba(81, 46, 193, 0.3);
     }
     .pp-tab-pane {
-        display: none;
+        display: block;
     }
     .pp-tab-pane.active {
         display: block;
@@ -164,6 +220,10 @@
             flex-direction: column;
             align-items: flex-start;
         }
+        .pp-avatar {
+            width: 120px;
+            height: 120px;
+        }
         .pp-hero-actions {
             width: 100%;
         }
@@ -173,6 +233,9 @@
         }
         .pp-value {
             text-align: left;
+        }
+        .pp-next-nav {
+            align-items: center;
         }
     }
 </style>
@@ -191,13 +254,14 @@
         $interest_onclick  = 0;
         $interest_text     = $do_expressed_interest->status == 0 ? translate('Interest Expressed') : translate('Interest Accepted');
     }
+    $next_profile_match = isset($similar_profiles) && count($similar_profiles) ? $similar_profiles->first() : null;
 @endphp
 
 <section class="py-4">
     <div class="container pp-wrapper">
         <div class="pp-hero">
             <div class="pp-hero-main">
-                <div class="pp-avatar">
+                <div class="pp-avatar" onclick="openProfileImage()">
                     <img src="{{ $user->photo ? uploaded_asset($user->photo) : static_asset('assets/img/avatar-place.png') }}" onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';" alt="profile">
                 </div>
                 <div class="pp-hero-meta">
@@ -253,16 +317,36 @@
                     </a>
                 </div>
             </div>
-            <div class="pp-tabs mt-3">
-                <button class="pp-tab-link active" data-pp-tab="about">{{ translate('About') }}</button>
-                <button class="pp-tab-link" data-pp-tab="basic">{{ translate('Basic') }}</button>
-                <button class="pp-tab-link" data-pp-tab="contact">{{ translate('Contact') }}</button>
-                <button class="pp-tab-link" data-pp-tab="education">{{ translate('Education') }}</button>
-                <button class="pp-tab-link" data-pp-tab="career">{{ translate('Career') }}</button>
-                <button class="pp-tab-link" data-pp-tab="family">{{ translate('Family & Lifestyle') }}</button>
-                <button class="pp-tab-link" data-pp-tab="preference">{{ translate('Preference') }}</button>
+        </div>
+
+        @if(!empty($next_profile_match) && !empty($next_profile_match->match_id))
+            <div class="pp-next-nav">
+                <button type="button"
+                        class="pp-btn-ghost pp-next-btn"
+                        onclick="goToNextProfile()">
+                    <span>{{ translate('Next Profile') }}</span>
+                    <i class="la la-arrow-right"></i>
+                </button>
+                <div class="pp-next-hint">
+                    {{ translate('Tip: Swipe left on mobile or press the right arrow key to see the next profile.') }}
+                </div>
+            </div>
+        @endif
+
+        <div id="pp-photo-overlay" class="pp-photo-overlay d-none" onclick="closeProfileImage(event)">
+            <div class="pp-photo-modal" onclick="event.stopPropagation()">
+                <button type="button" class="pp-photo-close" onclick="closeProfileImage(event)">&times;</button>
+                <img src="{{ $user->photo ? uploaded_asset($user->photo) : static_asset('assets/img/avatar-place.png') }}" onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';" alt="profile-full">
             </div>
         </div>
+
+        @php
+            $interest_accepted = (!empty($do_expressed_interest) && $do_expressed_interest->status == 1) ||
+                                 (!empty($received_expressed_interest) && $received_expressed_interest->status == 1);
+            $is_female_user = optional(Auth::user()->member)->gender == 2;
+        @endphp
+
+        @if (Auth::check() && (in_array(Auth::user()->membership, [3, 2]) || $interest_accepted || $is_female_user))
 
         {{-- ABOUT TAB --}}
         <div class="pp-tab-pane active" id="pp-tab-about">
@@ -270,7 +354,82 @@
                 <h6 class="mb-3 text-uppercase text-muted" style="letter-spacing:.08em; font-size:.72rem;">{{ translate('About') }}</h6>
                 <div class="pp-row">
                     <div class="pp-label">{{ translate('Introduction') }}</div>
-                    <div class="pp-value">{{ $user->member->introduction }}</div>
+                    <div class="pp-value">
+                        @php
+                            $intro = trim(optional($user->member)->introduction ?? '');
+                        @endphp
+                        @if($intro)
+                            {{ $intro }}
+                        @else
+                            @php
+                                $parts = [];
+
+                                // Age
+                                $age = !empty(optional($user->member)->birthday)
+                                    ? \Carbon\Carbon::parse($user->member->birthday)->age
+                                    : null;
+                                if ($age) {
+                                    $parts[] = $age . ' ' . translate('years old');
+                                }
+
+                                // Height
+                                if (!empty(optional($user->physical_attributes)->height)) {
+                                    $parts[] = $user->physical_attributes->height;
+                                }
+
+                                // Religion / Caste
+                                $religionName = optional(optional($user->spiritual_backgrounds)->religion)->name ?? null;
+                                $casteName    = optional(optional($user->spiritual_backgrounds)->caste)->name ?? null;
+                                if ($religionName || $casteName) {
+                                    $relPart = $religionName;
+                                    if ($casteName) {
+                                        $relPart = trim($religionName . ' ' . $casteName);
+                                    }
+                                    $parts[] = $relPart;
+                                }
+
+                                // Location (City, Country)
+                                $locParts = [];
+                                $city      = optional($present_address)->city;
+                                $cityName  = optional($city)->name ?? (is_string($city) ? $city : null);
+                                $country   = optional($present_address)->country;
+                                $countryName = optional($country)->name ?? null;
+
+                                if (!empty($cityName)) {
+                                    $locParts[] = $cityName;
+                                }
+                                if (!empty($countryName)) {
+                                    $locParts[] = $countryName;
+                                }
+                                if (!empty($locParts)) {
+                                    $parts[] = translate('from') . ' ' . implode(', ', $locParts);
+                                }
+
+                                // Career (current or first)
+                                $autoCareer = \App\Models\Career::where('user_id', $user->id)
+                                    ->where('present', 1)
+                                    ->first();
+                                if (!$autoCareer) {
+                                    $autoCareer = \App\Models\Career::where('user_id', $user->id)->first();
+                                }
+                                if ($autoCareer && $autoCareer->designation) {
+                                    $careerText = translate('working as') . ' ' . $autoCareer->designation;
+                                    if (!empty($autoCareer->company)) {
+                                        $careerText .= ' ' . translate('at') . ' ' . $autoCareer->company;
+                                    }
+                                    $parts[] = $careerText;
+                                }
+
+                                $fullName = trim(($user->first_name ?? '') . ' ' . ($user->last_name ?? ''));
+                                if (empty($parts)) {
+                                    $autoIntro = $fullName ?: '';
+                                } else {
+                                    $autoIntro = ($fullName ?: '') . ' is ' . implode(', ', $parts) . '.';
+                                }
+                            @endphp
+                            {{ $autoIntro }}
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
@@ -322,14 +481,72 @@
                     <div class="pp-label">{{ translate('City / State') }}</div>
                     <div class="pp-value">
                         @if($present_address)
-                            {{ $present_address->city ?? '' }}
-                            @if($present_address->city && $present_address->state)
-                                , 
+                            @php
+                                $cityName = optional($present_address->city)->name;
+                                $stateName = optional($present_address->state)->name;
+                            @endphp
+                            {{ $cityName }}
+                            @if($cityName && $stateName)
+                                ,
                             @endif
-                            {{ $present_address->state->name ?? '' }}
+                            {{ $stateName }}
                         @endif
                     </div>
                 </div>
+
+                {{-- CONTACT NUMBER & EMAIL (mirrors original profile logic) --}}
+                @php
+                    $is_female_user = optional(Auth::user()->member)->gender == 2;
+                    $current_package_id = optional(Auth::user()->member)->current_package_id;
+                @endphp
+
+                @if (Auth::check() && Auth::user()->membership == 2)
+                    @if ($current_package_id == 10 || $is_female_user)
+                        {{-- Show contact & email directly --}}
+                        <div class="pp-row">
+                            <div class="pp-label">{{ translate('Contact Number') }}</div>
+                            <div class="pp-value">{{ $user->phone }}</div>
+                        </div>
+                        <div class="pp-row">
+                            <div class="pp-label">{{ translate('Email ID') }}</div>
+                            <div class="pp-value">{{ $user->email }}</div>
+                        </div>
+                    @elseif ($current_package_id == 9)
+                        @if (empty($do_expressed_interest) && empty($received_expressed_interest))
+                            {{-- Ask to express interest first --}}
+                            <div class="pp-row">
+                                <div class="pp-label">{{ translate('Contact Number') }}</div>
+                                <div class="pp-value">
+                                    <a onclick="express_interest({{ $user->id }})"
+                                       class="btn btn-sm btn-primary view_contact">
+                                        <i class="las la-phone"></i>
+                                        {{ translate('Can You please Express Your Interest') }}
+                                    </a>
+                                    <div class="small text-muted mt-1">contact admin for direct profile assistance</div>
+                                </div>
+                            </div>
+                        @elseif (
+                            (!empty($received_expressed_interest) && $received_expressed_interest->status == 1) ||
+                            (!empty($do_expressed_interest) && $do_expressed_interest->status == 1)
+                        )
+                            {{-- Interest accepted: show contact & email --}}
+                            <div class="pp-row">
+                                <div class="pp-label">{{ translate('Contact Number') }}</div>
+                                <div class="pp-value">{{ $user->phone }}</div>
+                            </div>
+                            <div class="pp-row">
+                                <div class="pp-label">{{ translate('Email ID') }}</div>
+                                <div class="pp-value">{{ $user->email }}</div>
+                            </div>
+                        @else
+                            {{-- Waiting for interest acceptance --}}
+                            <div class="pp-row">
+                                <div class="pp-label">{{ translate('Contact Number') }}</div>
+                                <div class="pp-value">wait until the Interest is accepted</div>
+                            </div>
+                        @endif
+                    @endif
+                @endif
             </div>
         </div>
 
@@ -337,30 +554,54 @@
         <div class="pp-tab-pane" id="pp-tab-education">
             <div class="pp-card">
                 <h6 class="mb-3 text-uppercase text-muted" style="letter-spacing:.08em; font-size:.72rem;">{{ translate('Education') }}</h6>
-                <div class="pp-row">
-                    <div class="pp-label">{{ translate('Highest Education') }}</div>
-                    <div class="pp-value">
-                        @if($user->education)
-                            @if(is_a($user->education, 'Illuminate\Database\Eloquent\Collection'))
-                                {{ optional($user->education->first()->highest_education)->name ?? '' }}
-                            @else
-                                {{ optional($user->education->highest_education)->name ?? '' }}
-                            @endif
-                        @endif
+                @php
+                    $educations = \App\Models\Education::where('user_id', $user->id)->get();
+                    $currentEducation = $educations->where('present', 1)->first() ?? $educations->first();
+                @endphp
+
+                @if($currentEducation)
+                    <div class="pp-row">
+                        <div class="pp-label">{{ translate('Degree') }}</div>
+                        <div class="pp-value">{{ $currentEducation->degree ?? '' }}</div>
                     </div>
-                </div>
-                <div class="pp-row">
-                    <div class="pp-label">{{ translate('Education Details') }}</div>
-                    <div class="pp-value">
-                        @if($user->education)
-                            @if(is_a($user->education, 'Illuminate\Database\Eloquent\Collection'))
-                                {{ $user->education->first()->education_detail ?? '' }}
-                            @else
-                                {{ $user->education->education_detail ?? '' }}
+                    <div class="pp-row">
+                        <div class="pp-label">{{ translate('Institution / Period / Status') }}</div>
+                        <div class="pp-value">
+                            @php
+                                $institution = $currentEducation->institution ?? null;
+                                $startEdu    = $currentEducation->start ?? null;
+                                $endEdu      = $currentEducation->end ?? null;
+                            @endphp
+                            @if($institution)
+                                {{ $institution }}
                             @endif
-                        @endif
+                            @if($institution && ($startEdu || $endEdu || $currentEducation->present))
+                                -
+                            @endif
+                            @if($startEdu)
+                                {{ $startEdu }}
+                            @endif
+                            @if($startEdu && ($endEdu || $currentEducation->present))
+                                -
+                            @endif
+                            @if($endEdu)
+                                {{ $endEdu }}
+                            @elseif($currentEducation->present)
+                                {{ translate('Present') }}
+                            @endif
+                            @if($currentEducation->present == 1)
+                                <span class="badge badge-inline badge-success ml-2">{{ translate('Running') }}</span>
+                            @else
+                                <span class="badge badge-inline badge-danger ml-2">{{ translate('Completed') }}</span>
+                            @endif
+                        </div>
                     </div>
-                </div>
+                @else
+                    <div class="pp-row">
+                        <div class="pp-label">{{ translate('Education') }}</div>
+                        <div class="pp-value">-</div>
+                    </div>
+                @endif
             </div>
         </div>
 
@@ -368,41 +609,231 @@
         <div class="pp-tab-pane" id="pp-tab-career">
             <div class="pp-card">
                 <h6 class="mb-3 text-uppercase text-muted" style="letter-spacing:.08em; font-size:.72rem;">{{ translate('Career') }}</h6>
-                <div class="pp-row">
-                    <div class="pp-label">{{ translate('Occupation') }}</div>
-                    <div class="pp-value">
-                        @if($user->career)
-                            @if(is_a($user->career, 'Illuminate\Database\Eloquent\Collection'))
-                                {{ $user->career->first()->occupation ?? '' }}
-                            @else
-                                {{ $user->career->occupation ?? '' }}
+                @php
+                    $careers = \App\Models\Career::where('user_id', $user->id)->get();
+                    $currentCareer = $careers->where('present', 1)->first() ?? $careers->first();
+                @endphp
+
+                @if($currentCareer)
+                    <div class="pp-row">
+                        <div class="pp-label">{{ translate('Designation') }}</div>
+                        <div class="pp-value">{{ $currentCareer->designation ?? '' }}</div>
+                    </div>
+                    <div class="pp-row">
+                        <div class="pp-label">{{ translate('Company') }}</div>
+                        <div class="pp-value">{{ $currentCareer->company ?? '' }}</div>
+                    </div>
+                    <div class="pp-row">
+                        <div class="pp-label">{{ translate('Career Period / Status') }}</div>
+                        <div class="pp-value">
+                            @php
+                                $start = $currentCareer->start ?? null;
+                                $end = $currentCareer->end ?? null;
+                            @endphp
+                            @if($start)
+                                {{ $start }}
                             @endif
-                        @endif
+                            @if($start && ($end || $currentCareer->present))
+                                -
+                            @endif
+                            @if($end)
+                                {{ $end }}
+                            @elseif($currentCareer->present)
+                                {{ translate('Present') }}
+                            @endif
+                            @if($currentCareer->present == 1)
+                                <span class="badge badge-inline badge-success ml-2">{{ translate('Active') }}</span>
+                            @else
+                                <span class="badge badge-inline badge-danger ml-2">{{ translate('Deactive') }}</span>
+                            @endif
+                        </div>
+                    </div>
+                @else
+                    <div class="pp-row">
+                        <div class="pp-label">{{ translate('Career') }}</div>
+                        <div class="pp-value">-</div>
+                    </div>
+                @endif
+            </div>
+        </div>
+
+        {{-- PHYSICAL ATTRIBUTES --}}
+        <div class="pp-tab-pane" id="pp-tab-physical">
+            <div class="pp-card">
+                <h6 class="mb-3 text-uppercase text-muted" style="letter-spacing:.08em; font-size:.72rem;">{{ translate('Physical Attributes') }}</h6>
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Height') }}</div>
+                    <div class="pp-value">{{ optional($user->physical_attributes)->height ?? '' }}</div>
+                </div>
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Eye Color') }}</div>
+                    <div class="pp-value">{{ optional($user->physical_attributes)->eye_color ?? '' }}</div>
+                </div>
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Weight') }}</div>
+                    <div class="pp-value">{{ optional($user->physical_attributes)->weight ?? '' }}</div>
+                </div>
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Hair Color') }}</div>
+                    <div class="pp-value">{{ optional($user->physical_attributes)->hair_color ?? '' }}</div>
+                </div>
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Complexion') }}</div>
+                    <div class="pp-value">{{ optional($user->physical_attributes)->complexion ?? '' }}</div>
+                </div>
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Blood Group') }}</div>
+                    <div class="pp-value">{{ optional($user->physical_attributes)->blood_group ?? '' }}</div>
+                </div>
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Body Type') }}</div>
+                    <div class="pp-value">{{ optional($user->physical_attributes)->body_type ?? '' }}</div>
+                </div>
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Body Art') }}</div>
+                    <div class="pp-value">{{ optional($user->physical_attributes)->body_art ?? '' }}</div>
+                </div>
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Disability') }}</div>
+                    <div class="pp-value">{{ optional($user->physical_attributes)->disability ?? '' }}</div>
+                </div>
+            </div>
+        </div>
+
+        {{-- HOBBIES & INTEREST --}}
+        <div class="pp-tab-pane" id="pp-tab-hobbies">
+            <div class="pp-card">
+                <h6 class="mb-3 text-uppercase text-muted" style="letter-spacing:.08em; font-size:.72rem;">{{ translate('Hobbies & Interest') }}</h6>
+                @php $hobbies = optional($user->hobbies); @endphp
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Hobbies') }}</div>
+                    <div class="pp-value">{{ $hobbies->hobbies ?? '' }}</div>
+                </div>
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Music / Movies / Sports / Cuisines') }}</div>
+                    <div class="pp-value">
+                        {{ $hobbies->music ?? '' }}
+                        @if(!empty($hobbies->music) && !empty($hobbies->movies)) , @endif
+                        {{ $hobbies->movies ?? '' }}
+                        @if((!empty($hobbies->music) || !empty($hobbies->movies)) && !empty($hobbies->sports)) , @endif
+                        {{ $hobbies->sports ?? '' }}
+                        @if((!empty($hobbies->music) || !empty($hobbies->movies) || !empty($hobbies->sports)) && !empty($hobbies->cuisines)) , @endif
+                        {{ $hobbies->cuisines ?? '' }}
                     </div>
                 </div>
                 <div class="pp-row">
-                    <div class="pp-label">{{ translate('Company / Organization') }}</div>
+                    <div class="pp-label">{{ translate('Interests / Books / TV Shows / Fitness / Dress Styles') }}</div>
                     <div class="pp-value">
-                        @if($user->career)
-                            @if(is_a($user->career, 'Illuminate\Database\Eloquent\Collection'))
-                                {{ $user->career->first()->company ?? '' }}
-                            @else
-                                {{ $user->career->company ?? '' }}
-                            @endif
-                        @endif
+                        {{ $hobbies->interests ?? '' }}
+                        @if(!empty($hobbies->interests) && !empty($hobbies->books)) , @endif
+                        {{ $hobbies->books ?? '' }}
+                        @if((!empty($hobbies->interests) || !empty($hobbies->books)) && !empty($hobbies->tv_shows)) , @endif
+                        {{ $hobbies->tv_shows ?? '' }}
+                        @if((!empty($hobbies->interests) || !empty($hobbies->books) || !empty($hobbies->tv_shows)) && !empty($hobbies->fitness_activities)) , @endif
+                        {{ $hobbies->fitness_activities ?? '' }}
+                        @if((!empty($hobbies->interests) || !empty($hobbies->books) || !empty($hobbies->tv_shows) || !empty($hobbies->fitness_activities)) && !empty($hobbies->dress_styles)) , @endif
+                        {{ $hobbies->dress_styles ?? '' }}
                     </div>
                 </div>
+            </div>
+        </div>
+
+        {{-- PERSONAL ATTITUDE & BEHAVIOR --}}
+        <div class="pp-tab-pane" id="pp-tab-attitude">
+            <div class="pp-card">
+                <h6 class="mb-3 text-uppercase text-muted" style="letter-spacing:.08em; font-size:.72rem;">{{ translate('Personal Attitude & Behavior') }}</h6>
+                @php $attitude = optional($user->attitude); @endphp
                 <div class="pp-row">
-                    <div class="pp-label">{{ translate('Annual income') }}</div>
-                    <div class="pp-value">
-                        @if($user->career)
-                            @if(is_a($user->career, 'Illuminate\Database\Eloquent\Collection'))
-                                {{ $user->career->first()->annual_income ?? '' }}
-                            @else
-                                {{ $user->career->annual_income ?? '' }}
-                            @endif
-                        @endif
-                    </div>
+                    <div class="pp-label">{{ translate('Affection') }}</div>
+                    <div class="pp-value">{{ $attitude->affection ?? '' }}</div>
+                </div>
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Political Views') }}</div>
+                    <div class="pp-value">{{ $attitude->political_views ?? '' }}</div>
+                </div>
+            </div>
+        </div>
+
+        {{-- SPIRITUAL & SOCIAL BACKGROUND (DETAILED) --}}
+        <div class="pp-tab-pane" id="pp-tab-spiritual">
+            <div class="pp-card">
+                <h6 class="mb-3 text-uppercase text-muted" style="letter-spacing:.08em; font-size:.72rem;">{{ translate('Spiritual & Social Background') }}</h6>
+                @php $spiritual = optional($user->spiritual_backgrounds); @endphp
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Religion') }}</div>
+                    <div class="pp-value">{{ optional($spiritual->religion)->name ?? '' }}</div>
+                </div>
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Caste') }}</div>
+                    <div class="pp-value">{{ optional($spiritual->caste)->name ?? '' }}</div>
+                </div>
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Sub Caste') }}</div>
+                    <div class="pp-value">{{ optional($spiritual->sub_caste)->name ?? '' }}</div>
+                </div>
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Personal Value') }}</div>
+                    <div class="pp-value">{{ $spiritual->personal_value ?? '' }}</div>
+                </div>
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Community Value') }}</div>
+                    <div class="pp-value">{{ $spiritual->community_value ?? '' }}</div>
+                </div>
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Ethnicity') }}</div>
+                    <div class="pp-value">{{ $spiritual->ethnicity ?? '' }}</div>
+                </div>
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Family Value') }}</div>
+                    <div class="pp-value">{{ optional($spiritual->family_value)->name ?? '' }}</div>
+                </div>
+            </div>
+        </div>
+
+        {{-- LIFE STYLE (DETAILED) --}}
+        <div class="pp-tab-pane" id="pp-tab-lifestyle">
+            <div class="pp-card">
+                <h6 class="mb-3 text-uppercase text-muted" style="letter-spacing:.08em; font-size:.72rem;">{{ translate('Life Style') }}</h6>
+                @php $life = optional($user->lifestyles); @endphp
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Diet') }}</div>
+                    <div class="pp-value">{{ $life->diet ?? '' }}</div>
+                </div>
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Smoke') }}</div>
+                    <div class="pp-value">{{ $life->smoke ?? '' }}</div>
+                </div>
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Drink') }}</div>
+                    <div class="pp-value">{{ $life->drink ?? '' }}</div>
+                </div>
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Living With') }}</div>
+                    <div class="pp-value">{{ $life->living_with ?? '' }}</div>
+                </div>
+            </div>
+        </div>
+
+        {{-- ASTRONOMIC INFORMATION --}}
+        <div class="pp-tab-pane" id="pp-tab-astro">
+            <div class="pp-card">
+                <h6 class="mb-3 text-uppercase text-muted" style="letter-spacing:.08em; font-size:.72rem;">{{ translate('Astronomic Information') }}</h6>
+                @php $astro = optional($user->astrologies); @endphp
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Sun Sign') }}</div>
+                    <div class="pp-value">{{ $astro->sun_sign ?? '' }}</div>
+                </div>
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Time Of Birth') }}</div>
+                    <div class="pp-value">{{ $astro->time_of_birth ?? '' }}</div>
+                </div>
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('Moon Sign') }}</div>
+                    <div class="pp-value">{{ $astro->moon_sign ?? '' }}</div>
+                </div>
+                <div class="pp-row">
+                    <div class="pp-label">{{ translate('City Of Birth') }}</div>
+                    <div class="pp-value">{{ $astro->city_of_birth ?? '' }}</div>
                 </div>
             </div>
         </div>
@@ -413,15 +844,21 @@
                 <h6 class="mb-3 text-uppercase text-muted" style="letter-spacing:.08em; font-size:.72rem;">{{ translate('Family & Lifestyle') }}</h6>
                 <div class="pp-row">
                     <div class="pp-label">{{ translate('Family Type') }}</div>
-                    <div class="pp-value">{{ $user->family->family_type ?? '' }}</div>
+                    <div class="pp-value">
+                        {{ !empty(optional($user->spiritual_backgrounds)->community_value) ? $user->spiritual_backgrounds->community_value : '' }}
+                    </div>
                 </div>
                 <div class="pp-row">
                     <div class="pp-label">{{ translate('Family Value') }}</div>
-                    <div class="pp-value">{{ $user->family->family_values ?? '' }}</div>
+                    <div class="pp-value">
+                        {{ optional(optional($user->spiritual_backgrounds)->family_value)->name ?? '' }}
+                    </div>
                 </div>
                 <div class="pp-row">
                     <div class="pp-label">{{ translate('Lifestyle') }}</div>
-                    <div class="pp-value">{{ $user->lifestyle->diet ?? '' }}</div>
+                    <div class="pp-value">
+                        {{ !empty(optional($user->lifestyles)->diet) ? $user->lifestyles->diet : '' }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -444,6 +881,20 @@
                 </div>
             </div>
         </div>
+
+        @else
+            <div class="pp-card mt-3">
+                <h6 class="mb-3 text-uppercase text-muted" style="letter-spacing:.08em; font-size:.80rem;">
+                    {{ translate('Upgrade Your Package To See The Full Profile') }}
+                </h6>
+                <p class="mb-3" style="font-size:.9rem;">
+                    {{ translate('Please choose a package to view the full profile with contact number and all detailed information.') }}
+                </p>
+                <button class="btn btn-primary custom-button" onclick="window.location='{{ route('packages') }}'">
+                    {{ translate('CHOOSE A PACKAGE') }}
+                </button>
+            </div>
+        @endif
     </div>
 </section>
 
@@ -453,6 +904,14 @@
     var package_validity = {{ package_validity(Auth::user()->id) }};
     var remaining_contact_view = {{ get_remaining_value(Auth::user()->id,'remaining_contact_view') }};
     var remaining_interest = {{ get_remaining_value(Auth::user()->id,'remaining_interest') }};
+
+    @php
+        $nextProfileUrl = '';
+        if (!empty($next_profile_match) && !empty($next_profile_match->match_id)) {
+            $nextProfileUrl = route('member_profile_clean', $next_profile_match->match_id);
+        }
+    @endphp
+    var nextProfileUrl = "{{ $nextProfileUrl }}";
 
     function view_contact(id)
     {
@@ -610,26 +1069,61 @@
         $('#report-modal-form').submit();
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        var links = document.querySelectorAll('.pp-tab-link');
-        var panes = {
-            about: document.getElementById('pp-tab-about'),
-            basic: document.getElementById('pp-tab-basic'),
-            contact: document.getElementById('pp-tab-contact'),
-            education: document.getElementById('pp-tab-education'),
-            career: document.getElementById('pp-tab-career'),
-            family: document.getElementById('pp-tab-family'),
-            preference: document.getElementById('pp-tab-preference')
-        };
-        links.forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                var key = this.getAttribute('data-pp-tab');
-                links.forEach(function (l) { l.classList.remove('active'); });
-                Object.values(panes).forEach(function (p) { if (p) p.classList.remove('active'); });
-                this.classList.add('active');
-                if (panes[key]) panes[key].classList.add('active');
-            });
+    function openProfileImage() {
+        var overlay = document.getElementById('pp-photo-overlay');
+        if (overlay) {
+            overlay.classList.remove('d-none');
+        }
+    }
+
+    function closeProfileImage(e) {
+        if (e && e.stopPropagation) {
+            e.stopPropagation();
+        }
+        var overlay = document.getElementById('pp-photo-overlay');
+        if (overlay) {
+            overlay.classList.add('d-none');
+        }
+    }
+
+    function goToNextProfile() {
+        if (nextProfileUrl) {
+            window.location.href = nextProfileUrl;
+        }
+    }
+
+    (function() {
+        if (!nextProfileUrl) {
+            return;
+        }
+
+        var touchStartX = null;
+        var touchEndX = null;
+        var SWIPE_THRESHOLD = 60;
+        var swipeArea = document.querySelector('.pp-wrapper');
+
+        if (swipeArea) {
+            swipeArea.addEventListener('touchstart', function(e) {
+                if (!e.changedTouches || !e.changedTouches.length) return;
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            swipeArea.addEventListener('touchend', function(e) {
+                if (!e.changedTouches || !e.changedTouches.length || touchStartX === null) return;
+                touchEndX = e.changedTouches[0].screenX;
+                if (touchStartX - touchEndX > SWIPE_THRESHOLD) {
+                    goToNextProfile();
+                }
+                touchStartX = null;
+                touchEndX = null;
+            }, { passive: true });
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if ((e.key === 'ArrowRight' || e.key === 'ArrowDown') && nextProfileUrl) {
+                goToNextProfile();
+            }
         });
-    });
+    })();
 </script>
 @endsection

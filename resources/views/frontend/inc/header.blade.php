@@ -6,9 +6,9 @@
                 <span class="small">{{ get_setting('header_left_quick_link1_text') }}</span>
             </a>
             <div class="glass-header__helpline small d-inline-flex align-items-center text-muted">
-                <i class="las la-phone-volume"></i>
+                <i class="las la-envelope"></i>
                 <span class="ml-1">{{ translate('Helpline') }}:</span>
-                <strong class="ml-1 text-dark">{{ get_setting('header_helpline_no') }}</strong>
+                <strong class="ml-1 text-dark"> numberonemarry@gmail.com</strong>
             </div>
         </div>
     </div>
@@ -27,30 +27,42 @@
                         <ul class="glass-nav__list">
                             <li class="glass-nav__item {{ areActiveRoutes(['home'],'is-active') }}">
                                 <a href="{{ route('dashboard') }}">
-                                    <i class="las la-home"></i>
-                                    <span>{{ translate('Home') }}</span>
+                                    <span class="glass-nav-pill">
+                                        <span class="glass-nav-pill-icon">
+                                            <i class="las la-home"></i>
+                                        </span>
+                                        <span class="glass-nav-pill-label">{{ translate('Home') }}</span>
+                                    </span>
                                 </a>
                             </li>
                             <li class="glass-nav__item {{ areActiveRoutes(['member.listing'],'is-active') }}">
                                 <a href="{{ route('member.listing') }}">
-                                    <i class="las la-users"></i>
-                                    <span>{{ translate('Active Members') }}</span>
+                                    <span class="glass-nav-pill">
+                                        <span class="glass-nav-pill-icon">
+                                            <i class="las la-user-friends"></i>
+                                        </span>
+                                        <span class="glass-nav-pill-label">{{ translate('Active Members') }}</span>
+                                    </span>
                                 </a>
                             </li>
                             <li class="glass-nav__item {{ areActiveRoutes(['packages'],'is-active') }}">
                                 <a href="{{ route('packages') }}">
-                                    <i class="las la-crown"></i>
-                                    <span>{{ translate('Premium Plans') }}</span>
+                                    <span class="glass-nav-pill">
+                                        <span class="glass-nav-pill-icon">
+                                            <i class="las la-gem"></i>
+                                        </span>
+                                        <span class="glass-nav-pill-label">{{ translate('Premium Plans') }}</span>
+                                    </span>
                                 </a>
                             </li>
-                            <li class="glass-nav__item {{ areActiveRoutes(['happy_stories'],'is-active') }}">
+                            <!-- <li class="glass-nav__item {{ areActiveRoutes(['happy_stories'],'is-active') }}">
                                 <a href="{{ route('happy_stories') }}">
                                     <i class="las la-heart"></i>
                                     <span>{{ translate('Happy Stories') }}</span>
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
-                        <div class="glass-nav__cta d-lg-none">
+                        <!-- <div class="glass-nav__cta d-lg-none">
                             @if(Auth::check())
                                 <a href="{{ route('dashboard') }}" class="btn btn-primary btn-glass btn-block">{{ translate('Go to Dashboard') }}</a>
                                 <a href="{{ route('logout') }}" class="btn btn-outline-primary btn-block mt-2">{{ translate('Logout') }}</a>
@@ -58,14 +70,14 @@
                                 <a href="{{ route('register') }}" class="btn btn-primary btn-glass btn-block">{{ translate('Create Profile') }}</a>
                                 <a href="{{ route('login') }}" class="btn btn-outline-primary btn-block mt-2">{{ translate('Already a member? Log in') }}</a>
                             @endif
-                        </div>
+                        </div> -->
                     </nav>
                 </div>
                 <div class="glass-header__bar-actions d-flex align-items-center ml-auto order-3">
-                    <a href="{{ route('packages') }}" class="d-none d-lg-inline-flex btn btn-sm btn-primary rounded-pill px-4 fw-600 shadow-sm">
+                    <!-- <a href="{{ route('packages') }}" class="d-none d-lg-inline-flex btn btn-sm btn-primary rounded-pill px-4 fw-600 shadow-sm">
                         <i class="las la-gem mr-1"></i>
                         {{ translate('Upgrade Plan') }}
-                    </a>
+                    </a> -->
                     @php
                         $notifications = Auth::check() ? \App\Models\Notification::latest()->where('notifiable_id',Auth()->user()->id)->take(10)->get() : collect();
                         $unseen_notification = Auth::check() ? \App\Models\Notification::where('notifiable_id',Auth()->user()->id)->where('read_at',null)->count() : 0;
@@ -181,7 +193,7 @@
                 </div>
             </div>
             
-            <div class="d-lg-none px-3 pb-3">
+            <!-- <div class="d-lg-none px-3 pb-3">
                 <div class="mt-2">
                     @if(Auth::check())
                         <a href="{{ route('dashboard') }}" class="btn btn-primary rounded-pill shadow-sm btn-block">{{ translate('Go to Dashboard') }}</a>
@@ -191,7 +203,7 @@
                         <a href="{{ route('login') }}" class="btn btn-outline-primary rounded-pill shadow-sm btn-block mt-2">{{ translate('Already a member? Log in') }}</a>
                     @endif
                 </div>
-            </div>
+            </div> -->
         </div>
     </header>
 </div>
@@ -218,10 +230,10 @@
                     <i class="las la-crown mr-2"></i>
                     <span>{{ translate('Premium Plans') }}</span>
                 </a>
-                <a href="{{ route('happy_stories') }}" class="ms-link">
+                <!-- <a href="{{ route('happy_stories') }}" class="ms-link">
                     <i class="las la-heart mr-2"></i>
                     <span>{{ translate('Happy Stories') }}</span>
-                </a>
+                </a> -->
                 @if(Auth::check())
                     <a href="{{ route('all.messages') }}" class="ms-link">
                         <i class="las la-envelope mr-2"></i>
