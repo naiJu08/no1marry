@@ -11,7 +11,7 @@
                     <label for="first_name" >{{translate('First Name')}}
                         <span class="text-danger">*</span>
                     </label>
-                    <input type="text" name="first_name" value="{{ $member->first_name }}" class="form-control" placeholder="{{translate('First Name')}}" required>
+                    <input type="text" name="first_name" value="{{ $member->first_name }}" class="form-control profile-input" placeholder="{{translate('First Name')}}" required>
                     @error('first_name')
                         <small class="form-text text-danger">{{ $message }}</small>
                     @enderror
@@ -20,7 +20,7 @@
                     <label for="first_name" >{{translate('Last Name')}}
                         <span class="text-danger">*</span>
                     </label>
-                    <input type="text" name="last_name" value="{{ $member->last_name }}" class="form-control" placeholder="{{translate('Last Name')}}" required>
+                    <input type="text" name="last_name" value="{{ $member->last_name }}" class="form-control profile-input" placeholder="{{translate('Last Name')}}" required>
                     @error('last_name')
                         <small class="form-text text-danger">{{ $message }}</small>
                     @enderror
@@ -32,19 +32,21 @@
                     <label for="first_name" >{{translate('Gender')}}
                         <span class="text-danger">*</span>
                     </label>
-                    <select class="form-control " name="gender" required >
-                        <option value="1" @if($member->member->gender ==  1) selected @endif >{{translate('Male')}}</option>
-                        <option value="2" @if($member->member->gender ==  2) selected @endif >{{translate('Female')}}</option>
-                        @error('gender')
-                            <small class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </select>
+                    <div class="profile-select-wrapper">
+                        <select class="form-control profile-input profile-select" name="gender" required >
+                            <option value="1" @if($member->member->gender ==  1) selected @endif >{{translate('Male')}}</option>
+                            <option value="2" @if($member->member->gender ==  2) selected @endif >{{translate('Female')}}</option>
+                        </select>
+                    </div>
+                    @error('gender')
+                        <small class="form-text text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
                 <div class="col-md-6">
                     <label for="first_name" >{{translate('Date Of Birth')}}
                         <span class="text-danger">*</span>
                     </label>
-                    <input type="text" class="aiz-date-range form-control" name="date_of_birth"  value="@if(!empty($member->member->birthday)) {{date('Y-m-d', strtotime($member->member->birthday))}} @endif" placeholder="Select Date" data-single="true" data-show-dropdown="true">
+                    <input type="text" class="aiz-date-range form-control profile-input" name="date_of_birth"  value="@if(!empty($member->member->birthday)) {{date('Y-m-d', strtotime($member->member->birthday))}} @endif" placeholder="Select Date" data-single="true" data-show-dropdown="true">
                     @error('date_of_birth')
                         <small class="form-text text-danger">{{ $message }}</small>
                     @enderror
@@ -56,14 +58,14 @@
                     <label for="first_name" >{{translate('Phone Number')}}
                         <span class="text-danger">*</span>
                     </label>
-                    <input type="number" name="phone" value="{{ $member->phone }}" class="form-control" placeholder="{{translate('Phone (Enter country code before phone with out +)')}}" required>
+                    <input type="number" name="phone" value="{{ $member->phone }}" class="form-control profile-input" placeholder="{{translate('Phone (Enter country code before phone with out +)')}}" required>
                     @error('phone')
                         <small class="form-text text-danger">{{ $message }}</small>
                     @enderror
                 </div>
                 <div class="col-md-6">
                     <label for="first_name" >{{translate('Email')}}</label>
-                    <input type="email" name="email" value="{{ $member->email }}" class="form-control" placeholder="{{translate('Email')}}">
+                    <input type="email" name="email" value="{{ $member->email }}" class="form-control profile-input" placeholder="{{translate('Email')}}">
                     @error('email')
                         <small class="form-text text-danger">{{ $message }}</small>
                     @enderror
@@ -74,11 +76,13 @@
                     <label for="first_name" >{{translate('Marital Status')}}
                         <span class="text-danger">*</span>
                     </label>
-                    <select class="form-control " name="marital_status" data-live-search="true" required>
-                        @foreach ($marital_statuses as $marital_status)
-                            <option value="{{$marital_status->id}}" @if($member->member->marital_status_id == $marital_status->id) selected @endif>{{$marital_status->name}}</option>
-                        @endforeach
-                    </select>
+                    <div class="profile-select-wrapper">
+                        <select class="form-control profile-input profile-select" name="marital_status" data-live-search="true" required>
+                            @foreach ($marital_statuses as $marital_status)
+                                <option value="{{$marital_status->id}}" @if($member->member->marital_status_id == $marital_status->id) selected @endif>{{$marital_status->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     @error('marital_status')
                         <small class="form-text text-danger">{{ $message }}</small>
                     @enderror
@@ -87,11 +91,13 @@
                      <label for="first_name" >{{translate('On Behalf')}}
                         <span class="text-danger">*</span>
                     </label>
-                    <select class="form-control " name="on_behalf" data-live-search="true" required>
-                        @foreach ($on_behalves as $on_behalf)
-                            <option value="{{$on_behalf->id}}" @if($member->member->on_behalves_id == $on_behalf->id) selected @endif>{{$on_behalf->name}}</option>
-                        @endforeach
-                    </select>
+                    <div class="profile-select-wrapper">
+                        <select class="form-control profile-input profile-select" name="on_behalf" data-live-search="true" required>
+                            @foreach ($on_behalves as $on_behalf)
+                                <option value="{{$on_behalf->id}}" @if($member->member->on_behalves_id == $on_behalf->id) selected @endif>{{$on_behalf->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     @error('on_behalf')
                         <small class="form-text text-danger">{{ $message }}</small>
                     @enderror

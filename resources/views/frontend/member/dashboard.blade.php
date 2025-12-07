@@ -562,6 +562,136 @@
         background: rgba(255, 255, 255, 0.16);
     }
 
+    .profile-photo-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+    }
+
+    .profile-photo-modal.is-hidden {
+        display: none;
+    }
+
+    .profile-photo-modal__backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(8, 6, 20, 0.72);
+        backdrop-filter: blur(10px);
+    }
+
+    .profile-photo-modal__card {
+        position: relative;
+        max-width: 420px;
+        width: 90%;
+        background: linear-gradient(145deg, #8f62ff, #ff9f7b);
+        border-radius: 26px;
+        padding: 2.2rem 2.1rem 2rem;
+        color: #fff;
+        box-shadow: 0 28px 60px rgba(26, 12, 60, 0.65);
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .profile-photo-modal__card::before {
+        content: "";
+        position: absolute;
+        width: 260px;
+        height: 260px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255,255,255,0.4), transparent 70%);
+        top: -120px;
+        right: -80px;
+        opacity: 0.7;
+    }
+
+    .profile-photo-modal__close {
+        position: absolute;
+        top: 14px;
+        right: 16px;
+        border: none;
+        background: rgba(0,0,0,0.18);
+        color: #fff;
+        width: 30px;
+        height: 30px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    .profile-photo-modal__badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.4rem 0.9rem;
+        border-radius: 999px;
+        background: rgba(0,0,0,0.24);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 0.85rem;
+    }
+
+    .profile-photo-modal__title {
+        font-size: 1.35rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .profile-photo-modal__text {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin-bottom: 1.4rem;
+        color: rgba(255,255,255,0.9);
+    }
+
+    .profile-photo-modal__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .profile-photo-modal__actions button,
+    .profile-photo-modal__actions a {
+        border-radius: 999px;
+        border: none;
+        padding: 0.7rem 1.35rem;
+        font-size: 0.92rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        text-decoration: none;
+        cursor: pointer;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    .profile-photo-modal__actions-primary {
+        background: #fff;
+        color: #4b2a8f;
+        box-shadow: 0 14px 34px rgba(0,0,0,0.35);
+    }
+
+    .profile-photo-modal__actions-secondary {
+        background: rgba(0,0,0,0.18);
+        color: #fefefe;
+    }
+
+    .profile-photo-modal__actions button:hover,
+    .profile-photo-modal__actions a:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 38px rgba(0,0,0,0.45);
+    }
+
+    body.profile-photo-modal-open {
+        overflow: hidden;
+    }
+
     .blur {
         filter: blur(3px);
         transition: filter 0.3s ease;
@@ -869,6 +999,34 @@
             </div>
         </div>
     </div>
+
+    @if(Auth::check())
+        <div id="profile-photo-modal" class="profile-photo-modal is-hidden">
+            <div class="profile-photo-modal__backdrop" data-photo-modal-close></div>
+            <div class="profile-photo-modal__card">
+                <button type="button" class="profile-photo-modal__close" data-photo-modal-close>
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="profile-photo-modal__badge">
+                    <i class="fa-solid fa-bolt"></i>
+                    {{ __('Boost your matches') }}
+                </div>
+                <h5 class="profile-photo-modal__title">{{ __('Add your profile photo to get noticed') }}</h5>
+                <p class="profile-photo-modal__text">
+                    {{ __('Members with a clear, recent photo receive more views, better responses, and faster matches. Upload a smiling photo so genuine partners can recognise and connect with you.') }}
+                </p>
+                <div class="profile-photo-modal__actions">
+                    <button id="profile-photo-modal-upload" class="profile-photo-modal__actions-primary">
+                        <i class="fa-solid fa-camera"></i>
+                        {{ __('Upload photo now') }}
+                    </button>
+                    <button type="button" class="profile-photo-modal__actions-secondary" data-photo-modal-close>
+                        {{ __('Maybe later') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    @endif
 </section>
 @endsection
 
@@ -882,5 +1040,47 @@
             window.location.reload();
         }
     });
+
+    (function () {
+        var modal = document.getElementById('profile-photo-modal');
+        if (!modal) return;
+
+        var avatar = document.querySelector('.profile-avatar-image');
+        var src = avatar ? avatar.getAttribute('src') || '' : '';
+        var isPlaceholder = src.indexOf('avatar-place.png') !== -1;
+        if (!isPlaceholder) {
+            return; // User already has a real photo; don't show modal
+        }
+
+        var body = document.body;
+        var closeTriggers = modal.querySelectorAll('[data-photo-modal-close]');
+        var uploadButton = document.getElementById('profile-photo-modal-upload');
+
+        var closeModal = function () {
+            modal.classList.add('is-hidden');
+            body.classList.remove('profile-photo-modal-open');
+        };
+
+        closeTriggers.forEach(function (el) {
+            el.addEventListener('click', function (e) {
+                e.preventDefault();
+                closeModal();
+            });
+        });
+
+        if (uploadButton) {
+            uploadButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                var trigger = document.getElementById('upload-button-pro');
+                if (trigger) {
+                    trigger.click();
+                }
+                closeModal();
+            });
+        }
+
+        body.classList.add('profile-photo-modal-open');
+        modal.classList.remove('is-hidden');
+    })();
 </script>
 

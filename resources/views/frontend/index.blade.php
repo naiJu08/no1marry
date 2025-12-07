@@ -155,6 +155,9 @@
       padding:16px 14px 14px;
     }
     .timeline .step:after{display:none;}
+    header.hero{
+      padding-top:10rem !important;
+    }
   }
 
   /* Stories */
@@ -242,6 +245,56 @@
     background: linear-gradient(90deg, #ff7b9c, #ffd39f);
   }
 
+  .btn-hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(120deg, #2d1024, #7b1844);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.35);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+
+  .btn-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 0% 50%, rgba(255,255,255,0.35), transparent 60%);
+    transform: translateX(-120%);
+    transition: transform .5s ease-out;
+    opacity: .9;
+  }
+
+  .btn-hero:hover::before {
+    transform: translateX(120%);
+  }
+
+  .btn-hero:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 18px 40px rgba(0,0,0,.45);
+  }
+
+  .btn-hero:active {
+    transform: translateY(0) scale(.98);
+    box-shadow: 0 8px 18px rgba(0,0,0,.35);
+  }
+
+  .hero-typed-cursor{
+    display:inline-block;
+    width:2px;
+    height:1.2em;
+    margin-left:4px;
+    background:#ffc371;
+    vertical-align:bottom;
+    animation: hero-cursor-blink .9s steps(1) infinite;
+  }
+
+  @keyframes hero-cursor-blink {
+    0%, 50% { opacity:1; }
+    50.01%, 100% { opacity:0; }
+  }
+
   .text-brand {
     color: #ff5f6d;
   }
@@ -265,10 +318,10 @@ input:-webkit-autofill:active {
   <nav class="navbar navbar-expand-lg navbar-dark navbar-transparent fixed-top">
     <div class="container">
       <a class="navbar-brand d-flex align-items-center" href="#home">
-        <img src="{{ static_asset('assets/image-removebg-preview.png') }}" alt="No1Marry" class=" me-2" width="100" height="50">
+        <img src="{{ static_asset('assets/img/logo2.0.png') }}" alt="No1Marry" class=" me-2" height="90" >
         <!-- <span class="fw-bold">No1Marry </span> -->
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="mainNav">
@@ -292,10 +345,13 @@ input:-webkit-autofill:active {
       <div class="row align-items-center g-4">
         <div class="col-lg-7 text-white" data-aos="fade-right">
           <h1 class="display-4 fw-bold">Find Your Perfect Match, the Modern Way</h1>
-          <p class="lead mb-4">Discover verified profiles and meaningful connections, powered by trust and technology.</p>
+          <p class="lead mb-4">
+            <span id="hero-typed-text">Join a trusted community of verified singles, smart matchmaking and private chats designed to help you find a partner who truly matches your values.</span>
+            <span class="hero-typed-cursor"></span>
+          </p>
           <div class="d-flex gap-3 flex-wrap">
-            <a href="{{ url('/user/registration') }}" class="btn btn-brand btn-lg text-white">Create Free Account</a>
-            <a href="#features" class="btn btn-outline-light btn-lg">Explore Matches</a>
+            <a href="{{ url('/user/registration') }}" class="btn btn-hero btn-lg text-white">Create Account</a>
+            <a href="#features" class="btn btn-hero btn-lg text-white">Explore Matches</a>
           </div>
           <div class="d-flex gap-4 mt-4 flex-wrap">
             <div><span class="h4 fw-bold">1k+</span><div>Matches Made</div></div>
@@ -541,6 +597,61 @@ input:-webkit-autofill:active {
       });
       if(input.getAttribute('name')==='password') wrapper.appendChild(eye);
     });
+
+    // Hero typewriter effect
+    (function(){
+      const el = document.getElementById('hero-typed-text');
+      if (!el) return;
+
+      const taglines = [
+        'Join a trusted community of verified singles.',
+        'Discover smart matchmaking built around your values.',
+        'Connect through private, secure conversations.',
+        'Find a life partner, not just a profile.'
+      ];
+
+      let phraseIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+
+      const typingSpeed = 80;
+      const deletingSpeed = 40;
+      const holdTime = 1500;
+      const betweenTime = 500;
+
+      const type = () => {
+        const current = taglines[phraseIndex];
+
+        if (!isDeleting) {
+          charIndex++;
+          el.textContent = current.slice(0, charIndex);
+
+          if (charIndex === current.length) {
+            isDeleting = true;
+            setTimeout(type, holdTime);
+            return;
+          }
+
+          setTimeout(type, typingSpeed);
+        } else {
+          charIndex--;
+          el.textContent = current.slice(0, charIndex);
+
+          if (charIndex === 0) {
+            isDeleting = false;
+            phraseIndex = (phraseIndex + 1) % taglines.length;
+            setTimeout(type, betweenTime);
+            return;
+          }
+
+          setTimeout(type, deletingSpeed);
+        }
+      };
+
+      // Clear fallback text before starting animation
+      el.textContent = '';
+      type();
+    })();
   </script>
 </body>
 </html>

@@ -8,12 +8,14 @@
             <div class="form-group row">
                 <div class="col-md-6">
                     <label for="diet">{{translate('Mothere Tongue')}}</label>
-                    <select class="form-control " name="mothere_tongue" data-live-search="true">
-                        <option value="">{{translate('Select One')}}</option>
-                        @foreach ($languages as $language)
-                            <option value="{{$language->id}}" @if($language->id == $member->member->mothere_tongue) selected @endif> {{ $language->name }} </option>
-                        @endforeach
-                    </select>
+                    <div class="profile-select-wrapper">
+                        <select class="form-control profile-input profile-select" name="mothere_tongue" data-live-search="true">
+                            <option value="">{{translate('Select One')}}</option>
+                            @foreach ($languages as $language)
+                                <option value="{{$language->id}}" @if($language->id == $member->member->mothere_tongue) selected @endif> {{ $language->name }} </option>
+                            @endforeach
+                        </select>
+                    </div>
                     @error('mothere_tongue')
                         <small class="form-text text-danger">{{ $message }}</small>
                     @enderror

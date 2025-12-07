@@ -247,6 +247,7 @@
         color: var(--chat-text-muted);
         background: var(--chat-main-bg), linear-gradient(155deg, rgba(255, 255, 255, 0.92), rgba(244, 251, 248, 0.92));
         background-size: 380px;
+        min-height: 80vh;
     }
 
     .chat-main__placeholder-icon {
@@ -397,6 +398,9 @@
                 <div class="chat-main">
                     <div class="chat-main__header">
                         <h6 class="chat-main__title mb-0">{{ translate('Messages') }}</h6>
+                        <button class="aiz-mobile-toggler d-lg-none aiz-all-chat-toggler" data-toggle="class-toggle" data-target=".chat-user-list-wrap">
+                            <span></span>
+                        </button>
                     </div>
                     <div class="chat-main__placeholder">
                         <span class="chat-main__placeholder-icon">
@@ -432,6 +436,12 @@
                     e.preventDefault();
                     send_reply();
                 });
+
+                // On mobile, auto-close the chat user list sidebar after selecting a chat
+                if (window.innerWidth <= 991) {
+                    $('.chat-user-list-wrap').removeClass('active');
+                    $('.aiz-all-chat-toggler').removeClass('active');
+                }
             });
         }
         function send_reply(){

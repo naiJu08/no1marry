@@ -417,7 +417,7 @@ span.search-text {
                         <h1 class="active_member fw-600 mb-0 mr-3 text-body">{{ translate('All Active Members') }}</h1>
                         <div class="ml-auto d-flex align-items-center flex-wrap">
                             <span class="chip mr-2">{{ translate('Showing') }} {{ $users->firstItem() ?? 0 }}–{{ $users->lastItem() ?? 0 }} {{ translate('of') }} {{ $users->total() }}</span>
-                            <button class="btn btn-sm btn-primary btn-glass d-inline-flex align-items-center justify-content-center" type="button" data-toggle="collapse" data-target="#moreFilters" aria-expanded="false" aria-controls="moreFilters" aria-label="{{ translate('Filters') }}" title="{{ translate('Filters') }}">
+                            <button id="moreFiltersToggle" class="btn btn-sm btn-primary btn-glass d-inline-flex align-items-center justify-content-center" type="button" aria-expanded="false" aria-controls="moreFilters" aria-label="{{ translate('Filters') }}" title="{{ translate('Filters') }}">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M4 6H20M6 12H18M10 18H14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                                 </svg>
@@ -732,6 +732,20 @@ span.search-text {
 
 
     $(document).ready(function(){
+       // Toggle advanced filters panel
+       $('#moreFiltersToggle').on('click', function () {
+           var $target = $('#moreFilters');
+           var isShown = $target.hasClass('show');
+
+           if (isShown) {
+               $target.collapse('hide');
+               $(this).attr('aria-expanded', 'false');
+           } else {
+               $target.collapse('show');
+               $(this).attr('aria-expanded', 'true');
+           }
+       });
+
        get_castes_by_religion();
        get_sub_castes_by_caste();
        get_states_by_country();

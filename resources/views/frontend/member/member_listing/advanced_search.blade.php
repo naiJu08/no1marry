@@ -26,28 +26,6 @@
                 </select>
             </div>
         </div>
-        <div class="filter-bar__field filter-span-12">
-            <label>{{ translate('Religion') }}</label>
-            @php $religions = \App\Models\Religion::all(); @endphp
-            <div class="input-icon">
-                <i class="las la-church"></i>
-                <select name="religion_id" id="religion_id" class="glass-input"  data-live-search="true" >
-                    <option value="">{{translate('Choose One')}}</option>
-                    @foreach ($religions as $religion)
-                        <option value="{{ $religion->id }}" @if($religion->id == $religion_id) selected @endif> {{ $religion->name }} </option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-        <div class="filter-bar__field">
-            <label>{{ translate('Caste') }}</label>
-            <div class="input-icon">
-                <i class="las la-users"></i>
-                <select name="caste_id" id="caste_id" class="glass-input" data-live-search="true" >
-                    <option value="">{{translate('Select One')}}</option>
-                </select>
-            </div>
-        </div>
         <div class="filter-bar__field">
             <label>{{ translate('Sub Caste') }}</label>
             <div class="input-icon">

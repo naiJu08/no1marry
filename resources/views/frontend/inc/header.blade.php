@@ -160,9 +160,9 @@
             <div class="glass-header__bar d-flex align-items-center">
                 <a href="{{ route('dashboard') }}" class="glass-brand mr-3 order-1">
                     @if(get_setting('header_logo') != null)
-                        <img src="{{ static_asset('assets/image-removebg-preview.png') }}" alt="{{ env('APP_NAME') }}">
+                        <img src="{{ static_asset('assets/img/logo2.0.png') }}" alt="{{ env('APP_NAME') }}" >
                     @else
-                        <img src="{{ static_asset('assets/image-removebg-preview.png') }}" alt="{{ env('APP_NAME') }}">
+                        <img src="{{ static_asset('assets/img/logo2.0.png') }}" alt="{{ env('APP_NAME') }}">
                     @endif
                 </a>
                 <div class="glass-header__nav collapse d-lg-flex flex-grow-1 justify-content-center order-2" id="primaryNav">
@@ -439,29 +439,36 @@
                 @endif
             </div>
         </div>
-        <nav class="mobile-bottom-nav d-flex justify-content-around align-items-center px-3" style="position:fixed;bottom:0;left:0;right:0;height:64px;background:#fff;border-top:1px solid rgba(0,0,0,.06);box-shadow:0 -6px 16px rgba(0,0,0,.06);z-index:1051;padding-bottom:env(safe-area-inset-bottom);">
+        <nav class="mobile-bottom-nav d-flex justify-content-around align-items-center px-3" style="position:fixed;bottom:0;left:0;right:0;height:72px;z-index:1051;padding-bottom:env(safe-area-inset-bottom);">
             <button id="mobileHomeBtn" class="mb-item" type="button" aria-label="{{ translate('Menu') }}">
-                <i class="las la-home"></i>
+                <span class="mb-item-icon"><i class="las la-bars"></i></span>
+                <span class="mb-item-label">{{ translate('Menu') }}</span>
             </button>
             <a href="{{ route('member.listing') }}" class="mb-item {{ areActiveRoutes(['member.listing'],'active') }}" aria-label="{{ translate('Members') }}">
-                <i class="las la-users"></i>
+                <span class="mb-item-icon"><i class="las la-users"></i></span>
+                <span class="mb-item-label">{{ translate('Members') }}</span>
             </a>
             <a href="{{ route('packages') }}" class="mb-item {{ areActiveRoutes(['packages'],'active') }}" aria-label="{{ translate('Plans') }}">
-                <i class="las la-gem"></i>
+                <span class="mb-item-icon"><i class="las la-gem"></i></span>
+                <span class="mb-item-label">{{ translate('Plans') }}</span>
             </a>
             @if(Auth::check())
                 <a href="{{ route('all.messages') }}" class="mb-item {{ areActiveRoutes(['all.messages'],'active') }}" aria-label="{{ translate('Messages') }}">
-                    <i class="las la-envelope"></i>
+                    <span class="mb-item-icon"><i class="las la-envelope"></i></span>
+                    <span class="mb-item-label">{{ translate('Messages') }}</span>
                 </a>
                 <a href="{{ route('dashboard') }}" class="mb-item {{ areActiveRoutes(['dashboard'],'active') }}" aria-label="{{ translate('Me') }}">
-                    <i class="las la-user"></i>
+                    <span class="mb-item-icon"><i class="las la-user"></i></span>
+                    <span class="mb-item-label">{{ translate('Me') }}</span>
                 </a>
             @else
                 <a href="{{ route('login') }}" class="mb-item" aria-label="{{ translate('Login') }}">
-                    <i class="las la-sign-in-alt"></i>
+                    <span class="mb-item-icon"><i class="las la-sign-in-alt"></i></span>
+                    <span class="mb-item-label">{{ translate('Login') }}</span>
                 </a>
                 <a href="{{ route('register') }}" class="mb-item" aria-label="{{ translate('Join') }}">
-                    <i class="las la-user-plus"></i>
+                    <span class="mb-item-icon"><i class="las la-user-plus"></i></span>
+                    <span class="mb-item-label">{{ translate('Join') }}</span>
                 </a>
             @endif
         </nav>
@@ -482,10 +489,42 @@
             .mobile-sidebar .ms-link:hover{background:rgba(255,255,255,0.96);box-shadow:0 14px 32px rgba(15,23,42,.24);}
             .mobile-sidebar .ms-link:active{transform:scale(.98)}
             .mobile-sidebar .ms-link i{font-size:20px;width:24px;text-align:center;margin-right:8px}
-            .mobile-bottom-nav .mb-item{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:999px;border:1px solid rgba(0,0,0,.06);background:#fff;color:#111;box-shadow:0 4px 12px rgba(0,0,0,.08);transition:transform .12s ease, background-color .12s ease, color .12s ease, border-color .12s ease}
-            .mobile-bottom-nav .mb-item i{font-size:20px;line-height:1}
-            .mobile-bottom-nav .mb-item:active{transform:scale(.96)}
-            .mobile-bottom-nav .mb-item.active{background:rgba(37,99,235,.12);color:#2563eb;border-color:rgba(37,99,235,.3)}
+
+            /* Mobile bottom navigation */
+            .mobile-bottom-nav{
+              background: radial-gradient(circle at 0% 0%, rgba(248,250,252,0.96), transparent 60%),
+                          radial-gradient(circle at 120% -10%, rgba(191,219,254,0.85), transparent 55%),
+                          rgba(15,23,42,0.92);
+              border-top: 1px solid rgba(148,163,184,.45);
+              box-shadow: 0 -18px 40px rgba(15,23,42,0.55);
+              backdrop-filter: blur(18px) saturate(150%);
+              -webkit-backdrop-filter: blur(18px) saturate(150%);
+            }
+            .mobile-bottom-nav .mb-item{
+              display:flex;
+              flex-direction:column;
+              align-items:center;
+              justify-content:center;
+              min-width:60px;
+              height:56px;
+              border-radius:16px;
+              border:1px solid transparent;
+              background:transparent;
+              color:#e5e7eb;
+              box-shadow:none;
+              transition:transform .16s ease, background-color .16s ease, color .16s ease, border-color .16s ease, box-shadow .16s ease;
+            }
+            .mobile-bottom-nav .mb-item-icon{display:block;font-size:20px;line-height:1}
+            .mobile-bottom-nav .mb-item-label{display:block;font-size:10px;margin-top:3px;font-weight:500;letter-spacing:.02em}
+            .mobile-bottom-nav .mb-item:active{transform:scale(.95)}
+            .mobile-bottom-nav .mb-item:hover:not(.active){background:rgba(15,23,42,0.24);border-color:rgba(148,163,184,.55)}
+            .mobile-bottom-nav .mb-item.active{
+              background:linear-gradient(135deg,#8f62ff,#ff9f7b);
+              color:#fff;
+              border-color:rgba(255,255,255,0.65);
+              box-shadow:0 10px 26px rgba(79,70,229,0.55);
+              transform:translateY(-3px);
+            }
         </style>
         
     </div>

@@ -10,21 +10,25 @@
           <div class="form-group row">
               <div class="col-md-6">
                   <label for="member_religion_id">{{translate('Religion')}}</label>
-                  <select class="form-control " name="member_religion_id" id="member_religion_id" data-live-search="true" required>
-                      <option value="">{{translate('Select One')}}</option>
-                      @foreach ($religions as $religion)
-                          <option value="{{$religion->id}}" @if($religion->id == $member_religion_id) selected @endif> {{ $religion->name }} </option>
-                      @endforeach
-                  </select>
+                  <div class="profile-select-wrapper">
+                      <select class="form-control profile-input profile-select" name="member_religion_id" id="member_religion_id" data-live-search="true" required>
+                          <option value="">{{translate('Select One')}}</option>
+                          @foreach ($religions as $religion)
+                              <option value="{{$religion->id}}" @if($religion->id == $member_religion_id) selected @endif> {{ $religion->name }} </option>
+                          @endforeach
+                      </select>
+                  </div>
                   @error('member_religion_id')
                       <small class="form-text text-danger">{{ $message }}</small>
                   @enderror
               </div>
               <div class="col-md-6">
                   <label for="member_caste_id">{{translate('Caste')}}</label>
-                  <select class="form-control " name="member_caste_id" id="member_caste_id" data-live-search="true" required>
+                  <div class="profile-select-wrapper">
+                      <select class="form-control profile-input profile-select" name="member_caste_id" id="member_caste_id" data-live-search="true" required>
 
-                  </select>
+                      </select>
+                  </div>
                   @error('member_caste_id')
                       <small class="form-text text-danger">{{ $message }}</small>
                   @enderror
@@ -33,13 +37,16 @@
           <div class="form-group row">
               <div class="col-md-6">
                   <label for="member_sub_caste_id">{{translate('Sub Caste')}}</label>
-                  <select class="form-control " name="member_sub_caste_id" id="member_sub_caste_id" data-live-search="true">
+                  <div class="profile-select-wrapper">
+                      <select class="form-control profile-input profile-select" name="member_sub_caste_id" id="member_sub_caste_id" data-live-search="true">
 
-                  </select>
+                      </select>
+                  </div>
               </div>
               <div class="col-md-6">
                   <label for="member_family_value_id">{{translate('Family Status')}}</label>
-              <select class="form-control " name="family_value_id" id="family_value_id">
+              <div class="profile-select-wrapper">
+              <select class="form-control profile-input profile-select" name="family_value_id" id="family_value_id">
                 <option disabled selected>Select Family Values</option>
                 <?php foreach ($family_values as $family_value) {
                 ?>

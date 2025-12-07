@@ -48,7 +48,7 @@
             <div class="form-group row">
                 <div class="col-md-12">
                     <label for="id_upload">{{ translate('Upload Identity Proof') }}</label>
-                    <input type="file" name="id_upload" class="form-control" required>
+                    <input type="file" name="id_upload" class="form-control profile-input" required>
                     @error('id_upload')
                         <small class="form-text text-danger">{{ $message }}</small>
                     @enderror

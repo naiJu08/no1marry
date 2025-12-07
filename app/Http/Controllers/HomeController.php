@@ -846,13 +846,17 @@ public function login()
 public function base()
 {
     if (auth()->check()) {
-        return redirect()->route('member.listing'); // or any route name for dashboard
+        return redirect()->route('member.listing');
     }
 
-    return view('frontend.index');
+    // Serve the public home with no-cache headers to avoid showing
+    // a stale logged-out page after login when using the browser back button.
+    return response()
+        ->view('frontend.index')
+        ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+        ->header('Pragma', 'no-cache')
+        ->header('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT');
 }
-
-
 
 
 }

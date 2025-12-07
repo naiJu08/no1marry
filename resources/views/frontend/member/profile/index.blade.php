@@ -259,6 +259,124 @@
         animation: fadeSlideIn 0.6s ease;
     }
 
+    .profile-section__card .profile-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+    }
+
+    .profile-section__card .profile-list-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.9rem;
+        padding: 0.7rem 0.9rem;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 10px 24px rgba(27, 19, 47, 0.12);
+    }
+
+    .profile-section__card .profile-list-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #291c4d;
+    }
+
+    .profile-section__card .profile-list-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+    }
+
+    .profile-section__card .form-group.row {
+        margin-bottom: 1.15rem;
+    }
+
+    .profile-section__card label {
+        font-size: 0.84rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        color: rgba(32, 22, 58, 0.78);
+        margin-bottom: 0.35rem;
+    }
+
+    .profile-section__card .form-control,
+    .profile-section__card .bootstrap-select .dropdown-toggle {
+        border-radius: 16px;
+        border: 1px solid rgba(196, 181, 253, 0.7);
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 10px 26px rgba(27, 19, 47, 0.12);
+        color: #1f1437;
+        padding: 0.6rem 0.9rem;
+        height: auto;
+    }
+
+    .profile-section__card .profile-input {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 244, 255, 0.98));
+        border-color: rgba(143, 98, 255, 0.55);
+    }
+
+    .profile-section__card .profile-select-wrapper {
+        position: relative;
+    }
+
+    .profile-section__card .profile-select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        padding-right: 2.4rem;
+        cursor: pointer;
+        background-position: right 1rem center;
+        background-repeat: no-repeat;
+    }
+
+    .profile-section__card .profile-select-wrapper::after {
+        content: '';
+        position: absolute;
+        right: 1.1rem;
+        top: 50%;
+        width: 8px;
+        height: 8px;
+        border-right: 2px solid rgba(88, 63, 143, 0.9);
+        border-bottom: 2px solid rgba(88, 63, 143, 0.9);
+        transform: translateY(-50%) rotate(45deg);
+        pointer-events: none;
+    }
+
+    .profile-section__card textarea.form-control {
+        min-height: 120px;
+        border-radius: 22px;
+        resize: vertical;
+    }
+
+    .profile-section__card .form-control::placeholder {
+        color: rgba(114, 94, 140, 0.75);
+    }
+
+    .profile-section__card .form-control:focus,
+    .profile-section__card .bootstrap-select .dropdown-toggle:focus,
+    .profile-section__card .bootstrap-select.show > .dropdown-toggle {
+        outline: none;
+        border-color: rgba(143, 98, 255, 0.95);
+        box-shadow:
+            0 0 0 1px rgba(143, 98, 255, 0.55),
+            0 18px 40px rgba(34, 14, 70, 0.28);
+        background: #ffffff;
+    }
+
+    .profile-section__card .invalid-feedback,
+    .profile-section__card .form-text.text-danger {
+        font-size: 0.8rem;
+        margin-top: 0.25rem;
+    }
+
+    .profile-section__card .text-right .btn,
+    .profile-section__card .card-footer .btn {
+        border-radius: 999px;
+        padding-inline: 1.6rem;
+    }
+
     .profile-section__card .btn,
     .profile-section__card button {
         transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -268,6 +386,43 @@
     .profile-section__card button:hover {
         transform: translateY(-2px);
         box-shadow: 0 10px 20px rgba(144, 98, 255, 0.22);
+    }
+
+    .profile-section__card .btn-primary {
+        background: linear-gradient(135deg, #2d1024, #7b1844);
+        border: none;
+        box-shadow: 0 10px 26px rgba(27, 19, 47, 0.4);
+    }
+
+    .profile-section__card .btn-primary:focus {
+        box-shadow: 0 0 0 0.15rem rgba(143, 98, 255, 0.55), 0 16px 34px rgba(27, 19, 47, 0.6);
+    }
+
+    .profile-section__card .btn-softinfo,
+    .profile-section__card .btn-soft-primary {
+        background: rgba(124, 92, 255, 0.12);
+        border: none;
+        color: #4a328a;
+    }
+
+    .profile-section__card .btn-softdanger,
+    .profile-section__card .btn-soft-danger {
+        background: rgba(244, 63, 94, 0.1);
+        border: none;
+        color: #b02042;
+    }
+
+    .profile-section__card .profile-section__add-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.25rem;
+        font-weight: 600;
+    }
+
+    .profile-section__card .profile-empty-state {
+        font-size: 0.9rem;
+        color: rgba(64, 48, 104, 0.85);
     }
 
     .profile-section__card .table {
