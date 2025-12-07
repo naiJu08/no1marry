@@ -144,15 +144,103 @@
         margin-top: .75rem;
         display: flex;
         flex-direction: column;
+        gap: .4rem;
         align-items: flex-end;
+    }
+    .pp-next-controls {
+        display: flex;
+        gap: .5rem;
+        flex-wrap: wrap;
     }
     .pp-next-btn {
         white-space: nowrap;
     }
     .pp-next-hint {
-        margin-top: .25rem;
         font-size: .75rem;
         color: #8b86a8;
+    }
+    .pp-suggestions {
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: .4rem;
+    }
+    .pp-suggestions-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: .8rem;
+        color: #6b7280;
+    }
+    .pp-suggestions-title {
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+        font-size: .72rem;
+    }
+    .pp-suggestions-count {
+        font-size: .72rem;
+        opacity: .9;
+    }
+    .pp-suggestions-list {
+        display: flex;
+        gap: .6rem;
+        overflow-x: auto;
+        padding: .2rem 0 .1rem;
+    }
+    .pp-suggestion-card {
+        flex: 0 0 auto;
+        width: 220px;
+        border-radius: 16px;
+        background: rgba(255,255,255,0.96);
+        border: 1px solid rgba(226, 232, 240, 0.9);
+        box-shadow: 0 14px 28px rgba(15, 23, 42, 0.12);
+        padding: .55rem .7rem;
+        display: flex;
+        align-items: center;
+        gap: .55rem;
+        color: inherit;
+        text-decoration: none;
+        transition: transform .16s ease, box-shadow .16s ease, background-color .16s ease;
+    }
+    .pp-suggestion-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 18px 34px rgba(15, 23, 42, 0.18);
+        background: rgba(255,255,255,0.98);
+    }
+    .pp-suggestion-avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        overflow: hidden;
+        flex-shrink: 0;
+        background: #e5e7eb;
+    }
+    .pp-suggestion-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .pp-suggestion-body {
+        display: flex;
+        flex-direction: column;
+        gap: .1rem;
+        min-width: 0;
+    }
+    .pp-suggestion-name {
+        font-size: .86rem;
+        font-weight: 600;
+        color: #111827;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .pp-suggestion-meta {
+        font-size: .75rem;
+        color: #6b7280;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .pp-tabs {
         margin-top: 1rem;
@@ -339,6 +427,12 @@
         .pp-next-nav {
             align-items: center;
         }
+        .pp-suggestions-list {
+            padding-bottom: .2rem;
+        }
+        .pp-suggestion-card {
+            width: 78vw;
+        }
     }
 </style>
 
@@ -421,16 +515,63 @@
             </div>
         </div>
 
-        @if(!empty($next_profile_match) && !empty($next_profile_match->match_id))
-            <div class="pp-next-nav">
+        <div class="pp-next-nav">
+            <div class="pp-next-controls">
                 <button type="button"
                         class="pp-btn-ghost pp-next-btn"
-                        onclick="goToNextProfile()">
-                    <span>{{ translate('Next Profile') }}</span>
-                    <i class="la la-arrow-right"></i>
+                        onclick="goToPrevProfile()">
+                    <i class="la la-arrow-left"></i>
+                    <span>{{ translate('Previous') }}</span>
                 </button>
-                <div class="pp-next-hint">
-                    {{ translate('Tip: Swipe left on mobile or press the right arrow key to see the next profile.') }}
+                @if(!empty($next_profile_match) && !empty($next_profile_match->match_id))
+                    <button type="button"
+                            class="pp-btn-ghost pp-next-btn"
+                            onclick="goToNextProfile()">
+                        <span>{{ translate('Next Profile') }}</span>
+                        <i class="la la-arrow-right"></i>
+                    </button>
+                @endif
+            </div>
+            <div class="pp-next-hint">
+                {{ translate('Tip: Swipe left on mobile or press the right arrow key to see the next profile.') }}
+            </div>
+        </div>
+
+        @php
+            $up_next_profiles = isset($similar_profiles) ? $similar_profiles->take(3) : collect();
+        @endphp
+        @if(!empty($next_profile_match) && !empty($next_profile_match->match_id) && $up_next_profiles->count())
+            <div class="pp-suggestions">
+                <div class="pp-suggestions-header">
+                    <span class="pp-suggestions-title">{{ translate('Up next') }}</span>
+                    <span class="pp-suggestions-count">{{ $up_next_profiles->count() }} {{ translate('profiles') }}</span>
+                </div>
+                <div class="pp-suggestions-list">
+                    @foreach($up_next_profiles as $match)
+                        @php
+                            $nextUser = optional($match)->matched_profile;
+                            $nextPresentAddress = $nextUser ? \App\Models\Address::where('user_id',$nextUser->id)->where('type','present')->first() : null;
+                        @endphp
+                        @if($nextUser)
+                            <a href="{{ route('member_profile', $nextUser->id) }}" class="pp-suggestion-card">
+                                <span class="pp-suggestion-avatar">
+                                    <img src="{{ $nextUser->photo ? uploaded_asset($nextUser->photo) : static_asset('assets/img/avatar-place.png') }}" onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';" alt="{{ $nextUser->first_name }}">
+                                </span>
+                                <span class="pp-suggestion-body">
+                                    <span class="pp-suggestion-name">{{ $nextUser->first_name.' '.$nextUser->last_name }}</span>
+                                    <span class="pp-suggestion-meta">
+                                        @php
+                                            $age = !empty(optional($nextUser->member)->birthday) ? \Carbon\Carbon::parse($nextUser->member->birthday)->age.' '.translate('yrs') : null;
+                                            $countryName = optional(optional($nextPresentAddress)->country)->name ?? null;
+                                        @endphp
+                                        @if($age) {{ $age }} @endif
+                                        @if($age && $countryName) &bull; @endif
+                                        @if($countryName) {{ $countryName }} @endif
+                                    </span>
+                                </span>
+                            </a>
+                        @endif
+                    @endforeach
                 </div>
             </div>
         @endif
@@ -1022,10 +1163,16 @@
     @php
         $nextProfileUrl = '';
         if (!empty($next_profile_match) && !empty($next_profile_match->match_id)) {
-            $nextProfileUrl = route('member_profile_clean', $next_profile_match->match_id);
+            $nextProfileUrl = route('member_profile', $next_profile_match->match_id);
         }
     @endphp
     var nextProfileUrl = "{{ $nextProfileUrl }}";
+
+    function goToPrevProfile() {
+        if (window.history.length > 1) {
+            window.history.back();
+        }
+    }
 
     function view_contact(id)
     {
@@ -1207,10 +1354,6 @@
     }
 
     (function() {
-        if (!nextProfileUrl) {
-            return;
-        }
-
         var touchStartX = null;
         var touchEndX = null;
         var SWIPE_THRESHOLD = 60;
@@ -1225,8 +1368,11 @@
             swipeArea.addEventListener('touchend', function(e) {
                 if (!e.changedTouches || !e.changedTouches.length || touchStartX === null) return;
                 touchEndX = e.changedTouches[0].screenX;
-                if (touchStartX - touchEndX > SWIPE_THRESHOLD) {
+                var deltaX = touchStartX - touchEndX;
+                if (deltaX > SWIPE_THRESHOLD && nextProfileUrl) {
                     goToNextProfile();
+                } else if (deltaX < -SWIPE_THRESHOLD) {
+                    goToPrevProfile();
                 }
                 touchStartX = null;
                 touchEndX = null;
@@ -1234,8 +1380,12 @@
         }
 
         document.addEventListener('keydown', function(e) {
-            if ((e.key === 'ArrowRight' || e.key === 'ArrowDown') && nextProfileUrl) {
-                goToNextProfile();
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                if (nextProfileUrl) {
+                    goToNextProfile();
+                }
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                goToPrevProfile();
             }
         });
     })();
