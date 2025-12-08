@@ -237,7 +237,7 @@
   }
 
   .btn-brand {
-    background: linear-gradient(90deg, #ff5f6d, #ffc371);
+    background: #ff5f6d;
     border: none;
   }
 
@@ -318,7 +318,7 @@ input:-webkit-autofill:active {
   <nav class="navbar navbar-expand-lg navbar-dark navbar-transparent fixed-top">
     <div class="container">
       <a class="navbar-brand d-flex align-items-center" href="#home">
-        <img src="{{ static_asset('assets/img/logo2.0.png') }}" alt="No1Marry" class=" me-2" height="90" >
+        <img src="{{ static_asset('assets/img/logo2.1.png') }}" alt="No1Marry" class=" me-2" height="90" >
         <!-- <span class="fw-bold">No1Marry </span> -->
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -350,8 +350,8 @@ input:-webkit-autofill:active {
             <span class="hero-typed-cursor"></span>
           </p>
           <div class="d-flex gap-3 flex-wrap">
-            <a href="{{ url('/user/registration') }}" class="btn btn-hero btn-lg text-white">Create Account</a>
-            <a href="#features" class="btn btn-hero btn-lg text-white">Explore Matches</a>
+            <a href="{{ url('/user/registration') }}" class="btn btn-brand btn-lg  text-white">Create Free Account</a>
+            <a href="#features" class="btn btn-outline-light btn-lg ">Explore Matches</a>
           </div>
           <div class="d-flex gap-4 mt-4 flex-wrap">
             <div><span class="h4 fw-bold">1k+</span><div>Matches Made</div></div>

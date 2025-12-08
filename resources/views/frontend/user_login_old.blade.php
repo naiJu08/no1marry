@@ -538,7 +538,7 @@ border-bottom-right-radius: .3rem;
               <div class="card-body p-md-5 mx-md-4">
 
                 <div class="text-center">
-                  <img src="/public/assets/img/logo2.0.png"
+                  <img src="/public/assets/img/logo2.1.png"
                     style="width: 185px;" alt="logo">
                   <!--<h4 class="mt-1 mb-5 pb-1">We are The No1Marry Team</h4>-->
                 </div>

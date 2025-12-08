@@ -160,9 +160,9 @@
             <div class="glass-header__bar d-flex align-items-center">
                 <a href="{{ route('dashboard') }}" class="glass-brand mr-3 order-1">
                     @if(get_setting('header_logo') != null)
-                        <img src="{{ static_asset('assets/img/logo2.0.png') }}" alt="{{ env('APP_NAME') }}" >
+                        <img src="{{ static_asset('assets/img/logo2.1.png') }}" alt="{{ env('APP_NAME') }}" >
                     @else
-                        <img src="{{ static_asset('assets/img/logo2.0.png') }}" alt="{{ env('APP_NAME') }}">
+                        <img src="{{ static_asset('assets/img/logo2.1.png') }}" alt="{{ env('APP_NAME') }}">
                     @endif
                 </a>
                 <div class="glass-header__nav collapse d-lg-flex flex-grow-1 justify-content-center order-2" id="primaryNav">
