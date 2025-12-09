@@ -101,8 +101,8 @@
     inset:0;
     background:url('{{ static_asset('assets/img/logo2.1.png') }}') center center no-repeat;
     background-size:40vmin;
-    opacity:0.07;
-    z-index:1;
+    opacity:0.2;
+    z-index:3;
     pointer-events:none;
   }
   header.hero::after{
