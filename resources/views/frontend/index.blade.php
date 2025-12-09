@@ -95,14 +95,24 @@
   .hero-bg-3{
     background-image:url('{{ asset('assets/img/main3.png') }}');
   }
+  header.hero::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:url('{{ static_asset('assets/img/logo2.1.png') }}') center center no-repeat;
+    background-size:40vmin;
+    opacity:0.07;
+    z-index:1;
+    pointer-events:none;
+  }
   header.hero::after{
     content:'';
     position:absolute;
     inset:0;
     background:linear-gradient(120deg, rgb(142 104 104 / 75%) 0%, rgba(21, 21, 21, 0.45) 60%, rgb(182 57 93 / 55%) 100%), linear-gradient(to bottom, rgba(21, 21, 21, 0.55) 0%, rgba(21, 21, 21, 0.35) 45%, rgb(132 68 68 / 85%) 100%);
-    z-index:1; /* overlay above image, below content */
+    z-index:2; /* overlay above image, below content */
   }
-  .hero .container{position:relative; z-index:2}
+  .hero .container{position:relative; z-index:3}
   /* Glass login card */
   .glass-card{background:rgb(196 175 175 / 22%); border:1px solid rgba(255,255,255,0.25); backdrop-filter: blur(12px);}
   /* .form-control:focus{box-shadow:0 0 0 .25rem rgba(231,79,122,.25); border-color:var(--brand)}
@@ -148,6 +158,10 @@
     z-index:0;
   }
   .timeline .step:last-child:after{display:none}
+
+  #how{
+    scroll-margin-top: 120px;
+  }
 
   @media (max-width: 767.98px){
     .timeline{gap:16px;}
@@ -303,6 +317,33 @@
     text-decoration: underline;
   }
 
+  .signup-highlight{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    padding:0;
+    border-radius:0;
+    background:transparent;
+    color:#374151; /* simple neutral text */
+    box-shadow:none;
+    font-size:0.95rem;
+  }
+
+  .signup-highlight span{
+    font-weight:400;
+    color:#dde9ff;
+  }
+
+  .signup-highlight a{
+    color:#25b6eb; /* new solid link color */
+    text-decoration:none;
+  }
+
+  .signup-highlight a:hover{
+    text-decoration:underline;
+  }
+
   input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -344,13 +385,14 @@ input:-webkit-autofill:active {
     <div class="container">
       <div class="row align-items-center g-4">
         <div class="col-lg-7 text-white" data-aos="fade-right">
+          <h6 class="text-uppercase text-gradient mb-2">NO1MARRY - MATRIMONIAL WEBSITE</h6>
           <h1 class="display-4 fw-bold">Find Your Perfect Match, the Modern Way</h1>
           <p class="lead mb-4">
             <span id="hero-typed-text">Join a trusted community of verified singles, smart matchmaking and private chats designed to help you find a partner who truly matches your values.</span>
             <span class="hero-typed-cursor"></span>
           </p>
           <div class="d-flex gap-3 flex-wrap">
-            <a href="{{ url('/user/registration') }}" class="btn btn-brand btn-lg  text-white">Create Free Account</a>
+            <a href="{{ url('/user/registration') }}" class="btn btn-brand btn-lg  text-white">Create Account</a>
             <a href="#features" class="btn btn-outline-light btn-lg ">Explore Matches</a>
           </div>
           <div class="d-flex gap-4 mt-4 flex-wrap">
@@ -425,8 +467,10 @@ input:-webkit-autofill:active {
                 </button>
 
                 <div class="text-center mt-3">
-                  <span class="text-muted">New to No1Marry?</span>
-                  <a href="{{ url('/user/registration') }}" class="fw-semibold text-brand">Create account</a>
+                  <div class="signup-highlight">
+                    <span>New to No1Marry?</span>
+                    <a href="{{ url('/user/registration') }}" class="fw-semibold text-brand">Create account</a>
+                  </div>
                 </div>
               </form>
             </div>
@@ -586,17 +630,16 @@ input:-webkit-autofill:active {
     window.addEventListener('scroll', updateHeroBg);
 
     // Toggle password visibility
-    document.querySelectorAll('.input-with-icon').forEach((input)=>{
-      const wrapper = input.parentElement;
-      const eye = document.createElement('i');
-      eye.className = 'fa-solid fa-eye-slash toggle-passwords';
-      eye.addEventListener('click',()=>{
-        input.type = input.type === 'password' ? 'text' : 'password';
-        eye.classList.toggle('fa-eye');
-        eye.classList.toggle('fa-eye-slash');
-      });
-      if(input.getAttribute('name')==='password') wrapper.appendChild(eye);
-    });
+    function togglePassword(){
+      const passwordInput = document.getElementById('passwordInput');
+      const eyeIcon = document.getElementById('eyeIcon');
+      if(!passwordInput || !eyeIcon) return;
+
+      const isPassword = passwordInput.type === 'password';
+      passwordInput.type = isPassword ? 'text' : 'password';
+      eyeIcon.classList.toggle('fa-eye');
+      eyeIcon.classList.toggle('fa-eye-slash');
+    }
 
     // Hero typewriter effect
     (function(){
