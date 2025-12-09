@@ -255,6 +255,11 @@
     border: none;
   }
 
+    .btn-bran-create {
+    background: #104b02;
+    border: none;
+  }
+
   .btn-brand:hover {
     background: linear-gradient(90deg, #ff7b9c, #ffd39f);
   }
@@ -392,7 +397,7 @@ input:-webkit-autofill:active {
             <span class="hero-typed-cursor"></span>
           </p>
           <div class="d-flex gap-3 flex-wrap">
-            <a href="{{ url('/user/registration') }}" class="btn btn-brand btn-lg  text-white">Create Account</a>
+            <a href="{{ url('/user/registration') }}" class="btn btn-bran-create btn-lg  text-white">Create Account</a>
             <a href="#features" class="btn btn-outline-light btn-lg ">Explore Matches</a>
           </div>
           <div class="d-flex gap-4 mt-4 flex-wrap">
