@@ -400,11 +400,11 @@ input:-webkit-autofill:active {
             <a href="{{ url('/user/registration') }}" class="btn btn-bran-create btn-lg  text-white">Create Account</a>
             <a href="#features" class="btn btn-outline-light btn-lg ">Explore Matches</a>
           </div>
-          <div class="d-flex gap-4 mt-4 flex-wrap">
+          <!-- <div class="d-flex gap-4 mt-4 flex-wrap">
             <div><span class="h4 fw-bold">1k+</span><div>Matches Made</div></div>
             <div><span class="h4 fw-bold">5k+</span><div>Active Members</div></div>
             <div><span class="h4 fw-bold">24/7</span><div>Member Support</div></div>
-          </div>
+          </div> -->
         </div>
         <div class="col-lg-5" data-aos="fade-left">
           <div class="card glass-card border-0 rounded-4 shadow-lg">
