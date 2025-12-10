@@ -256,7 +256,7 @@
   }
 
     .btn-bran-create {
-    background: #104b02;
+    background: #efc340;
     border: none;
   }
 
@@ -315,7 +315,7 @@
   }
 
   .text-brand {
-    color: #ff5f6d;
+    color: #4aac1a;
   }
 
   .text-brand:hover {
@@ -390,7 +390,7 @@ input:-webkit-autofill:active {
     <div class="container">
       <div class="row align-items-center g-4">
         <div class="col-lg-7 text-white" data-aos="fade-right">
-          <h6 class="text-uppercase text-gradient mb-2">NO1MARRY - MATRIMONIAL WEBSITE</h6>
+          <h6 class="text-uppercase text-white mb-2">NO1MARRY - MATRIMONIAL WEBSITE</h6>
           <h1 class="display-4 fw-bold">Find Your Perfect Match, the Modern Way</h1>
           <p class="lead mb-4">
             <span id="hero-typed-text">Join a trusted community of verified singles, smart matchmaking and private chats designed to help you find a partner who truly matches your values.</span>
