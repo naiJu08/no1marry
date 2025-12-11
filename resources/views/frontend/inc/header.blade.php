@@ -198,6 +198,16 @@
                                     </span>
                                 </a>
                             </li>
+                            <li class="glass-nav__item {{ request()->is('help_and_support') ? 'is-active' : '' }}">
+                                <a href="{{ url('/help_and_support') }}">
+                                    <span class="glass-nav-pill">
+                                        <span class="glass-nav-pill-icon">
+                                            <i class="las la-life-ring"></i>
+                                        </span>
+                                        <span class="glass-nav-pill-label">{{ translate('Help & Support') }}</span>
+                                    </span>
+                                </a>
+                            </li>
                             <!-- <li class="glass-nav__item {{ areActiveRoutes(['happy_stories'],'is-active') }}">
                                 <a href="{{ route('happy_stories') }}">
                                     <i class="las la-heart"></i>
@@ -404,6 +414,10 @@
                     <i class="las la-crown mr-2"></i>
                     <span>{{ translate('Premium Plans') }}</span>
                 </a>
+                <a href="{{ url('/help_and_support') }}" class="ms-link">
+                    <i class="las la-life-ring mr-2"></i>
+                    <span>{{ translate('Help & Support') }}</span>
+                </a>
                 <!-- <a href="{{ route('happy_stories') }}" class="ms-link">
                     <i class="las la-heart mr-2"></i>
                     <span>{{ translate('Happy Stories') }}</span>
@@ -451,6 +465,10 @@
             <a href="{{ route('packages') }}" class="mb-item {{ areActiveRoutes(['packages'],'active') }}" aria-label="{{ translate('Plans') }}">
                 <span class="mb-item-icon"><i class="las la-gem"></i></span>
                 <span class="mb-item-label">{{ translate('Plans') }}</span>
+            </a>
+            <a href="{{ url('/help_and_support') }}" class="mb-item {{ request()->is('help_and_support') ? 'active' : '' }}" aria-label="{{ translate('Help') }}">
+                <span class="mb-item-icon"><i class="las la-life-ring"></i></span>
+                <span class="mb-item-label">{{ translate('Help') }}</span>
             </a>
             @if(Auth::check())
                 <a href="{{ route('all.messages') }}" class="mb-item {{ areActiveRoutes(['all.messages'],'active') }}" aria-label="{{ translate('Messages') }}">

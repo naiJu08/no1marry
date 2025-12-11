@@ -68,6 +68,11 @@
                             </li>
                         @endcan
                         <li class="aiz-side-nav-item">
+                            <a href="{{ route('admin.complaints.index') }}" class="aiz-side-nav-link">
+                                <span class="aiz-side-nav-text">{{ translate('Complaints') }}</span>
+                            </a>
+                        </li>
+                        <li class="aiz-side-nav-item">
                             <a href="javascript:void(0);" class="aiz-side-nav-link">
                                 <span class="aiz-side-nav-text">{{translate('Profile Attributes')}}</span>
                                 <span class="aiz-side-nav-arrow"></span>

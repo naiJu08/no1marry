@@ -313,6 +313,47 @@
     0%, 50% { opacity:1; }
     50.01%, 100% { opacity:0; }
   }
+  /* Hero meta badges */
+  .hero-meta{
+    margin-top:1.75rem;
+    display:flex;
+    flex-wrap:wrap;
+    gap:1rem;
+  }
+  .hero-meta-item{
+    display:flex;
+    align-items:center;
+    gap:.5rem;
+    padding:.55rem .9rem;
+    border-radius:999px;
+    background:rgba(15,23,42,.6);
+    border:1px solid rgba(248,250,252,.18);
+    box-shadow:0 10px 28px rgba(15,23,42,.6);
+    font-size:.85rem;
+  }
+  .hero-meta-icon{
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(248,250,252,.12);
+    color:#facc15;
+  }
+  .hero-meta-label{
+    font-weight:500;
+  }
+  @media (max-width: 767.98px){
+    .hero-meta{
+      margin-top:1.25rem;
+      gap:.6rem;
+    }
+    .hero-meta-item{
+      padding:.45rem .75rem;
+      font-size:.8rem;
+    }
+  }
 
   .text-brand {
     color: #4aac1a;
@@ -400,11 +441,26 @@ input:-webkit-autofill:active {
             <a href="{{ url('/user/registration') }}" class="btn btn-bran-create btn-lg  text-white">Create Account</a>
             <a href="#features" class="btn btn-outline-light btn-lg ">Explore Matches</a>
           </div>
-          <!-- <div class="d-flex gap-4 mt-4 flex-wrap">
-            <div><span class="h4 fw-bold">1k+</span><div>Matches Made</div></div>
-            <div><span class="h4 fw-bold">5k+</span><div>Active Members</div></div>
-            <div><span class="h4 fw-bold">24/7</span><div>Member Support</div></div>
-          </div> -->
+          <div class="hero-meta" data-aos="fade-up" data-aos-delay="200">
+            <div class="hero-meta-item">
+              <div class="hero-meta-icon">
+                <i class="fa-solid fa-shield-heart"></i>
+              </div>
+              <span class="hero-meta-label">Verified Profiles</span>
+            </div>
+            <div class="hero-meta-item">
+              <div class="hero-meta-icon">
+                <i class="fa-solid fa-calendar-check"></i>
+              </div>
+              <span class="hero-meta-label">6 Years of Trust</span>
+            </div>
+            <div class="hero-meta-item">
+              <div class="hero-meta-icon">
+                <i class="fa-solid fa-heart-circle-check"></i>
+              </div>
+              <span class="hero-meta-label">Matrimonial Website</span>
+            </div>
+          </div>
         </div>
         <div class="col-lg-5" data-aos="fade-left">
           <div class="card glass-card border-0 rounded-4 shadow-lg">

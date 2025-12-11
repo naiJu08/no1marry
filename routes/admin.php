@@ -45,6 +45,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::get('/reported-members/{id}','ReportedUserController@reported_members')->name('reported_members');
     Route::get('/reported/destroy/{id}','ReportedUserController@destroy')->name('report_destrot.destroy');
 
+    Route::get('/complaints', 'ComplaintController@index')->name('admin.complaints.index');
+
     // Bulk member
     Route::get('/member-bulk-add/index','MemberBulkAddController@index')->name('member_bulk_add.index');
     Route::get('/download/on-behalf', 'MemberBulkAddController@pdf_download_on_behalf')->name('pdf.on_behalf');

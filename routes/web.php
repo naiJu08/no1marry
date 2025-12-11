@@ -57,6 +57,7 @@ Route::get('/cancellation_and_refund', function () {
 Route::get('/help_and_support', function () {
     return view('frontend.help_and_support');
 });
+Route::post('/complaints', 'ComplaintController@store')->name('complaints.store');
 //Home Page
 Route::get('/user/registration', 'HomeController@index')->name('index');
 Route::get('/', 'HomeController@base')->name('base');
