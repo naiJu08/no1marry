@@ -46,6 +46,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::get('/reported/destroy/{id}','ReportedUserController@destroy')->name('report_destrot.destroy');
 
     Route::get('/complaints', 'ComplaintController@index')->name('admin.complaints.index');
+    Route::post('/complaints/{id}/status', 'ComplaintController@updateStatus')->name('admin.complaints.update_status');
+    Route::delete('/complaints/{id}', 'ComplaintController@destroy')->name('admin.complaints.destroy');
 
     // Bulk member
     Route::get('/member-bulk-add/index','MemberBulkAddController@index')->name('member_bulk_add.index');

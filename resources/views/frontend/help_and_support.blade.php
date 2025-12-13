@@ -466,6 +466,44 @@
 
                 <div class="support-input-group">
                   <div class="support-input-label">
+                    <span>Phone (optional)</span>
+                  </div>
+                  <div class="support-input-shell">
+                    <span class="support-input-icon">
+                      <i class="fa-solid fa-phone"></i>
+                    </span>
+                    <input
+                      type="text"
+                      id="complaint_phone"
+                      name="phone"
+                      class="support-input"
+                      value="{{ old('phone') }}"
+                      placeholder="Your contact number so we can reach you"
+                    >
+                  </div>
+                </div>
+
+                <div class="support-input-group">
+                  <div class="support-input-label">
+                    <span>Address (optional)</span>
+                  </div>
+                  <div class="support-input-shell">
+                    <span class="support-input-icon" style="top:16px; transform:none;">
+                      <i class="fa-solid fa-location-dot"></i>
+                    </span>
+                    <textarea
+                      id="complaint_address"
+                      name="address"
+                      rows="3"
+                      class="support-input support-input--textarea"
+                      style="padding-left:2.4rem;"
+                      placeholder="City, state or any address details that help us understand your case better"
+                    >{{ old('address') }}</textarea>
+                  </div>
+                </div>
+
+                <div class="support-input-group">
+                  <div class="support-input-label">
                     <span>Subject</span>
                   </div>
                   <div class="support-input-shell">

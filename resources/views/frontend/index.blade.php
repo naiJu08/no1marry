@@ -172,6 +172,15 @@
     header.hero{
       padding-top:10rem !important;
     }
+    /* On small screens keep navbar background solid so hamburger/menu never float on transparent */
+    .navbar{
+      background:linear-gradient(120deg, rgba(15,23,42,0.98), rgba(148,27,89,0.9)) !important;
+      box-shadow:0 10px 30px rgba(15,23,42,0.75);
+    }
+    .navbar.navbar-transparent{
+      background:linear-gradient(120deg, rgba(15,23,42,0.98), rgba(148,27,89,0.9)) !important;
+      box-shadow:0 10px 30px rgba(15,23,42,0.75);
+    }
   }
 
   /* Stories */
@@ -326,7 +335,7 @@
     gap:.5rem;
     padding:.55rem .9rem;
     border-radius:999px;
-    background:rgba(15,23,42,.6);
+    background:rgb(217 65 38 / 62%);
     border:1px solid rgba(248,250,252,.18);
     box-shadow:0 10px 28px rgba(15,23,42,.6);
     font-size:.85rem;
@@ -416,6 +425,7 @@ input:-webkit-autofill:active {
           <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="#how">How it works</a></li>
           <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url('/help_and_support') }}">Help &amp; Support</a></li>
         </ul>
         <div class="d-none d-lg-flex ms-3 gap-2">
           <a href="{{ url('/user/registration') }}" class="btn btn-brand text-white">Register</a>
