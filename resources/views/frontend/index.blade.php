@@ -183,6 +183,52 @@
     }
   }
 
+  /* Support CTA */
+  .support-cta{
+    background:linear-gradient(135deg, rgba(231,79,122,0.08), rgba(93,63,211,0.08));
+    position:relative;
+    overflow:hidden;
+  }
+  .support-cta:before{
+    content:'';
+    position:absolute;
+    width:180px;height:180px;
+    border-radius:50%;
+    background:rgba(231,79,122,0.12);
+    top:-60px;right:-40px;
+    z-index:0;
+  }
+  .support-panel{
+    position:relative;
+    z-index:1;
+    background:#fff;
+    border-radius:26px;
+    padding:2.5rem;
+    box-shadow:0 20px 45px rgba(14,23,38,0.1);
+  }
+  .support-cta h3{
+    color:#111827;
+  }
+  .support-chip{
+    display:flex;
+    align-items:center;
+    gap:.85rem;
+    padding:.65rem 1rem;
+    border-radius:14px;
+    background:#f5f7ff;
+    color:#374151;
+    font-weight:500;
+  }
+  .support-chip i{
+    width:36px;height:36px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(231,79,122,0.15);
+    color:var(--brand);
+  }
+
   /* Stories */
   .story-card{
     border-radius:20px;
@@ -629,6 +675,33 @@ input:-webkit-autofill:active {
         </div>
         <div class="col-lg-4 text-lg-end">
           <a href="{{ url('/user/registration') }}" class="btn btn-lg btn-dark">Join Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5 support-cta" id="support">
+    <div class="container">
+      <div class="support-panel">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-8">
+            <p class="text-uppercase text-muted small fw-semibold mb-1">Need assistance?</p>
+            <h3 class="fw-bold mb-2">We're here 24/7 for Help & Support</h3>
+            <p class="mb-0 text-muted">Reach out to our dedicated support team via email or WhatsApp any time. We respond quickly to ensure your journey stays smooth.</p>
+            <div class="d-flex flex-wrap gap-3 mt-4">
+              <div class="support-chip">
+                <i class="fas fa-envelope"></i>
+                <span>numberonemarry@gmail.com</span>
+              </div>
+              <!-- <div class="support-chip">
+                <i class="fas fa-phone"></i>
+                <span>+91 82810 50418 / +91 83010 70161</span>
+              </div> -->
+            </div>
+          </div>
+          <div class="col-lg-4 text-lg-end">
+            <a href="{{ url('/help_and_support') }}" class="btn btn-lg btn-primary shadow-sm">Visit Help & Support</a>
+          </div>
         </div>
       </div>
     </div>

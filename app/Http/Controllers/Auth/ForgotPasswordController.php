@@ -49,7 +49,14 @@ class ForgotPasswordController extends Controller
                 $user->save();
 
                 EmailUtility::password_reset_email($user, $user->verification_code);
-                return view('auth.passwords.reset');
+
+                return view('auth.passwords.email', [
+                    'user' => $user,
+                    'otpSent' => true,
+                    'submittedContact' => $request->email,
+                    'submittedCountryCode' => $request->country_code,
+                    'contactMode' => 'email'
+                ]);
             }
             else {
                 toastr()->error(translate('No account exists with this email'));
@@ -154,7 +161,14 @@ class ForgotPasswordController extends Controller
             $resp = json_decode($response, true);
             if ($statusCode == 200 && isset($resp['return']) && $resp['return'] == true) {
                 EmailUtility::password_reset_email($user, $otp);
-                return view('auth.passwords.reset', compact('user'));
+
+                return view('auth.passwords.email', [
+                    'user' => $user,
+                    'otpSent' => true,
+                    'submittedContact' => $request->email,
+                    'submittedCountryCode' => $request->country_code,
+                    'contactMode' => 'phone'
+                ]);
             } else {
                 toastr()->error(translate('Failed to send OTP. API Response: ' . json_encode($resp)));
                 return back();

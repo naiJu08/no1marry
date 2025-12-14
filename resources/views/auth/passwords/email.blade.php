@@ -1,527 +1,728 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>No1 Marry.com</title>
+  <title>No1 Marry.com - Password Reset</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="{{ static_asset('assets/assets/css/bootstrap.min.css') }}">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css" rel="stylesheet" />
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script>
-  <link rel="stylesheet" href="{{ static_asset('assets/assets/css/stylemedia.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    body{
-      min-height:100vh;
-      margin:0;
-      padding:0;
-      display:flex;
-      flex-direction:column;
-      background:
-        radial-gradient(circle at top left, rgba(244, 114, 182, 0.25) 0, transparent 55%),
-        radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.25) 0, transparent 55%),
-        linear-gradient(135deg, #f9fafb 0%, #e5e7eb 45%, #e0f2fe 100%);
-      color:#0f172a;
+    :root {
+      --primary: #8a2be2;
+      --primary-dark: #6a1cb0;
+      --secondary: #ff6b9d;
+      --accent: #00d4ff;
+      --light: #f8f9ff;
+      --dark: #1a1a2e;
+      --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      --ai-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
 
-    header{
-      padding:16px 0;
-      background:transparent;
-      position:relative;
-      z-index:2;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    #nav-brand{
-      max-height:60px;
+    body {
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      background-color: var(--light);
+      color: var(--dark);
+      position: relative;
+      overflow-x: hidden;
     }
 
-    /* .forgot-section{
-      flex:1;
-      display:flex;
-      align-items:center;
-      padding:32px 0 56px;
-    } */
-
-    .forgot-card{
-      background:rgba(255,255,255,0.18);
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,0.45);
-      box-shadow:0 20px 55px rgba(15,23,42,0.45);
-      backdrop-filter:blur(18px);
-      min-width:340px;
-      max-width:460px;
-      margin:0 auto;
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(138, 43, 226, 0.05) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(255, 107, 157, 0.05) 0%, transparent 20%);
+      z-index: -1;
     }
 
-    .badge-recovery{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:0.35rem 0.9rem;
-      border-radius:999px;
-      background:rgba(16,185,129,0.12);
-      color:#047857;
-      font-size:0.78rem;
-      font-weight:600;
-      text-transform:uppercase;
-      letter-spacing:0.08em;
-      margin-bottom:1rem;
+    .ai-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.03;
+      background-image: 
+        url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%238a2be2' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
     }
 
-    .badge-recovery i{
-      font-size:0.9rem;
+    .navbar {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+      border-bottom: 1px solid rgba(138, 43, 226, 0.1);
+      padding: 0.8rem 0;
     }
 
-    .forgot-title{
-      font-weight:800;
-      font-size:1.8rem;
-      color:#111827;
+    .navbar-brand {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: 1.8rem;
+      color: var(--primary) !important;
+      display: flex;
+      align-items: center;
     }
 
-    .forgot-subtitle{
-      color:#4b5563;
-      font-size:0.95rem;
+    .navbar-brand img {
+      filter: drop-shadow(0 2px 4px rgba(138, 43, 226, 0.2));
     }
 
-    .forgot-input-group .form-control{
-      height:50px;
-      border-radius:999px;
+    .navbar-nav .nav-link {
+      color: var(--dark) !important;
+      font-weight: 500;
+      margin: 0 0.5rem;
+      padding: 0.5rem 1rem !important;
+      border-radius: 50px;
+      transition: all 0.3s ease;
     }
 
-    .forgot-input-group select.form-control{
-      padding-left:12px;
-      padding-right:12px;
+    .navbar-nav .nav-link:hover {
+      background: var(--gradient);
+      color: white !important;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
     }
 
-    .btn-otp{
-      border-radius:999px;
-      padding:0.75rem 1.5rem;
-      font-weight:700;
-      letter-spacing:0.04em;
-      background:linear-gradient(135deg,#16a34a,#22c55e);
-      border:none;
-      box-shadow:0 14px 32px rgba(34,197,94,0.4);
+    .auth-container {
+      min-height: calc(100vh - 76px);
+      display: flex;
+      align-items: center;
+      padding: 2rem 0;
     }
 
-    .btn-otp:hover{
-      background:linear-gradient(135deg,#15803d,#22c55e);
-      box-shadow:0 18px 42px rgba(22,163,74,0.5);
+    .hero-section {
+      background: linear-gradient(135deg, rgba(138, 43, 226, 0.1) 0%, rgba(255, 107, 157, 0.1) 100%);
+      border-radius: 20px;
+      padding: 3rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
     }
 
-    .forgot-back-link{
-      font-weight:500;
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 400px;
+      height: 400px;
+      background: var(--ai-gradient);
+      border-radius: 50%;
+      opacity: 0.05;
+      filter: blur(40px);
     }
 
-    @media (max-width:576px){
-      .forgot-card{
-        padding:1.5rem !important;
-        min-width:auto;
+    .hero-section::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+      border-radius: 50%;
+      opacity: 0.05;
+      filter: blur(30px);
+    }
+
+    .trust-badge {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50px;
+      padding: 0.5rem 1.2rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(138, 43, 226, 0.1);
+      backdrop-filter: blur(5px);
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: 2.2rem;
+      line-height: 1.3;
+      margin-bottom: 1.5rem;
+      color: var(--dark);
+    }
+
+    .hero-subtitle {
+      color: #666;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .steps-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .steps-list li {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 1.2rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+      border-left: 4px solid var(--primary);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .steps-list li:hover {
+      transform: translateX(5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    .step-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: var(--gradient);
+      border-radius: 50%;
+      color: white;
+      font-size: 1.1rem;
+      margin-right: 1rem;
+      flex-shrink: 0;
+    }
+
+    .step-content h5 {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      color: var(--dark);
+    }
+
+    .step-content p {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 0;
+    }
+
+    /* Right Panel - Form */
+    .form-section {
+      background: white;
+      border-radius: 20px;
+      padding: 2.5rem;
+      height: 100%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(138, 43, 226, 0.1);
+    }
+
+    .form-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--gradient);
+    }
+
+    .secure-badge {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(0, 212, 255, 0.1);
+      color: var(--accent);
+      border-radius: 50px;
+      padding: 0.5rem 1.2rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(0, 212, 255, 0.3);
+    }
+
+    .form-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+    }
+
+    .form-subtitle {
+      color: #666;
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+
+    .phone-input-container {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+    }
+
+    .country-select {
+      flex: 0 0 120px;
+    }
+
+    .phone-input {
+      flex: 1;
+    }
+
+    .form-control, .select2-selection {
+      border: 2px solid #eef2f7;
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      height: auto;
+    }
+
+    .form-control:focus, .select2-selection:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.1);
+    }
+
+    .btn-otp {
+      background: var(--gradient);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 1rem;
+      font-weight: 600;
+      font-size: 1rem;
+      width: 100%;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-otp:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(138, 43, 226, 0.4);
+      color: white;
+    }
+
+    .btn-otp::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.7s;
+    }
+
+    .btn-otp:hover::after {
+      left: 100%;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: var(--primary-dark);
+      text-decoration: none;
+      transform: translateX(-5px);
+    }
+
+    .ai-features {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .ai-feature {
+      text-align: center;
+      flex: 1;
+      padding: 0 0.5rem;
+    }
+
+    .ai-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: var(--ai-gradient);
+      border-radius: 12px;
+      color: white;
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .ai-feature h6 {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.3rem;
+      color: var(--dark);
+    }
+
+    .ai-feature p {
+      font-size: 0.8rem;
+      color: #666;
+      margin-bottom: 0;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 1.5rem 0;
+      color: #666;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      margin-top: 2rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+      .hero-section, .form-section {
+        padding: 2rem;
       }
-      .forgot-title{
-        font-size:1.55rem;
+      
+      .hero-title {
+        font-size: 1.8rem;
       }
+      
+      .auth-container {
+        padding: 1rem 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .phone-input-container {
+        flex-direction: column;
+      }
+      
+      .country-select {
+        flex: 0 0 auto;
+      }
+      
+      .ai-features {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+    }
+
+    /* Select2 customization */
+    .select2-container--default .select2-selection--single {
+      border: 2px solid #eef2f7;
+      border-radius: 12px;
+      height: auto;
+      padding: 0.75rem 1rem;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+      line-height: 1.5;
+      padding-left: 0;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+      height: 100%;
     }
   </style>
 </head>
 <body>
-
-  <header>
-    <div class="container-fluid">
-          <div class="row">
-                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
-                    
-                       <img src="{{ static_asset('assets/assets_1/img/logo.jpg') }}" id="nav-brand">
-                </div>
-                <!-- <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
-                    
-                  <ul id="nav-lang">
-                     <li><a href="#" class="btn btn-primary" id="login-btn">LOG IN</a></li>
-                    
-                     <li class="nav-item dropdown">
-                       <form action="" method="post">
-                        <select id="lang-dropdown">
-                          <option disabled selected="disabled">Language</option>
-                          <option>Malayalam</option>
-                          <option>Tamil</option>
-                          <option>Arabic</option>
-                          <option>Urdu</option>
-                          <option>English</option>
-                          <option>Mandarin Chinese</option>
-                          <option>Spanish</option>
-                          <option>Hindi</option>
-                          <option>Bengali</option>
-                          <option>Portuguese</option>
-                          <option>Russian</option>
-                          <option>Japanese</option>
-                          <option>Western Punjabi</option>
-                          <option>Javanese</option>
-                          
-
-                     </select>
-                       </form>
-                      </li>
-                     
-                  </ul>
-                
-             </div> -->
-          </div>
+  <div class="ai-background"></div>
+  
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="{{ url('/') }}">
+        <img src="{{ static_asset('assets/img/logo2.1.png') }}" alt="No1Marry" class="mr-2" height="40">
+        <!-- <span>No1Marry.com</span> -->
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('/') }}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('/help_and_support') }}">Help & Support</a>
+          </li>
+        </ul>
+      </div>
     </div>
- </header>
+  </nav>
 
-<section class="mt-2 forgot-section">
-    <div class="py-6">
-        <div class="container">
-            <div class="row">
-                <div class="col-xxl-5 col-xl-6 col-md-8 mx-auto">
-                    <div class="forgot-card p-4 p-md-5 text-left">
-                        <div class="badge-recovery">
-                          <i class="fa fa-shield-alt"></i>
-                          <span>{{ translate('Secure password recovery') }}</span>
-                        </div>
-                        <h1 class="h3 fw-600 forgot-title">{{ translate('Forgot Password?') }}</h1>
-                        <p class="mb-4 opacity-60 forgot-subtitle">
-                            @if (addon_activation('otp_system'))
-                                {{translate('Enter your  Mobile number to recover your password.')}}
-                            @else
-                                {{translate('Enter your Mobile number to recover your password.')}}
-                            @endif
-                        </p>
-                        <form method="POST" action="{{ route('password.email') }}">
-                            @csrf
-                            <div class="form-group">
-                                {{-- @if (addon_activation('otp_system'))
-                                    <input id="email" type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required placeholder="{{ translate('Email or Phone') }}">
-                                @else
-                                    <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{ translate('Email') }}" name="email">
-                                @endif --}}
-                                <div class="row mt-5 forgot-input-group">
-                                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 col-xs-4 mt-2">
-                                      
-                                      <select class="form-control select2 " id="dropdown_663" name="country_code">
-                                        <option value="91">India (IN +91)</option>
-                                        <option value="93">Afghanistan (AF +93)</option>
-                                        <option value="358">Aland Islands (AX +358)</option>
-                                        <option value="355">Albania (AL +355)</option>
-                                        <option value="213">Algeria (DZ +213)</option>
-                                        <option value="1684">American Samoa (AS +1684)</option>
-                                        <option value="376">Andorra (AD +376)</option>
-                                        <option value="244">Angola (AO +244)</option>
-                                        <option value="1264">Anguilla (AI +1264)</option>
-                                        <option value="672">Antarctica (AQ +672)</option>
-                                        <option value="1268">Antigua and Barbuda (AG +1268)</option>
-                                        <option value="54">Argentina (AR +54)</option>
-                                        <option value="374">Armenia (AM +374)</option>
-                                        <option value="297">Aruba (AW +297)</option>
-                                        <option value="61">Australia (AU +61)</option>
-                                        <option value="43">Austria (AT +43)</option>
-                                        <option value="994">Azerbaijan (AZ +994)</option>
-                                        <option value="1242">Bahamas (BS +1242)</option>
-                                        <option value="973">Bahrain (BH +973)</option>
-                                        <option value="880">Bangladesh (BD +880)</option>
-                                        <option value="1246">Barbados (BB +1246)</option>
-                                        <option value="375">Belarus (BY +375)</option>
-                                        <option value="32">Belgium (BE +32)</option>
-                                        <option value="501">Belize (BZ +501)</option>
-                                        <option value="229">Benin (BJ +229)</option>
-                                        <option value="1441">Bermuda (BM +1441)</option>
-                                        <option value="975">Bhutan (BT +975)</option>
-                                        <option value="591">Bolivia (BO +591)</option>
-                                        <option value="599">Bonaire, Sint Eustatius and Saba (BQ +599)</option>
-                                        <option value="387">Bosnia and Herzegovina (BA +387)</option>
-                                        <option value="267">Botswana (BW +267)</option>
-                                        <option value="55">Bouvet Island (BV +55)</option>
-                                        <option value="55">Brazil (BR +55)</option>
-                                        <option value="246">British Indian Ocean Territory (IO +246)</option>
-                                        <option value="673">Brunei Darussalam (BN +673)</option>
-                                        <option value="359">Bulgaria (BG +359)</option>
-                                        <option value="226">Burkina Faso (BF +226)</option>
-                                        <option value="257">Burundi (BI +257)</option>
-                                        <option value="855">Cambodia (KH +855)</option>
-                                        <option value="237">Cameroon (CM +237)</option>
-                                        <option value="1">Canada (CA +1)</option>
-                                        <option value="238">Cape Verde (CV +238)</option>
-                                        <option value="1345">Cayman Islands (KY +1345)</option>
-                                        <option value="236">Central African Republic (CF +236)</option>
-                                        <option value="235">Chad (TD +235)</option>
-                                        <option value="56">Chile (CL +56)</option>
-                                        <option value="86">China (CN +86)</option>
-                                        <option value="61">Christmas Island (CX +61)</option>
-                                        <option value="672">Cocos (Keeling) Islands (CC +672)</option>
-                                        <option value="57">Colombia (CO +57)</option>
-                                        <option value="269">Comoros (KM +269)</option>
-                                        <option value="242">Congo (CG +242)</option>
-                                        <option value="242">Congo, Democratic Republic of the (CD +242)</option>
-                                        <option value="682">Cook Islands (CK +682)</option>
-                                        <option value="506">Costa Rica (CR +506)</option>
-                                        <option value="225">Cote d'Ivoire (CI +225)</option>
-                                        <option value="385">Croatia (HR +385)</option>
-                                        <option value="53">Cuba (CU +53)</option>
-                                        <option value="599">Curacao (CW +599)</option>
-                                        <option value="357">Cyprus (CY +357)</option>
-                                        <option value="420">Czech Republic (CZ +420)</option>
-                                        <option value="45">Denmark (DK +45)</option>
-                                        <option value="253">Djibouti (DJ +253)</option>
-                                        <option value="1767">Dominica (DM +1767)</option>
-                                        <option value="1809">Dominican Republic (DO +1809)</option>
-                                        <option value="593">Ecuador (EC +593)</option>
-                                        <option value="20">Egypt (EG +20)</option>
-                                        <option value="503">El Salvador (SV +503)</option>
-                                        <option value="240">Equatorial Guinea (GQ +240)</option>
-                                        <option value="291">Eritrea (ER +291)</option>
-                                        <option value="372">Estonia (EE +372)</option>
-                                        <option value="251">Ethiopia (ET +251)</option>
-                                        <option value="500">Falkland Islands (Malvinas) (FK +500)</option>
-                                        <option value="298">Faroe Islands (FO +298)</option>
-                                        <option value="679">Fiji (FJ +679)</option>
-                                        <option value="358">Finland (FI +358)</option>
-                                        <option value="33">France (FR +33)</option>
-                                        <option value="594">French Guiana (GF +594)</option>
-                                        <option value="689">French Polynesia (PF +689)</option>
-                                        <option value="262">French Southern Territories (TF +262)</option>
-                                        <option value="241">Gabon (GA +241)</option>
-                                        <option value="220">Gambia (GM +220)</option>
-                                        <option value="995">Georgia (GE +995)</option>
-                                        <option value="49">Germany (DE +49)</option>
-                                        <option value="233">Ghana (GH +233)</option>
-                                        <option value="350">Gibraltar (GI +350)</option>
-                                        <option value="30">Greece (GR +30)</option>
-                                        <option value="299">Greenland (GL +299)</option>
-                                        <option value="1473">Grenada (GD +1473)</option>
-                                        <option value="590">Guadeloupe (GP +590)</option>
-                                        <option value="1671">Guam (GU +1671)</option>
-                                        <option value="502">Guatemala (GT +502)</option>
-                                        <option value="44">Guernsey (GG +44)</option>
-                                        <option value="224">Guinea (GN +224)</option>
-                                        <option value="245">Guinea-Bissau (GW +245)</option>
-                                        <option value="592">Guyana (GY +592)</option>
-                                        <option value="509">Haiti (HT +509)</option>
-                                        <option value="39">Holy See (Vatican City State) (VA +39)</option>
-                                        <option value="504">Honduras (HN +504)</option>
-                                        <option value="852">Hong Kong (HK +852)</option>
-                                        <option value="36">Hungary (HU +36)</option>
-                                        <option value="354">Iceland (IS +354)</option>
-                                        <option value="62">Indonesia (ID +62)</option>
-                                        <option value="98">Iran, Islamic Republic of (IR +98)</option>
-                                        <option value="964">Iraq (IQ +964)</option>
-                                        <option value="353">Ireland (IE +353)</option>
-                                        <option value="44">Isle of Man (IM +44)</option>
-                                        <option value="972">Israel (IL +972)</option>
-                                        <option value="39">Italy (IT +39)</option>
-                                        <option value="1876">Jamaica (JM +1876)</option>
-                                        <option value="81">Japan (JP +81)</option>
-                                        <option value="44">Jersey (JE +44)</option>
-                                        <option value="962">Jordan (JO +962)</option>
-                                        <option value="7">Kazakhstan (KZ +7)</option>
-                                        <option value="254">Kenya (KE +254)</option>
-                                        <option value="686">Kiribati (KI +686)</option>
-                                        <option value="850">Korea, Democratic People's Republic of (North Korea) (KP +850)</option>
-                                        <option value="82">Korea, Republic of (South Korea) (KR +82)</option>
-                                        <option value="383">Kosovo (XK +383)</option>
-                                        <option value="965">Kuwait (KW +965)</option>
-                                        <option value="996">Kyrgyzstan (KG +996)</option>
-                                        <option value="856">Lao People's Democratic Republic (Laos) (LA +856)</option>
-                                        <option value="371">Latvia (LV +371)</option>
-                                        <option value="961">Lebanon (LB +961)</option>
-                                        <option value="266">Lesotho (LS +266)</option>
-                                        <option value="231">Liberia (LR +231)</option>
-                                        <option value="218">Libya (LY +218)</option>
-                                        <option value="423">Liechtenstein (LI +423)</option>
-                                        <option value="370">Lithuania (LT +370)</option>
-                                        <option value="352">Luxembourg (LU +352)</option>
-                                        <option value="853">Macao (MO +853)</option>
-                                        <option value="389">North Macedonia (MK +389)</option>
-                                        <option value="261">Madagascar (MG +261)</option>
-                                        <option value="265">Malawi (MW +265)</option>
-                                        <option value="60">Malaysia (MY +60)</option>
-                                        <option value="960">Maldives (MV +960)</option>
-                                        <option value="223">Mali (ML +223)</option>
-                                        <option value="356">Malta (MT +356)</option>
-                                        <option value="692">Marshall Islands (MH +692)</option>
-                                        <option value="596">Martinique (MQ +596)</option>
-                                        <option value="222">Mauritania (MR +222)</option>
-                                        <option value="230">Mauritius (MU +230)</option>
-                                        <option value="262">Mayotte (YT +262)</option>
-                                        <option value="52">Mexico (MX +52)</option>
-                                        <option value="691">Micronesia, Federated States of (FM +691)</option>
-                                        <option value="373">Moldova (MD +373)</option>
-                                        <option value="377">Monaco (MC +377)</option>
-                                        <option value="976">Mongolia (MN +976)</option>
-                                        <option value="382">Montenegro (ME +382)</option>
-                                        <option value="1664">Montserrat (MS +1664)</option>
-                                        <option value="212">Morocco (MA +212)</option>
-                                        <option value="258">Mozambique (MZ +258)</option>
-                                        <option value="95">Myanmar (MM +95)</option>
-                                        <option value="264">Namibia (NA +264)</option>
-                                        <option value="674">Nauru (NR +674)</option>
-                                        <option value="977">Nepal (NP +977)</option>
-                                        <option value="31">Netherlands (NL +31)</option>
-                                        <option value="599">Netherlands Antilles (AN +599)</option>
-                                        <option value="687">New Caledonia (NC +687)</option>
-                                        <option value="64">New Zealand (NZ +64)</option>
-                                        <option value="505">Nicaragua (NI +505)</option>
-                                        <option value="227">Niger (NE +227)</option>
-                                        <option value="234">Nigeria (NG +234)</option>
-                                        <option value="683">Niue (NU +683)</option>
-                                        <option value="672">Norfolk Island (NF +672)</option>
-                                        <option value="1670">Northern Mariana Islands (MP +1670)</option>
-                                        <option value="47">Norway (NO +47)</option>
-                                        <option value="968">Oman (OM +968)</option>
-                                        <option value="92">Pakistan (PK +92)</option>
-                                        <option value="680">Palau (PW +680)</option>
-                                        <option value="970">Palestine (PS +970)</option>
-                                        <option value="507">Panama (PA +507)</option>
-                                        <option value="675">Papua New Guinea (PG +675)</option>
-                                        <option value="595">Paraguay (PY +595)</option>
-                                        <option value="51">Peru (PE +51)</option>
-                                        <option value="63">Philippines (PH +63)</option>
-                                        <option value="64">Pitcairn (PN +64)</option>
-                                        <option value="48">Poland (PL +48)</option>
-                                        <option value="351">Portugal (PT +351)</option>
-                                        <option value="1787">Puerto Rico (PR +1787)</option>
-                                        <option value="974">Qatar (QA +974)</option>
-                                        <option value="262">Reunion (RE +262)</option>
-                                        <option value="40">Romania (RO +40)</option>
-                                        <option value="7">Russian Federation (RU +7)</option>
-                                        <option value="250">Rwanda (RW +250)</option>
-                                        <option value="590">Saint Barthelemy (BL +590)</option>
-                                        <option value="290">Saint Helena (SH +290)</option>
-                                        <option value="1869">Saint Kitts and Nevis (KN +1869)</option>
-                                        <option value="1758">Saint Lucia (LC +1758)</option>
-                                        <option value="590">Saint Martin (MF +590)</option>
-                                        <option value="508">Saint Pierre and Miquelon (PM +508)</option>
-                                        <option value="1784">Saint Vincent and the Grenadines (VC +1784)</option>
-                                        <option value="684">Samoa (WS +684)</option>
-                                        <option value="378">San Marino (SM +378)</option>
-                                        <option value="239">Sao Tome and Principe (ST +239)</option>
-                                        <option value="966">Saudi Arabia (SA +966)</option>
-                                        <option value="221">Senegal (SN +221)</option>
-                                        <option value="381">Serbia (RS +381)</option>
-                                        <option value="248">Seychelles (SC +248)</option>
-                                        <option value="232">Sierra Leone (SL +232)</option>
-                                        <option value="65">Singapore (SG +65)</option>
-                                        <option value="721">Sint Maarten (SX +721)</option>
-                                        <option value="421">Slovakia (SK +421)</option>
-                                        <option value="386">Slovenia (SI +386)</option>
-                                        <option value="677">Solomon Islands (SB +677)</option>
-                                        <option value="252">Somalia (SO +252)</option>
-                                        <option value="27">South Africa (ZA +27)</option>
-                                        <option value="500">South Georgia and the South Sandwich Islands (GS +500)</option>
-                                        <option value="211">South Sudan (SS +211)</option>
-                                        <option value="34">Spain (ES +34)</option>
-                                        <option value="94">Sri Lanka (LK +94)</option>
-                                        <option value="249">Sudan (SD +249)</option>
-                                        <option value="597">Suriname (SR +597)</option>
-                                        <option value="47">Svalbard and Jan Mayen (SJ +47)</option>
-                                        <option value="268">Swaziland (SZ +268)</option>
-                                        <option value="46">Sweden (SE +46)</option>
-                                        <option value="41">Switzerland (CH +41)</option>
-                                        <option value="963">Syrian Arab Republic (SY +963)</option>
-                                        <option value="886">Taiwan, Province of China (TW +886)</option>
-                                        <option value="992">Tajikistan (TJ +992)</option>
-                                        <option value="255">Tanzania, United Republic of (TZ +255)</option>
-                                        <option value="66">Thailand (TH +66)</option>
-                                        <option value="670">Timor-Leste (TL +670)</option>
-                                        <option value="228">Togo (TG +228)</option>
-                                        <option value="690">Tokelau (TK +690)</option>
-                                        <option value="676">Tonga (TO +676)</option>
-                                        <option value="1868">Trinidad and Tobago (TT +1868)</option>
-                                        <option value="216">Tunisia (TN +216)</option>
-                                        <option value="90">Turkey (TR +90)</option>
-                                        <option value="7370">Turkmenistan (TM +7370)</option>
-                                        <option value="1649">Turks and Caicos Islands (TC +1649)</option>
-                                        <option value="688">Tuvalu (TV +688)</option>
-                                        <option value="256">Uganda (UG +256)</option>
-                                        <option value="380">Ukraine (UA +380)</option>
-                                        <option value="971">United Arab Emirates (AE +971)</option>
-                                        <option value="44">United Kingdom (GB +44)</option>
-                                        <option value="1">United States (US +1)</option>
-                                        <option value="1">United States Minor Outlying Islands (UM +1)</option>
-                                        <option value="598">Uruguay (UY +598)</option>
-                                        <option value="998">Uzbekistan (UZ +998)</option>
-                                        <option value="678">Vanuatu (VU +678)</option>
-                                        <option value="58">Venezuela (VE +58)</option>
-                                        <option value="84">Vietnam (VN +84)</option>
-                                        <option value="1284">Virgin Islands, British (VG +1284)</option>
-                                        <option value="1340">Virgin Islands, U.S. (VI +1340)</option>
-                                        <option value="681">Wallis and Futuna (WF +681)</option>
-                                        <option value="212">Western Sahara (EH +212)</option>
-                                        <option value="967">Yemen (YE +967)</option>
-                                        <option value="260">Zambia (ZM +260)</option>
-                                        <option value="263">Zimbabwe (ZW +263)</option>
-                                     </select>
-                                    </div>
-                                    <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 col-xs-8">
-                                          <input id="tel" type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" autocomplete="off" required placeholder="{{ translate('Phone') }}" required>
-                     
-                                    </div>
-                            </div>
-    
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                            <div class="form-group text-right mt-4">
-                                <button class="btn btn-otp btn-block" type="submit">
-                                    {{ translate('Send Password Reset OTP') }}
-                                </button>
-                            </div>
-                        </form>
-                        <div class="mt-3" style="text-align: center">
-                            <a href="{{route('user.login')}}" class="text-reset opacity-60 forgot-back-link">{{translate('Back to Login')}}</a>
-                        </div>
-                    </div>
-                </div>
+  @php
+    $otpSent = $otpSent ?? false;
+    $contactMode = $contactMode ?? 'phone';
+    $submittedContact = isset($submittedContact) ? $submittedContact : old('email');
+    $submittedCountryCode = isset($submittedCountryCode) ? $submittedCountryCode : old('country_code', '91');
+  @endphp
+
+  <!-- Main Content -->
+  <div class="auth-container">
+    <div class="container">
+      <div class="row align-items-stretch">
+        <!-- Left Panel - Hero Section -->
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <div class="hero-section">
+            <div class="trust-badge">
+              <i class="fas fa-heart text-danger mr-2"></i>
+              {{ translate('AI-Powered Matrimonial Platform') }}
             </div>
+            
+            <h1 class="hero-title">
+              {{ translate('Reset your password and continue your journey to find love') }}
+            </h1>
+            
+            <p class="hero-subtitle">
+              {{ translate('Our AI-powered system ensures your account recovery is both secure and effortless. Enter your mobile number to receive a secure reset link or OTP.') }}
+            </p>
+            
+            <ul class="steps-list">
+              <li>
+                <div class="step-icon">1</div>
+                <div class="step-content">
+                  <h5>{{ translate('Enter Your Details') }}</h5>
+                  <p>{{ translate('Choose your country code and enter the registered mobile number.') }}</p>
+                </div>
+              </li>
+              <li>
+                <div class="step-icon">2</div>
+                <div class="step-content">
+                  <h5>{{ translate('Receive Secure Code') }}</h5>
+                  <p>{{ translate('We send a secure reset link / OTP to your mobile or email.') }}</p>
+                </div>
+              </li>
+              <li>
+                <div class="step-icon">3</div>
+                <div class="step-content">
+                  <h5>{{ translate('Create New Password') }}</h5>
+                  <p>{{ translate('Create a new password and log in safely to your account.') }}</p>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
-    </div>
-</section>
-<script>
-  function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-    document.getElementById("main").style.marginLeft = "250px";
-    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-  }
-  
-  function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("main").style.marginLeft= "0";
-    document.body.style.backgroundColor = "white";
-  }
-  </script>
-<script>
-  $(".toggle-password").click(function() {
-     $(this).toggleClass("fa-eye fa-eye-slash");
-     input = $(this).parent().find("input");
-     if (input.attr("type") == "password") {
-         input.attr("type", "text");
-     } else {
-         input.attr("type", "password");
-     }
- });
- </script>
-<script>
-  
-    $(document).ready(function()
-    {
-     $('#dropdown_663').select2();
-   
-    });
 
-</script>
-<script src="{{ static_asset('assets/assets_1/js/bootstrap.bundle.js') }}"></script>
-<script src="{{ static_asset('assets/assets_1/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ static_asset('assets/assets_1/js/bootstrap.esm.js') }}"></script>
-<script src="{{ static_asset('assets/assets_1/js/bootstrap.esm.min.js') }}"></script>
-<script src="{{ static_asset('assets/assets_1/js/bootstrap.esm.min.js') }}"></script>
-<script src="{{ static_asset('assets/assets_1/js/bootstrap.js') }}"></script>
-<script src="{{ static_asset('assets/assets_1/js/bootstrap.min.js') }}"></script>
+        <!-- Right Panel - Form Section -->
+        <div class="col-lg-6">
+          <div class="form-section">
+            <div class="secure-badge">
+              <i class="fas fa-shield-alt mr-2"></i>
+              {{ translate('AI-Enhanced Security') }}
+            </div>
+            
+            <h2 class="form-title">{{ $otpSent ? translate('Verify & Update Password') : translate('Reset Your Password') }}</h2>
+            <p class="form-subtitle">
+              @if(!$otpSent)
+                {{ translate('Enter your registered WhatsApp number and we will send a secure OTP to complete your password reset.') }}
+              @else
+                {{ translate('Enter the OTP you received and create your new password to regain access immediately.') }}
+              @endif
+            </p>
+
+            @if($otpSent && isset($submittedContact))
+              <div class="alert alert-success d-flex align-items-start">
+                <i class="fas fa-check-circle mr-2 mt-1"></i>
+                <div>
+                  <strong>{{ translate('OTP sent!') }}</strong><br>
+                  {{ translate('We sent a verification code to') }}
+                  {{ $contactMode === 'email' ? $submittedContact : ('+'. $submittedCountryCode.' '.$submittedContact) }}.
+                  {{ translate('Please enter it below along with your new password.') }}
+                </div>
+              </div>
+            @endif
+
+            @if(!$otpSent)
+              <form method="POST" action="{{ route('password.email') }}">
+                @csrf
+                <div class="form-group">
+                  <label for="phone" class="form-label">{{ translate('Registered WhatsApp Number') }}</label>
+                  <div class="phone-input-container">
+                    <div class="country-select">
+                      <select class="form-control select2" id="country_code" name="country_code">
+                        <option value="91" {{ $submittedCountryCode == '91' ? 'selected' : '' }}>India (+91)</option>
+                        <option value="1" {{ $submittedCountryCode == '1' ? 'selected' : '' }}>USA/Canada (+1)</option>
+                        <option value="44" {{ $submittedCountryCode == '44' ? 'selected' : '' }}>UK (+44)</option>
+                        <option value="971" {{ $submittedCountryCode == '971' ? 'selected' : '' }}>UAE (+971)</option>
+                        <option value="61" {{ $submittedCountryCode == '61' ? 'selected' : '' }}>Australia (+61)</option>
+                        <option value="65" {{ $submittedCountryCode == '65' ? 'selected' : '' }}>Singapore (+65)</option>
+                      </select>
+                    </div>
+                    <div class="phone-input">
+                      <input id="tel" type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                             name="email" value="{{ $submittedContact }}" autocomplete="off" required
+                             placeholder="{{ translate('Enter your mobile number') }}">
+                    </div>
+                  </div>
+
+                  @if ($errors->has('email'))
+                    <div class="invalid-feedback d-block">
+                      <strong>{{ $errors->first('email') }}</strong>
+                    </div>
+                  @endif
+                </div>
+
+                <div class="form-group mt-4">
+                  <button class="btn btn-otp" type="submit">
+                    <i class="fas fa-key mr-2"></i>
+                    {{ translate('Send OTP to WhatsApp') }}
+                  </button>
+                </div>
+              </form>
+            @else
+              <form method="POST" action="{{ route('password.update') }}">
+                @csrf
+                <input type="hidden" name="email" value="{{ optional($user)->id }}">
+
+                <div class="form-group">
+                  <label for="otp" class="form-label">{{ translate('Enter OTP') }}</label>
+                  <input id="otp" type="text" class="form-control{{ $errors->has('code') ? ' is-invalid' : '' }}" name="code" required>
+                  @if ($errors->has('code'))
+                    <div class="invalid-feedback d-block">
+                      <strong>{{ $errors->first('code') }}</strong>
+                    </div>
+                  @endif
+                </div>
+
+                <div class="form-group">
+                  <label for="password" class="form-label">{{ translate('New Password') }}</label>
+                  <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                  @if ($errors->has('password'))
+                    <div class="invalid-feedback d-block">
+                      <strong>{{ $errors->first('password') }}</strong>
+                    </div>
+                  @endif
+                </div>
+
+                <div class="form-group">
+                  <label for="password-confirm" class="form-label">{{ translate('Confirm Password') }}</label>
+                  <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                </div>
+
+                <div class="form-group mt-4">
+                  <button class="btn btn-otp" type="submit">
+                    <i class="fas fa-lock mr-2"></i>
+                    {{ translate('Verify & Update Password') }}
+                  </button>
+                </div>
+              </form>
+
+              <div class="text-center mt-3">
+                <a href="{{ route('password.request') }}" class="back-link">
+                  <i class="fas fa-sync-alt mr-2"></i>
+                  {{ translate('Use a different number / email') }}
+                </a>
+              </div>
+            @endif
+
+            <div class="text-center mt-4">
+              <a href="{{ route('user.login') }}" class="back-link">
+                <i class="fas fa-arrow-left mr-2"></i>
+                {{ translate('Back to Login') }}
+              </a>
+            </div>
+            
+            <!-- AI Features -->
+            <div class="ai-features">
+              <div class="ai-feature">
+                <div class="ai-icon">
+                  <i class="fas fa-robot"></i>
+                </div>
+                <h6>{{ translate('AI Protection') }}</h6>
+                <p>{{ translate('Smart fraud detection') }}</p>
+              </div>
+              <div class="ai-feature">
+                <div class="ai-icon">
+                  <i class="fas fa-bolt"></i>
+                </div>
+                <h6>{{ translate('Instant Recovery') }}</h6>
+                <p>{{ translate('Quick account access') }}</p>
+              </div>
+              <div class="ai-feature">
+                <div class="ai-icon">
+                  <i class="fas fa-user-shield"></i>
+                </div>
+                <h6>{{ translate('Secure') }}</h6>
+                <p>{{ translate('Encrypted connection') }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer">
+        <p>{{ translate(' 2023 No1Marry.com. All rights reserved.') }}</p>
+        <p class="small">{{ translate('Powered by AI matchmaking technology') }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script>
+  
+  <script>
+    $(document).ready(function() {
+      // Initialize Select2
+      $('#country_code').select2({
+        placeholder: "Select country",
+        width: '100%'
+      });
+      
+      // Form animation on focus
+      $('.form-control').on('focus', function() {
+        $(this).parent().addClass('focused');
+      });
+      
+      $('.form-control').on('blur', function() {
+        if ($(this).val() === '') {
+          $(this).parent().removeClass('focused');
+        }
+      });
+      
+      // Button animation
+      $('.btn-otp').on('mouseenter', function() {
+        $(this).addClass('animated');
+      });
+      
+      $('.btn-otp').on('mouseleave', function() {
+        $(this).removeClass('animated');
+      });
+      
+      // Navbar scroll effect
+      $(window).scroll(function() {
+        if ($(window).scrollTop() > 50) {
+          $('.navbar').addClass('scrolled');
+        } else {
+          $('.navbar').removeClass('scrolled');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
-
