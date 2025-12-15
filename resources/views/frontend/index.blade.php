@@ -379,25 +379,30 @@
     display:flex;
     align-items:center;
     gap:.5rem;
-    padding:.55rem .9rem;
-    border-radius:999px;
-    background:rgb(217 65 38 / 62%);
-    border:1px solid rgba(248,250,252,.18);
-    box-shadow:0 10px 28px rgba(15,23,42,.6);
-    font-size:.85rem;
+    padding:.65rem 1.05rem;
+    border-radius:5px;
+    background:transparent;
+    border:1px solid rgba(255,255,255,.35);
+    box-shadow:0 15px 36px rgba(15,23,42,.25);
+    font-size:.9rem;
+    color:#fff;
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
   }
   .hero-meta-icon{
-    width:28px;
-    height:28px;
+    width:34px;
+    height:34px;
     border-radius:50%;
     display:flex;
     align-items:center;
     justify-content:center;
-    background:rgba(248,250,252,.12);
-    color:#facc15;
+    background:linear-gradient(135deg, rgba(239,195,64,.35), rgba(255,95,109,.35));
+    color:var(--brand);
+    box-shadow:0 6px 14px rgba(231,79,122,.25);
   }
   .hero-meta-label{
-    font-weight:500;
+    font-weight:600;
+    letter-spacing:.02em;
   }
   @media (max-width: 767.98px){
     .hero-meta{
