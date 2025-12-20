@@ -1129,8 +1129,8 @@ form .buttons button,
                         <span class="error">This field is required.</span>
                       </div>
                       <div class="input-field">
-                        <label>EMAIL ID <sup class="required">*</sup><span class="required-chip">Required</span></label>
-                        <input type="email" placeholder="Enter your email address" required name="email" id="email">
+                        <label>EMAIL ID <span class="text-muted">(Optional)</span></label>
+                        <input type="email" placeholder="Enter your email address" name="email" id="email">
                         <span class="error">Please enter a valid email address.</span>
                       </div>
                       <div class="input-field">
@@ -1248,6 +1248,11 @@ form .buttons button,
                         </div>
                         <input type="hidden" name="family_value_id" id="family_value_id">
                       </div>
+                        <div class="input-field">
+                        <label>EDUCATIONAL QUALIFICATIONS <sup class="required">*</sup><span class="required-chip">Required</span></label>
+                        <input required type="text" placeholder="Enter your educational qualification" name="degree" id="degree">
+                        <span class="error">This field is required.</span>
+                      </div>
                       <div class="input-field">
                         <label>JOB CAREER <span class="required-chip">Required</span></label>
                           <input required type="text" placeholder="Enter your job career" name="designation" id="designation">
@@ -1300,7 +1305,7 @@ form .buttons button,
                           <span id="height_slider_value">{{ old('height', 165) }}</span> cm
                         </div>
                       </div>
-                      <div class="input-field">
+                      <!-- <div class="input-field">
                         <label>WEIGHT (kg)</label>
                         <div class="weight-slider-wrapper">
                           <div class="weight-slider">
@@ -1311,12 +1316,8 @@ form .buttons button,
                         <div class="weight-slider-value">
                           <span id="weight_slider_value">{{ old('weight', 65) }}</span> kg
                         </div>
-                      </div>
-                      <div class="input-field">
-                        <label>EDUCATIONAL QUALIFICATIONS <sup class="required">*</sup><span class="required-chip">Required</span></label>
-                        <input required type="text" placeholder="Enter your educational qualification" name="degree" id="degree">
-                        <span class="error">This field is required.</span>
-                      </div>
+                      </div> -->
+                    
                       <div class="input-field">
                         <label>PASSWORD <span class="required-chip">Required</span></label>
                         <div class="password-container">

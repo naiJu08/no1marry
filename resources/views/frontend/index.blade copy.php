@@ -368,49 +368,50 @@
     0%, 50% { opacity:1; }
     50.01%, 100% { opacity:0; }
   }
-  /* Hero meta counters */
+  /* Hero meta badges */
   .hero-meta{
     margin-top:1.75rem;
     display:flex;
     flex-wrap:wrap;
-    gap:2.5rem;
+    gap:1rem;
   }
   .hero-meta-item{
-    flex:0 0 auto;
-    min-width:120px;
     display:flex;
-    flex-direction:column;
-    gap:.4rem;
-    padding:0;
+    align-items:center;
+    gap:.5rem;
+    padding:.65rem 1.05rem;
+    border-radius:5px;
+    background:transparent;
+    border:1px solid rgba(255,255,255,.35);
+    box-shadow:0 15px 36px rgba(15,23,42,.25);
+    font-size:.9rem;
     color:#fff;
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
   }
-  .hero-meta-count{
-    font-size:2.8rem;
-    line-height:1;
-    font-weight:700;
+  .hero-meta-icon{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg, rgba(239,195,64,.35), rgba(255,95,109,.35));
+    color:var(--brand);
+    box-shadow:0 6px 14px rgba(231,79,122,.25);
+  }
+  .hero-meta-label{
+    font-weight:600;
     letter-spacing:.02em;
-    color:#ffc371;
-  }
-  .hero-meta-desc{
-    margin:0;
-    font-size:1rem;
-    font-weight:500;
-    letter-spacing:.01em;
-    color:#f9fafb;
   }
   @media (max-width: 767.98px){
     .hero-meta{
       margin-top:1.25rem;
-      gap:1.25rem;
+      gap:.6rem;
     }
     .hero-meta-item{
-      flex:1 1 45%;
-    }
-    .hero-meta-count{
-      font-size:2rem;
-    }
-    .hero-meta-desc{
-      font-size:.95rem;
+      padding:.45rem .75rem;
+      font-size:.8rem;
     }
   }
 
@@ -502,18 +503,24 @@ input:-webkit-autofill:active {
             <a href="#features" class="btn btn-outline-light btn-lg ">Explore Matches</a>
           </div>
           <div class="hero-meta" data-aos="fade-up" data-aos-delay="200">
-            <!-- <div class="hero-meta-item">
-              <span class="hero-meta-count">01</span>
-              <p class="hero-meta-desc mb-0">Verified Profiles</p>
-            </div> -->
             <div class="hero-meta-item">
-              <span class="hero-meta-count">6</span>
-              <p class="hero-meta-desc mb-0">Years of Trust</p>
+              <div class="hero-meta-icon">
+                <i class="fa-solid fa-shield-heart"></i>
+              </div>
+              <span class="hero-meta-label">Verified Profiles</span>
             </div>
-            <!-- <div class="hero-meta-item">
-              <span class="hero-meta-count">03</span>
-              <p class="hero-meta-desc mb-0">Matrimonial Website</p>
-            </div> -->
+            <div class="hero-meta-item">
+              <div class="hero-meta-icon">
+                <i class="fa-solid fa-calendar-check"></i>
+              </div>
+              <span class="hero-meta-label">6 Years of Trust</span>
+            </div>
+            <div class="hero-meta-item">
+              <div class="hero-meta-icon">
+                <i class="fa-solid fa-heart-circle-check"></i>
+              </div>
+              <span class="hero-meta-label">Matrimonial Website</span>
+            </div>
           </div>
         </div>
         <div class="col-lg-5" data-aos="fade-left">
