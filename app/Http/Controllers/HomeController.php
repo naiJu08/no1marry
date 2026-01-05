@@ -804,37 +804,29 @@ public function login()
         // var_dump($request->file('upload'));exit;
         
         if ($request->hasFile('file-upload')) {
-        $image = $request->file('file-upload');
+            $image = $request->file('file-upload');
 
-        // Generate a unique name for the file
-        $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
+            // Generate a unique name for the file
+            $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
 
-        // Move the file to the public/uploads/all directory
-        $image->move(base_path('uploads/all'), $imageName);
+            // Move the file to the public/uploads/all directory
+            $image->move(public_path('uploads/all'), $imageName);
 
+            // Create a new Upload instance and save file details
+            $upload = new Upload;
+            $upload->file_original_name = $image->getClientOriginalName();
+            $upload->file_name = 'uploads/all/' . $imageName;
+            $upload->user_id = $userId;
+            $upload->save();
 
-        // Create a new Upload instance and save file details
-        $upload = new Upload;
-        $upload->file_original_name = $image->getClientOriginalName();
-        $upload->file_name = 'uploads/all/' . $imageName;
-        $upload->user_id = $userId;
-        $upload->save();
+            // Update the user's photo with the upload ID
+            $createdUser->photo = $upload->id;
+            $createdUser->save();
+        }
 
-        // Update the user's photo with the upload ID
-        $createdUser->photo = $upload->id;
-        $createdUser->save();
-    }
-        
-        
-
-        // return view('frontend.user_login');
-
-        return view('frontend.index');
-
-
-        
-
-
+        Auth::login($createdUser);
+        toastr()->success(translate('Registration successful. Welcome!'));
+        return redirect()->route('dashboard');
     }
     
         public function baseold()

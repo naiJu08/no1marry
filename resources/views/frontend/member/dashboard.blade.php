@@ -770,7 +770,7 @@
                                 <div class="profile-avatar-ring"></div>
                                 <img class="profile-avatar-image" src="@if(Auth::user()->photo != "") {{ uploaded_asset(Auth::user()->photo) }} @else {{ static_asset('assets/img/avatar-place.png') }} @endif" alt="Profile Image">
                                 <form action="{{ route('uplode.uplode_pro_pic') }}" method="POST" name="pro_form" id="pro_form" enctype="multipart/form-data">
-                                    {{ @csrf_field() }}
+                                    @csrf
                                     <label for="file-upload" class="profile-avatar-trigger" id="upload-button-pro">
                                         <i class="fa-solid fa-camera"></i>
                                     </label>

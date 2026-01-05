@@ -492,6 +492,8 @@ input:-webkit-autofill:active {
       <div class="row align-items-center g-4">
         <div class="col-lg-7 text-white" data-aos="fade-right">
           <h6 class="text-uppercase text-white mb-2">NO1MARRY - MATRIMONIAL WEBSITE</h6>
+          <h6 class="text-uppercase text-white mb-2">6 YEARS OF TRUST</h6>
+
           <h1 class="display-4 fw-bold">Find Your Perfect Match, the Modern Way</h1>
           <p class="lead mb-4">
             <span id="hero-typed-text">Join a trusted community of verified singles, smart matchmaking and private chats designed to help you find a partner who truly matches your values.</span>
@@ -506,10 +508,10 @@ input:-webkit-autofill:active {
               <span class="hero-meta-count">01</span>
               <p class="hero-meta-desc mb-0">Verified Profiles</p>
             </div> -->
-            <div class="hero-meta-item">
+            <!-- <div class="hero-meta-item">
               <span class="hero-meta-count">6</span>
               <p class="hero-meta-desc mb-0">Years of Trust</p>
-            </div>
+            </div> -->
             <!-- <div class="hero-meta-item">
               <span class="hero-meta-count">03</span>
               <p class="hero-meta-desc mb-0">Matrimonial Website</p>

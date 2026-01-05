@@ -1129,6 +1129,10 @@ form .buttons button,
                         <span class="error">This field is required.</span>
                       </div>
                       <div class="input-field">
+                        <label>LAST NAME <span class="text-muted">(Optional)</span></label>
+                        <input type="text" placeholder="Enter your last name" name="last_name" id="last_name">
+                      </div>
+                      <div class="input-field">
                         <label>EMAIL ID <span class="text-muted">(Optional)</span></label>
                         <input type="email" placeholder="Enter your email address" name="email" id="email">
                         <span class="error">Please enter a valid email address.</span>
@@ -1212,6 +1216,14 @@ form .buttons button,
                     </div>
                     <div class="progress-message" data-stage="2"></div>
                     <div class="fields">
+                      <div class="input-field">
+                        <label>PROFILE PICTURE <span class="text-muted">(Optional)</span></label>
+                        <div id="imagePreview" class="image-preview" style="height: 200px; border-radius: 15px; border: 2px dashed #097009; background: rgba(9, 112, 9, 0.05); display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer; margin-bottom: 10px;">
+                            <img src="" alt="Profile Preview" class="image-preview__image" style="display:none; width: 100%; height: 100%; object-fit: cover;">
+                            <span class="image-preview__default-text" style="color: #097009; font-weight: 600;"><i class="fa-solid fa-cloud-arrow-up me-2"></i>Click to upload photo</span>
+                        </div>
+                        <input type="file" name="file-upload" id="profile" class="input-file" accept="image/*" style="display:none;">
+                      </div>
                       <div class="input-field">
                         <label>RELIGION <span class="required-chip">Required</span></label>
                         <select required name="religion_id" id="religion_id">
@@ -1887,7 +1899,7 @@ form .buttons button,
     if (!file) return;
     const reader = new FileReader();
     reader.onload = function(ev){
-      $('#imagePreview .image-preview__image').attr('src', ev.target.result);
+      $('#imagePreview .image-preview__image').attr('src', ev.target.result).show();
       $('#imagePreview .image-preview__default-text').hide();
     };
     reader.readAsDataURL(file);

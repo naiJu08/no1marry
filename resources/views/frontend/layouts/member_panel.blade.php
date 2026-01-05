@@ -502,21 +502,16 @@
         <div class="right-side glass-surface" style="padding: 10px">
 
              <script>
-//     $(document).ready(function() {
+                $(document).ready(function() {
+                    $(document).on('change', '.file-upload', function() {
+                        $("#pro_form").submit();
+                    });
 
-    
-// var readURL = function(input) {
-//     if (input.files && input.files[0]) {
-            $(".file-upload").on('change', function(){
-                // readURL(this);
-				$( "#pro_form" ).trigger( "submit" );
-            });
-
-            $("#upload-button-pro").on('click', function() {
-               $(".file-upload").click();
-            });
-// });
-  </script>
+                    $(document).on('click', '#upload-button-pro', function() {
+                        $(".file-upload").click();
+                    });
+                });
+            </script>
             <div class="profile-body">
                 @yield('panel_content')
           </div>
