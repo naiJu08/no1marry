@@ -742,6 +742,125 @@
             justify-content: center;
         }
     }
+
+    .profile-upload-sheet {
+        position: fixed;
+        inset: 0;
+        background: rgba(10, 10, 20, 0.35);
+        backdrop-filter: blur(4px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+        z-index: 1100;
+    }
+
+    .profile-upload-sheet.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .profile-upload-sheet__backdrop {
+        position: absolute;
+        inset: 0;
+    }
+
+    .profile-upload-sheet__card {
+        position: absolute;
+        left: 50%;
+        bottom: 20px;
+        width: min(420px, calc(100% - 32px));
+        transform: translate(-50%, 40px);
+        background: #ffffff;
+        border-radius: 28px;
+        padding: 1.25rem;
+        box-shadow: 0 30px 60px rgba(15, 23, 42, 0.35);
+        transition: transform 0.3s ease;
+    }
+
+    .profile-upload-sheet.is-visible .profile-upload-sheet__card {
+        transform: translate(-50%, 0);
+    }
+
+    .profile-upload-sheet__title {
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+        color: var(--member-text-dark);
+    }
+
+    .profile-upload-sheet__action,
+    .profile-upload-sheet__cancel {
+        width: 100%;
+        border: none;
+        border-radius: 18px;
+        padding: 0.85rem 1rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.65rem;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .profile-upload-sheet__action {
+        background: #f4f2ff;
+        color: #4b2bb3;
+        margin-bottom: 0.65rem;
+        box-shadow: 0 12px 28px rgba(75, 43, 179, 0.15);
+    }
+
+    .profile-upload-sheet__action:active {
+        transform: scale(0.98);
+    }
+
+    .profile-upload-sheet__cancel {
+        background: #f8fafc;
+        color: #1f2937;
+        border: 1px solid rgba(99, 102, 241, 0.15);
+    }
+
+    .profile-upload-loader {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(5, 5, 20, 0.65);
+        color: #ffffff;
+        z-index: 1200;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+        text-align: center;
+        padding: 2rem;
+    }
+
+    .profile-upload-loader.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .profile-upload-loader__spinner {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        border: 4px solid rgba(255, 255, 255, 0.35);
+        border-top-color: #ffffff;
+        animation: profileUploadSpin 1s linear infinite;
+        margin-bottom: 1rem;
+    }
+
+    @keyframes profileUploadSpin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    body.profile-sheet-open {
+        overflow: hidden;
+    }
 </style>
 
 <section id="member-dashboard">
@@ -771,10 +890,10 @@
                                 <img class="profile-avatar-image" src="@if(Auth::user()->photo != "") {{ uploaded_asset(Auth::user()->photo) }} @else {{ static_asset('assets/img/avatar-place.png') }} @endif" alt="Profile Image">
                                 <form action="{{ route('uplode.uplode_pro_pic') }}" method="POST" name="pro_form" id="pro_form" enctype="multipart/form-data">
                                     @csrf
-                                    <label for="file-upload" class="profile-avatar-trigger" id="upload-button-pro">
+                                    <button type="button" class="profile-avatar-trigger" id="upload-button-pro" data-upload-sheet="enabled">
                                         <i class="fa-solid fa-camera"></i>
-                                    </label>
-                                    <input class="file-upload" type="file" name="file-upload" id="file-upload"/>
+                                    </button>
+                                    <input class="file-upload" type="file" name="file-upload" id="file-upload" accept="image/*"/>
                                 </form>
                             </div>
                         </div>
@@ -1027,6 +1146,28 @@
             </div>
         </div>
     @endif
+
+    <div class="profile-upload-sheet" id="profile-upload-sheet">
+        <div class="profile-upload-sheet__backdrop" data-upload-sheet-close></div>
+        <div class="profile-upload-sheet__card">
+            <button type="button" class="profile-upload-sheet__action" data-upload-sheet-action="camera">
+                <i class="fa-solid fa-camera"></i>
+                {{ __('Take photo') }}
+            </button>
+            <button type="button" class="profile-upload-sheet__action" data-upload-sheet-action="gallery">
+                <i class="fa-solid fa-image"></i>
+                {{ __('Choose from gallery') }}
+            </button>
+            <button type="button" class="profile-upload-sheet__cancel" data-upload-sheet-close>
+                {{ __('Cancel') }}
+            </button>
+        </div>
+    </div>
+
+    <div class="profile-upload-loader" id="profile-upload-loader">
+        <div class="profile-upload-loader__spinner"></div>
+        <p style="max-width: 240px;">{{ __('Uploading your photo... please stay on this screen for a moment.') }}</p>
+    </div>
 </section>
 @endsection
 
@@ -1081,6 +1222,83 @@
 
         body.classList.add('profile-photo-modal-open');
         modal.classList.remove('is-hidden');
+    })();
+
+    (function () {
+        var sheet = document.getElementById('profile-upload-sheet');
+        var loader = document.getElementById('profile-upload-loader');
+        var trigger = document.getElementById('upload-button-pro');
+        var input = document.getElementById('file-upload');
+        var form = document.getElementById('pro_form');
+
+        if (!sheet || !loader || !trigger || !input || !form) {
+            return;
+        }
+
+        var showSheet = function () {
+            sheet.classList.add('is-visible');
+            document.body.classList.add('profile-sheet-open');
+        };
+
+        var hideSheet = function () {
+            sheet.classList.remove('is-visible');
+            document.body.classList.remove('profile-sheet-open');
+        };
+
+        var showLoader = function () {
+            loader.classList.add('is-visible');
+        };
+
+        var hideLoader = function () {
+            loader.classList.remove('is-visible');
+        };
+
+        input.addEventListener('change', function () {
+            if (!input.files || !input.files.length) {
+                return;
+            }
+
+            hideSheet();
+            showLoader();
+
+            if (window.grecaptcha && form.classList.contains('google-recaptcha')) {
+                grecaptcha.ready(function () {
+                    grecaptcha.execute();
+                });
+            }
+
+            form.submit();
+        });
+
+        trigger.addEventListener('click', function (e) {
+            e.preventDefault();
+            showSheet();
+        });
+
+        sheet.querySelectorAll('[data-upload-sheet-close]').forEach(function (el) {
+            el.addEventListener('click', function (e) {
+                e.preventDefault();
+                hideSheet();
+            });
+        });
+
+        sheet.querySelectorAll('[data-upload-sheet-action]').forEach(function (el) {
+            el.addEventListener('click', function () {
+                var action = el.getAttribute('data-upload-sheet-action');
+                if (action === 'camera') {
+                    input.setAttribute('capture', 'environment');
+                } else {
+                    input.removeAttribute('capture');
+                }
+                input.click();
+            });
+        });
+
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted) {
+                hideLoader();
+            }
+        });
     })();
 </script>
 
