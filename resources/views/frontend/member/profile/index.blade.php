@@ -571,6 +571,9 @@
     </section>
 
     <nav class="profile-quick-nav" aria-label="{{ __('Profile quick navigation') }}">
+        @if(get_setting('member_introduction_section') == 'on')
+            <a class="profile-quick-link" href="#profile-introduction"><i class="fa-solid fa-user-pen"></i>{{ __('Introduction') }}</a>
+        @endif
         <a class="profile-quick-link" href="#profile-basic-info"><i class="fa-solid fa-id-card"></i>{{ __('Basic info') }}</a>
         @if(get_setting('member_id_verification_section') == 'on')
             <a class="profile-quick-link" href="#profile-id-verification"><i class="fa-solid fa-shield-check"></i>{{ __('ID verification') }}</a>
@@ -605,6 +608,20 @@
     </nav>
 
     <div class="profile-sections-grid">
+        @if(get_setting('member_introduction_section') == 'on')
+            <section class="profile-section" id="profile-introduction" data-theme="sunset">
+                <div class="profile-section__intro">
+                    <span class="profile-section__icon"><i class="fa-solid fa-user-pen"></i></span>
+                    <div class="profile-section__text">
+                        <h3>{{ __('Introduction') }}</h3>
+                        <p>{{ __('Briefly describe yourself to give matches a glimpse into your personality.') }}</p>
+                    </div>
+                </div>
+                <div class="profile-section__card">
+                    @include('frontend.member.profile.introduction')
+                </div>
+            </section>
+        @endif
         <section class="profile-section" id="profile-basic-info" data-theme="violet">
             <div class="profile-section__intro">
                 <span class="profile-section__icon"><i class="fa-solid fa-id-card"></i></span>

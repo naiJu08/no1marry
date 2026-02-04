@@ -267,7 +267,7 @@ class MemberController extends Controller
 
     public function introduction_update(Request $request, $id)
     {
-        $member = Member::findOrFail($id);
+        $member = Member::where('user_id', $id)->firstOrFail();
         $member->introduction = $request->introduction;
         if ($member->save()) {
             toastr()->success('Member introduction info has been updated successfully');

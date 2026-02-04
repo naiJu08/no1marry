@@ -445,6 +445,19 @@
     .select2-container--default .select2-selection--single .select2-selection__arrow {
       height: 100%;
     }
+    .password-toggle {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      z-index: 10;
+      color: #666;
+      transition: color 0.3s;
+    }
+    .password-toggle:hover {
+      color: var(--primary);
+    }
   </style>
 </head>
 <body>
@@ -609,7 +622,10 @@
 
                 <div class="form-group">
                   <label for="password" class="form-label">{{ translate('New Password') }}</label>
-                  <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                  <div class="position-relative">
+                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                    <i class="fas fa-eye-slash password-toggle" onclick="togglePasswordVisibility('password', this)"></i>
+                  </div>
                   @if ($errors->has('password'))
                     <div class="invalid-feedback d-block">
                       <strong>{{ $errors->first('password') }}</strong>
@@ -619,7 +635,10 @@
 
                 <div class="form-group">
                   <label for="password-confirm" class="form-label">{{ translate('Confirm Password') }}</label>
-                  <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                  <div class="position-relative">
+                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                    <i class="fas fa-eye-slash password-toggle" onclick="togglePasswordVisibility('password-confirm', this)"></i>
+                  </div>
                 </div>
 
                 <div class="form-group mt-4">
@@ -723,6 +742,19 @@
         }
       });
     });
+
+    function togglePasswordVisibility(inputId, icon) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      }
+    }
   </script>
 </body>
 </html>

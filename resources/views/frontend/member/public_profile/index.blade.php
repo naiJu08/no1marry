@@ -602,7 +602,7 @@
                             $intro = trim(optional($user->member)->introduction ?? '');
                         @endphp
                         @if($intro)
-                            {{ $intro }}
+                            {!! nl2br(e($intro)) !!}
                         @else
                             @php
                                 $parts = [];

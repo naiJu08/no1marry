@@ -684,14 +684,11 @@ public function login()
                 $user->password = Hash::make($request->password);
                 $user->email_verified_at = date('Y-m-d h:m:s');
                 $user->save();
-                auth()->login($user, true);
+                // auth()->login($user, true);
 
-                toastr()->success(translate('Password updated successfully'));
+                toastr()->success(translate('Password updated successfully. Please login with your new password.'));
 
-                if (auth()->user()->user_type == 'admin' || auth()->user()->user_type == 'staff') {
-                    return redirect()->route('admin.dashboard');
-                }
-                return redirect()->route('home');
+                return redirect()->route('user.login');
             } else {
                 toastr()->warning("Password and confirm password didn't match");
                 return back();

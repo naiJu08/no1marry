@@ -12,6 +12,13 @@
                         @csrf
                         <div class="form-group mb-3">
                             <div class="custom-control custom-checkbox">
+                                <input type="hidden" name="types[]" value="member_introduction_section">
+                                <input type="checkbox" name="member_introduction_section" class="custom-control-input" id="introduction_section" @if( get_setting('member_introduction_section') == 'on') Checked @endif >
+                                <label class="custom-control-label" for="introduction_section">{{translate('Introduction')}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div class="custom-control custom-checkbox">
                                 <input type="hidden" name="types[]" value="member_present_address_section">
                                 <input type="checkbox" name="member_present_address_section" class="custom-control-input" id="present_address" @if( get_setting('member_present_address_section') == 'on') Checked @endif >
                                 <label class="custom-control-label" for="present_address">{{translate('Present Address')}}</label>

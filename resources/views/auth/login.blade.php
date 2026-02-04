@@ -1,6 +1,21 @@
 @extends('admin.layouts.blank')
 
 @section('content')
+<style>
+    .password-toggle {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        z-index: 10;
+        color: #666;
+        transition: color 0.3s;
+    }
+    .password-toggle:hover {
+        color: var(--primary);
+    }
+</style>
 
 <div class="h-100 bg-cover bg-center py-5 d-flex align-items-center" style="background-image: url({{ uploaded_asset(get_setting('admin_login_background')) }})">
     <div class="container">
@@ -23,14 +38,17 @@
                                     </span>
                                 @endif
                             </div>
-                            <div class="form-group">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required placeholder="{{ translate('Password') }}">
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                             <div class="form-group">
+                                 <div class="position-relative">
+                                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required placeholder="{{ translate('Password') }}">
+                                    <i class="fas fa-eye-slash password-toggle" onclick="togglePasswordVisibility('password', this)"></i>
+                                 </div>
+                                 @if ($errors->has('password'))
+                                     <span class="invalid-feedback" role="alert">
+                                         <strong>{{ $errors->first('password') }}</strong>
+                                     </span>
+                                 @endif
+                             </div>
                             <div class="row mb-2">
                                 <div class="col-sm-6">
                                     <div class="text-left">
@@ -79,6 +97,19 @@
         function autoFill(){
             $('#email').val('admin@example.com');
             $('#password').val('12345678');
+        }
+
+        function togglePasswordVisibility(inputId, icon) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            }
         }
     </script>
 @endsection

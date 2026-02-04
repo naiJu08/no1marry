@@ -157,6 +157,19 @@
         border-radius: 18px;
       }
     }
+    .password-toggle {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      z-index: 10;
+      color: #666;
+      transition: color 0.3s;
+    }
+    .password-toggle:hover {
+      color: var(--brand);
+    }
   </style>
 </head>
 <body>
@@ -245,7 +258,10 @@
 
                 <div class="mb-3">
                   <label class="form-label text-white-50">{{ translate('Password') }}</label>
-                  <input type="password" name="password" class="form-control" placeholder="{{ translate('Enter your password') }}" required>
+                  <div class="position-relative">
+                    <input id="password" type="password" name="password" class="form-control" placeholder="{{ translate('Enter your password') }}" required>
+                    <i class="fas fa-eye-slash password-toggle" onclick="togglePasswordVisibility('password', this)"></i>
+                  </div>
                 </div>
 
                 <div class="d-flex justify-content-between mb-3">
@@ -278,6 +294,19 @@
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
     AOS.init({ once: true, duration: 700, offset: 80, easing: 'ease-out' });
+
+    function togglePasswordVisibility(inputId, icon) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      }
+    }
   </script>
 </body>
 </html>
