@@ -131,7 +131,7 @@ Any termination request will not result in a refund of the membership fee.
                  <h5 class="text-center">Contact Us</h5>
                           <ul>
                  <li><a href="mailto:numberonemarry@gmail.com"><i class="fa-solid fa-enevelope"></i><span class="me-1">numberonemarry@gmail.com</span></a></li>
-                 <li><a href="tel:+919891004958"><i class="fa-solid fa-phone"></i><span class="me-1">+91 9891004958</span></a></li>
+                 <li><a href="tel:+918281050418"><i class="fa-solid fa-phone"></i><span class="me-1">+91 8281050418</span></a></li>
                  <!-- <li><a href="tel:+918301070161"><span class="ml-3">+91  8301070161</span></a></li>
                  <li><a href="tel:0475271999"><span class="ml-3">+0475 2271999</span></a></li> -->
              </ul>

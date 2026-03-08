@@ -617,7 +617,7 @@
           <h5 class="text-center text-md-left">Contact Us</h5>
           <ul>
             <li><a href="mailto:numberonemarry@gmail.com"><i class="fa-solid fa-envelope"></i><span class="ml-1">numberonemarry@gmail.com</span></a></li>
-            <li><a href="tel:+919891004958"><i class="fa-solid fa-phone"></i><span class="ml-1">+91 9891004958</span></a></li>
+            <li><a href="tel:+918281050418"><i class="fa-solid fa-phone"></i><span class="ml-1">+91 8281050418</span></a></li>
               <!-- <li><a href="tel:+918301070161"><span class="ml-4">+91 8301070161</span></a></li>
               <li><a href="tel:04752271999"><span class="ml-4">0475 2271999</span></a></li> -->
           </ul>
