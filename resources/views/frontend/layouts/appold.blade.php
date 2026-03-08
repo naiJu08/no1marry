@@ -1985,7 +1985,7 @@ font-size:14px !important;
                                 <i class="fa-solid fa-phone"></i>
                               </li>
                               <li>
-                                 <span class="ml-3"><a href="tel:+918281050418">+91 8281050418</a></span> <br>
+                                 <span class="ml-3"><a href="tel:+919891004958">+91 9891004958</a></span> <br>
                                  <!--<span class="ml-2"><a href="tel:+918301070161">+91 8301070161</a></span> <br>-->
                               </li>
                             </ul>
@@ -2350,7 +2350,7 @@ Has misleading email addresses or other manipulated identifiers to disguise its 
                         <li><b> Discontinuation of Services:</b>
                             <span class="ml-2">
                                      <p>No.1 Marry.com reserves the right to discontinue services if there is a breach of our terms of use or if any user engages in fraudulent activities.</p>
-                                     <p>If you have any questions or concerns regarding our Non-Refund & Cancellation Policy, please contact our customer support team at <b> [<a href="mailto:numberonemarry@gmail.com"> numberonemarry@gmail.com</a><br><span class="ml-3"><a href="tel:+918281050418">+91 8281050418</a></span>,
+                                     <p>If you have any questions or concerns regarding our Non-Refund & Cancellation Policy, please contact our customer support team at <b> [<a href="mailto:numberonemarry@gmail.com"> numberonemarry@gmail.com</a><br><span class="ml-3"><a href="tel:+919891004958">+91 9891004958</a></span>,
                                  <!--<span class="ml-2"><a href="tel:+918301070161">+91 8301070161</a>,</span> -->
                                  </b></p>
                                      <p>By availing of our services, you acknowledge that you have read, understood, and agreed to abide by the terms of our Non-Refund & Cancellation Policy.</p>
@@ -2471,7 +2471,7 @@ Any termination request will not result in a refund of the membership fee.
                           <h5 class="text-center">Contact Us</h5>
                           <ul>
                  <li><a href="mailto:numberonemarry@gmail.com"><i class="fa fa-solid fa-enevelope"></i><span class="me-1">numberonemarry@gmail.com</span></a></li>
-                 <li><a href="tel:+918281050418"><i class="fa-solid fa-phone"></i><span class="me-1">+91 8281050418</span></a></li>
+                 <li><a href="tel:+919891004958"><i class="fa-solid fa-phone"></i><span class="me-1">+91 9891004958</span></a></li>
                  <!--<li><a href="tel:+918301070161"><span class="ml-3">+91  8301070161</span></a></li>-->
              </ul>
              

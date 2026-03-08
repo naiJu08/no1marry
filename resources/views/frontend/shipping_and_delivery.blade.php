@@ -113,7 +113,7 @@
            <li><b> Discontinuation of Services:</b>
                <span class="ml-2">
                         <p>No.1 Marry.com reserves the right to discontinue services if there is a breach of our terms of use or if any user engages in fraudulent activities.</p>
-                        <p>If you have any questions or concerns regarding our Non-Refund & Cancellation Policy, please contact our customer support team at <b> [info@no1marry.com / +91-8281050418].</b></p>
+                        <p>If you have any questions or concerns regarding our Non-Refund & Cancellation Policy, please contact our customer support team at <b> [info@no1marry.com / +91-9891004958].</b></p>
                         <p>By availing of our services, you acknowledge that you have read, understood, and agreed to abide by the terms of our Non-Refund & Cancellation Policy.</p>
                         <p>Thank you for choosing No.1 Marry.com. We appreciate the opportunity to assist you in your journey to find a life partner.</p>
                </span>
