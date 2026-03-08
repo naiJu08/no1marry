@@ -727,8 +727,7 @@ $lang = \App\Models\Language::where('code', $locale)->first();
                                 <i class="fa-brands fa-whatsapp"></i>
                               </li>
                               <li>
-                                 <span class="ml-3"><a href="tel:+918301070161">+91 8301070161</a></span> <br>
-                                 <!--<span class="ml-2"><a href="tel:+918301070161">+91 8301070161</a></span> <br>-->
+                                 <span class="ml-3"><a href="tel:+9891004958">+91 9891004958</a></span> <br>
                               </li>
                             </ul>
                            
@@ -1092,8 +1091,8 @@ Has misleading email addresses or other manipulated identifiers to disguise its 
                         <li><b> Discontinuation of Services:</b>
                             <span class="ml-2">
                                      <p>No.1 Marry.com reserves the right to discontinue services if there is a breach of our terms of use or if any user engages in fraudulent activities.</p>
-                                     <p>If you have any questions or concerns regarding our Non-Refund & Cancellation Policy, please contact our customer support team at <b> [<a href="mailto:numberonemarry@gmail.com"> numberonemarry@gmail.com</a><br><span class="ml-3"><a href="tel:+918301070161">+91 8301070161</a></span>,
-                                 <!--<span class="ml-2"><a href="tel:+918301070161">+91 8301070161</a>,</span> -->
+                                     <p>If you have any questions or concerns regarding our Non-Refund & Cancellation Policy, please contact our customer support team at <b> [<a href="mailto:numberonemarry@gmail.com"> numberonemarry@gmail.com</a><br><span class="ml-3"><a href="tel:+9891004958">+91 9891004958</a></span>,
+                                 <!--<span class="ml-2"><a href="tel:+9891004958">+91 9891004958</a>,</span> -->
                                  </b></p>
                                      <p>By availing of our services, you acknowledge that you have read, understood, and agreed to abide by the terms of our Non-Refund & Cancellation Policy.</p>
                                      <p>Thank you for choosing No.1 Marry.com. We appreciate the opportunity to assist you in your journey to find a life partner.</p>
@@ -1253,7 +1252,7 @@ Any termination request will not result in a refund of the membership fee.
       <div class="col-md-4 text-center text-md-start">
         <h6 class="text-uppercase small mb-3" style="letter-spacing:.12em;color:#9ca3af;">Contact</h6>
         <p class="small mb-1"><i class="fa-solid fa-envelope me-2"></i>numberonemarry@gmail.com</p>
-        <p class="small mb-1"><i class="fa-brands fa-whatsapp me-2"></i>+91 8301070161</p>
+        <p class="small mb-1"><i class="fa-brands fa-whatsapp me-2"></i>+91 9891004958</p>
         <p class="small mb-0" style="color:#9ca3af;">Mon–Sat, 9:00 AM – 7:00 PM IST</p>
       </div>
     </div>
