@@ -145,6 +145,9 @@ Route::group(['middleware' => ['member']], function () {
 
     // Account deacticvation
     Route::post('/member/account-activation', 'MemberController@update_account_deactivation_status')->name('member.account_deactivation');
+    
+    // Delete account
+    Route::post('/member/delete-account', 'MemberController@delete_account')->name('member.delete_account');
 
 
     // Express Interest

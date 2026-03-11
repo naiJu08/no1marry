@@ -737,4 +737,19 @@ public function package_do_update(Request $request, $id)
         return back();
     }
 
+    public function delete_account(Request $request)
+    {
+        $user = Auth::user();
+
+        // Soft delete the user account directly without password confirmation
+        if ($user->delete()) {
+            Auth::logout();
+            toastr()->success(translate('Your account has been deleted successfully.'));
+            return redirect()->route('login');
+        }
+
+        toastr()->error(translate('Something went wrong while deleting your account.'));
+        return back();
+    }
+
 }

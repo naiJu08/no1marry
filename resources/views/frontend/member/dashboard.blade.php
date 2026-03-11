@@ -861,6 +861,55 @@
     body.profile-sheet-open {
         overflow: hidden;
     }
+
+    /* Delete Account Button Hover Effects */
+    .delete-account-btn {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .delete-account-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .delete-account-btn:hover::before {
+        left: 100%;
+    }
+
+    .delete-account-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 35px rgba(239, 68, 68, 0.4) !important;
+        background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+    }
+
+    .delete-account-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3) !important;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .delete-account-section .row {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .delete-account-section .col-md-4 {
+            text-align: center !important;
+        }
+        
+        .delete-account-btn {
+            width: 100%;
+            max-width: 250px;
+        }
+    }
 </style>
 
 <section id="member-dashboard">
@@ -1115,6 +1164,36 @@
                     <i class="fa-solid fa-comments"></i>
                     {{ __('Talk to an Advisor') }}
                 </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Account Section -->
+    <div class="dashboard-container delete-account-section" style="margin-top: 2rem; margin-bottom: 2rem;">
+        <div class="glass-panel" style="background: linear-gradient(135deg, rgba(255, 245, 245, 0.95), rgba(255, 240, 240, 0.9)); border: 1px solid rgba(239, 68, 68, 0.2); box-shadow: 0 20px 45px rgba(239, 68, 68, 0.1); padding: 2rem;">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <div class="d-flex align-items-center">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #ef4444, #dc2626); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 1.5rem; box-shadow: 0 8px 20px rgba(239, 68, 68, 0.25); flex-shrink: 0;">
+                            <i class="fa-solid fa-trash-alt text-white" style="font-size: 1.2rem;"></i>
+                        </div>
+                        <div>
+                            <h5 style="color: #dc2626; margin-bottom: 0.5rem; font-weight: 700; font-size: 1.1rem;">{{ __('Delete Your Account') }}</h5>
+                            <p style="color: #6b7280; margin-bottom: 0; font-size: 0.9rem; line-height: 1.4;">
+                                {{ __('Permanently remove all your data, photos, and messages. This action cannot be undone.') }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                    <form action="{{ route('member.delete_account') }}" method="POST" id="deleteAccountForm">
+                        @csrf
+                        <button type="submit" class="btn btn-danger delete-account-btn" style="padding: 0.75rem 2rem; font-weight: 600; border-radius: 12px; box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3); transition: all 0.3s ease; border: none; background: linear-gradient(135deg, #ef4444, #dc2626); min-width: 100%;">
+                            <i class="fa-solid fa-trash-alt mr-2"></i>
+                            {{ __('Delete Account') }}
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

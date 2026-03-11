@@ -376,8 +376,165 @@ span.search-text {
 }
 
     .blur {
-        filter: blur(7px);
+        filter: blur(15px);
         transition: filter 0.3s ease;
+    }
+
+    /* Dark and visible pagination buttons */
+    .glass-page-btn {
+        background: linear-gradient(135deg, #2d3748, #1a202c) !important;
+        color: #ffffff !important;
+        border: 1px solid #4a5568 !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+        transition: all 0.3s ease !important;
+        font-weight: 600 !important;
+        padding: 12px 20px !important;
+        border-radius: 8px !important;
+        text-decoration: none !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+    }
+
+    .glass-page-btn:hover:not(.disabled) {
+        background: linear-gradient(135deg, #4a5568, #2d3748) !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4) !important;
+        color: #ffffff !important;
+        text-decoration: none !important;
+    }
+
+    .glass-page-btn:active:not(.disabled) {
+        transform: translateY(0) !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
+    }
+
+    .glass-page-btn.disabled {
+        background: linear-gradient(135deg, #718096, #4a5568) !important;
+        color: #a0aec0 !important;
+        cursor: not-allowed !important;
+        opacity: 0.6 !important;
+    }
+
+    .glass-page-btn__icon {
+        font-size: 16px !important;
+    }
+
+    .glass-page-btn__label {
+        font-weight: 600 !important;
+        font-size: 14px !important;
+    }
+
+    @media (max-width: 768px) {
+        .glass-page-btn {
+            padding: 10px 16px !important;
+            font-size: 13px !important;
+        }
+        
+        .glass-page-btn__icon {
+            font-size: 14px !important;
+        }
+        
+        .glass-page-btn__label {
+            font-size: 13px !important;
+        }
+    }
+
+    /* Enhanced View Full Profile Button */
+    .member-card__cta .cta {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        color: #ffffff !important;
+        border: none !important;
+        border-radius: 12px !important;
+        padding: 14px 24px !important;
+        font-weight: 600 !important;
+        font-size: 14px !important;
+        text-decoration: none !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        position: relative !important;
+        overflow: hidden !important;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3) !important;
+        cursor: pointer !important;
+        min-width: 160px !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+    }
+
+    .member-card__cta .cta::before {
+        content: '' !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: -100% !important;
+        width: 100% !important;
+        height: 100% !important;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent) !important;
+        transition: left 0.6s ease !important;
+        z-index: 1 !important;
+    }
+
+    .member-card__cta .cta:hover {
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%) !important;
+        transform: translateY(-3px) scale(1.02) !important;
+        box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4) !important;
+        color: #ffffff !important;
+        text-decoration: none !important;
+    }
+
+    .member-card__cta .cta:hover::before {
+        left: 100% !important;
+    }
+
+    .member-card__cta .cta:active {
+        transform: translateY(-1px) scale(1.01) !important;
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3) !important;
+    }
+
+    .member-card__cta .cta .label {
+        position: relative !important;
+        z-index: 2 !important;
+        font-weight: 600 !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+    }
+
+    .member-card__cta .cta .label::before {
+        content: '\f061' !important;
+        font-family: 'Line Awesome Free' !important;
+        font-weight: 900 !important;
+        font-size: 12px !important;
+        opacity: 0 !important;
+        transform: translateX(-10px) !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .member-card__cta .cta:hover .label::before {
+        opacity: 1 !important;
+        transform: translateX(0) !important;
+    }
+
+    @media (max-width: 768px) {
+        .member-card__cta .cta {
+            padding: 12px 20px !important;
+            font-size: 13px !important;
+            min-width: 140px !important;
+        }
+        
+        .member-card__cta .cta .label::before {
+            font-size: 11px !important;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .member-card__cta .cta {
+            padding: 10px 16px !important;
+            font-size: 12px !important;
+            min-width: 120px !important;
+            border-radius: 10px !important;
+        }
     }
 
 
