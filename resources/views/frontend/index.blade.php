@@ -48,7 +48,7 @@
   .navbar-glass {
     backdrop-filter: saturate(160%) blur(14px);
     -webkit-backdrop-filter: saturate(160%) blur(14px);
-    background: #fff !important;
+    background: transparent !important;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   }
 
@@ -773,9 +773,9 @@
                     <span>{{ $package->contact }} {{ translate('Contact Info Views') }}</span>
                   </li>
                   <!-- <li>
-                                                                                                                                                  <i class="fa-solid fa-check-double me-2"></i>
-                                                                                                                                                  <span>{{ $package->photo_gallery }} {{ translate('Gallery Photo Uploads') }}</span>
-                                                                                                                                                </li> -->
+                                                                                                                                                      <i class="fa-solid fa-check-double me-2"></i>
+                                                                                                                                                      <span>{{ $package->photo_gallery }} {{ translate('Gallery Photo Uploads') }}</span>
+                                                                                                                                                    </li> -->
                   <li>
                     @if($package->auto_profile_match == 1)
                       <i class="fa-solid fa-check-double me-2"></i>
