@@ -515,6 +515,18 @@ public function package_do_update(Request $request, $id)
         $user->membership = $membership;
 
         if ($user->save()) {
+            // Create a Package Payment record for history
+            $package_payment                    = new \App\Models\PackagePayment;
+            $package_payment->payment_code      = date('ymd-His');
+            $package_payment->user_id           = $user->id;
+            $package_payment->package_id        = $package->id;
+            $package_payment->payment_method    = 'manual_by_admin';
+            $package_payment->payment_status    = 'Paid';
+            $package_payment->amount            = $package->price;
+            $package_payment->validity          = $package->validity;
+            $package_payment->contact           = $package->contact;
+            $package_payment->save();
+
             return response()->json([
                 'success' => true,
                 'message' => 'Member package has been updated successfully',

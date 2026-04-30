@@ -740,55 +740,53 @@
                 {{-- CONTACT NUMBER & EMAIL (mirrors original profile logic) --}}
                 @php
                     $is_female_user = optional(Auth::user()->member)->gender == 2;
-                    $current_package_id = optional(Auth::user()->member)->current_package_id;
+                    $is_active_member = Auth::user()->membership == 2 || Auth::user()->membership == 3;
+                    $is_valid_subscription = package_validity(Auth::user()->id) == 1;
+                    $has_viewed = \App\Models\ViewContact::where('user_id', $user->id)->where('viewed_by', Auth::id())->exists();
                 @endphp
 
-                @if (Auth::check() && Auth::user()->membership == 2)
-                    @if ($current_package_id == 10 || $is_female_user)
-                        {{-- Show contact & email directly --}}
-                        <div class="pp-row">
-                            <div class="pp-label">{{ translate('Contact Number') }}</div>
-                            <div class="pp-value">{{ $user->phone }}</div>
+                @if ($has_viewed || (Auth::check() && $user->id == Auth::id()))
+                    {{-- Show contact & email directly if already viewed or it's own profile --}}
+                    <div class="pp-row">
+                        <div class="pp-label">{{ translate('Contact Number') }}</div>
+                        <div class="pp-value">{{ $user->phone }}</div>
+                    </div>
+                    <div class="pp-row">
+                        <div class="pp-label">{{ translate('Email ID') }}</div>
+                        <div class="pp-value">{{ $user->email }}</div>
+                    </div>
+                @elseif (Auth::check() && $is_active_member && $is_valid_subscription)
+                    {{-- Show 'View Contact' button if subscription is active but not yet viewed --}}
+                    <div class="pp-row contact_info d-none">
+                        <div class="pp-label">{{ translate('Contact Number') }}</div>
+                        <div class="pp-value" id="contact_number"></div>
+                    </div>
+                    <div class="pp-row contact_info d-none">
+                        <div class="pp-label">{{ translate('Email ID') }}</div>
+                        <div class="pp-value" id="email_id"></div>
+                    </div>
+
+                    <div class="pp-row view_contact_section">
+                        <div class="pp-label">{{ translate('Contact Number & Email') }}</div>
+                        <div class="pp-value">
+                            <button type="button" onclick="view_contact({{ $user->id }})" class="btn btn-sm btn-primary view_contact_btn" style="border-radius: 20px; padding: 5px 15px;">
+                                <i class="las la-phone"></i> {{ translate('View Contact') }}
+                            </button>
+                            <div class="small text-muted mt-1">
+                                {{ translate('Contacts Left:') }} <span id="contacts_count">{{ get_remaining_value(Auth::user()->id,'remaining_contact_view') }}</span>
+                            </div>
                         </div>
-                        <div class="pp-row">
-                            <div class="pp-label">{{ translate('Email ID') }}</div>
-                            <div class="pp-value">{{ $user->email }}</div>
+                    </div>
+                @else
+                    {{-- No active subscription or not logged in --}}
+                    <div class="pp-row">
+                        <div class="pp-label">{{ translate('Contact Number') }}</div>
+                        <div class="pp-value">
+                            <a href="{{ route('packages') }}" class="btn btn-sm btn-warning" style="border-radius: 20px;">
+                                {{ translate('Upgrade to View') }}
+                            </a>
                         </div>
-                    @elseif ($current_package_id == 9)
-                        @if (empty($do_expressed_interest) && empty($received_expressed_interest))
-                            {{-- Ask to express interest first --}}
-                            <div class="pp-row">
-                                <div class="pp-label">{{ translate('Contact Number') }}</div>
-                                <div class="pp-value">
-                                    <a onclick="express_interest({{ $user->id }})"
-                                       class="btn btn-sm btn-primary view_contact">
-                                        <i class="las la-phone"></i>
-                                        {{ translate('Can You please Express Your Interest') }}
-                                    </a>
-                                    <div class="small text-muted mt-1">contact admin for direct profile assistance</div>
-                                </div>
-                            </div>
-                        @elseif (
-                            (!empty($received_expressed_interest) && $received_expressed_interest->status == 1) ||
-                            (!empty($do_expressed_interest) && $do_expressed_interest->status == 1)
-                        )
-                            {{-- Interest accepted: show contact & email --}}
-                            <div class="pp-row">
-                                <div class="pp-label">{{ translate('Contact Number') }}</div>
-                                <div class="pp-value">{{ $user->phone }}</div>
-                            </div>
-                            <div class="pp-row">
-                                <div class="pp-label">{{ translate('Email ID') }}</div>
-                                <div class="pp-value">{{ $user->email }}</div>
-                            </div>
-                        @else
-                            {{-- Waiting for interest acceptance --}}
-                            <div class="pp-row">
-                                <div class="pp-label">{{ translate('Contact Number') }}</div>
-                                <div class="pp-value">wait until the Interest is accepted</div>
-                            </div>
-                        @endif
-                    @endif
+                    </div>
                 @endif
             </div>
         </div>
@@ -1154,11 +1152,12 @@
 </section>
 
 @include('modals.package_update_alert_modal')
+@include('modals.confirm_modal')
 
 <script>
-    var package_validity = {{ package_validity(Auth::user()->id) }};
-    var remaining_contact_view = {{ get_remaining_value(Auth::user()->id,'remaining_contact_view') }};
-    var remaining_interest = {{ get_remaining_value(Auth::user()->id,'remaining_interest') }};
+    var package_validity = {{ Auth::check() ? package_validity(Auth::user()->id) : 0 }};
+    var remaining_contact_view = {{ Auth::check() ? get_remaining_value(Auth::user()->id,'remaining_contact_view') : 0 }};
+    var remaining_interest = {{ Auth::check() ? get_remaining_value(Auth::user()->id,'remaining_interest') : 0 }};
 
     @php
         $nextProfileUrl = '';
@@ -1188,25 +1187,35 @@
     }
 
     function do_contact_view(id){
-      $(".view_contact").removeAttr("onclick");
+      let $btn = $(".view_contact_btn");
+      let $confirm_btn = $("#confirm_button");
+      
+      $confirm_btn.prop("disabled", true);
+      $btn.prop("disabled", true).html("{{ translate('Processing') }}..");
+      
       $.post('{{ route('view_contacts.store') }}',
         {
           _token: '{{ csrf_token() }}',
           id: id
         },
         function (data) {
-          if (data == 1) {
-            $('.confirm_modal').modal('toggle');
-            $('.contact_info').removeClass('d-none');
-            $('.view_contact').addClass('d-none');
-            AIZ.plugins.notify('success', '{{translate('Now You Can See This Members Contact Information')}}');
+          $('.confirm_modal').modal('hide');
+          if (data.status == 'success') {
+            AIZ.plugins.notify('success', data.message);
+            location.reload();
           }
           else {
-              AIZ.plugins.notify('danger', '{{translate('Something went wrong')}}');
+              AIZ.plugins.notify('danger', data.message || '{{ translate('An error occurred') }}');
+              $btn.prop("disabled", false).html("<i class='las la-phone'></i> {{ translate('View Contact') }}");
+              $confirm_btn.prop("disabled", false);
           }
-          location.reload();
         }
-      );
+      ).fail(function() {
+          $('.confirm_modal').modal('hide');
+          AIZ.plugins.notify('danger', '{{ translate('Something went wrong') }}');
+          $btn.prop("disabled", false).html("<i class='las la-phone'></i> {{ translate('View Contact') }}");
+          $confirm_btn.prop("disabled", false);
+      });
     }
 
     function express_interest(id)

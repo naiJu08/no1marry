@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>No1 Marry.com</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="{{ static_asset('assets/assets/img/favicon.png') }}">
   <link rel="stylesheet" href="{{ static_asset('assets/assets/css/bootstrap.min.css') }}">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -22,236 +23,354 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
 </head>
 <style>
-  :root{
-    --brand:#e74f7a;
-    --dark:#151515;
+  :root {
+    --brand: #e74f7a;
+    --dark: #151515;
   }
-  html,body{scroll-behavior:smooth}
-  body{font-family:'Poppins', sans-serif;background:#fff;color:#212529}
+
+  html,
+  body {
+    scroll-behavior: smooth
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #fff;
+    color: #212529
+  }
+
   /* Glass header navbar */
-  .navbar{
+  .navbar {
     transition: background-color .25s ease, box-shadow .25s ease;
     z-index: 1055;
   }
-  .navbar-glass{
-    backdrop-filter:saturate(160%) blur(14px);
-    -webkit-backdrop-filter:saturate(160%) blur(14px);
-    background:linear-gradient(120deg, rgba(15,23,42,0.9), rgba(148,27,89,0.78)) !important;
-    box-shadow:0 10px 30px rgba(15,23,42,0.55);
+
+  .navbar-glass {
+    backdrop-filter: saturate(160%) blur(14px);
+    -webkit-backdrop-filter: saturate(160%) blur(14px);
+    background: #fff !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   }
-  .navbar-transparent{
-    background:transparent!important;
-    box-shadow:none;
+
+  .navbar-glass .nav-link {
+    color: #111 !important;
   }
-  .navbar .nav-link{
-    position:relative;
-    color:#f9fafb !important;
-    font-weight:500;
-    padding-left:1rem;
-    padding-right:1rem;
+
+  .navbar-glass .navbar-toggler-icon {
+    filter: invert(1);
   }
-  .navbar .nav-link:after{
-    content:'';
-    position:absolute;
-    left:0;
-    bottom:-6px;
-    width:0;
-    height:2px;
-    background:var(--brand);
-    transition:.3s;
+
+  .navbar-transparent {
+    background: transparent !important;
+    box-shadow: none;
   }
-  .navbar .nav-link:hover:after{width:100%}
-  .btn-brand{background:var(--brand);border:0}
-  .btn-brand:hover{filter:brightness(1.05)}
+
+  .navbar .nav-link {
+    position: relative;
+    color: #f9fafb !important;
+    font-weight: 500;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .navbar .nav-link:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0;
+    height: 2px;
+    background: var(--brand);
+    transition: .3s;
+  }
+
+  .navbar .nav-link:hover:after {
+    width: 100%
+  }
+
+  .btn-brand {
+    background: var(--brand);
+    border: 0
+  }
+
+  .btn-brand:hover {
+    filter: brightness(1.05)
+  }
+
   /* Hero: fixed full-screen background (mobile-friendly) */
-  header.hero{
-    min-height:100vh;
-    position:relative;
-    display:flex;
-    align-items:center;
-    overflow:hidden;
-    color:#fff;
+  header.hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    color: #fff;
   }
-  .hero-bg-layer{
-    position:fixed;
-    top:0;left:0;right:0;bottom:0;
-    background-position:center;
-    background-size:cover;
-    background-repeat:no-repeat;
-    opacity:0;
-    transition:opacity .8s ease-in-out;
-    will-change:opacity;
-    z-index:0;
+
+  .hero-bg-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity .8s ease-in-out;
+    will-change: opacity;
+    z-index: 0;
   }
-  .hero-bg-layer.is-active{
-    opacity:1;
+
+  .hero-bg-layer.is-active {
+    opacity: 1;
   }
-  .hero-bg-1{
-    background-image:url('{{ asset('assets/img/reg-bg.png') }}');
+
+  .hero-bg-1 {
+    background-image: url('{{ asset('assets/img/reg-bg.png') }}');
   }
-  .hero-bg-2{
-    background-image:url('{{ asset('assets/img/main2.png') }}');
+
+  .hero-bg-2 {
+    background-image: url('{{ asset('assets/img/main2.png') }}');
   }
-  .hero-bg-3{
-    background-image:url('{{ asset('assets/img/main3.png') }}');
+
+  .hero-bg-3 {
+    background-image: url('{{ asset('assets/img/main3.png') }}');
   }
-  header.hero::before{
-    content:'';
-    position:absolute;
-    inset:0;
-    background:url('{{ static_asset('assets/img/logo2.1.png') }}') center center no-repeat;
-    background-size:40vmin;
-    opacity:0.2;
-    z-index:3;
-    pointer-events:none;
+
+  header.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('{{ static_asset('assets/img/logo2.1.png') }}') center center no-repeat;
+    background-size: 40vmin;
+    opacity: 0.2;
+    z-index: 3;
+    pointer-events: none;
   }
-  header.hero::after{
-    content:'';
-    position:absolute;
-    inset:0;
-    background:linear-gradient(120deg, rgb(142 104 104 / 75%) 0%, rgba(21, 21, 21, 0.45) 60%, rgb(182 57 93 / 55%) 100%), linear-gradient(to bottom, rgba(21, 21, 21, 0.55) 0%, rgba(21, 21, 21, 0.35) 45%, rgb(132 68 68 / 85%) 100%);
-    z-index:2; /* overlay above image, below content */
+
+  header.hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgb(142 104 104 / 75%) 0%, rgba(21, 21, 21, 0.45) 60%, rgb(182 57 93 / 55%) 100%), linear-gradient(to bottom, rgba(21, 21, 21, 0.55) 0%, rgba(21, 21, 21, 0.35) 45%, rgb(132 68 68 / 85%) 100%);
+    z-index: 2;
+    /* overlay above image, below content */
   }
-  .hero .container{position:relative; z-index:3}
+
+  .hero .container {
+    position: relative;
+    z-index: 3
+  }
+
   /* Glass login card */
-  .glass-card{background:rgb(196 175 175 / 22%); border:1px solid rgba(255,255,255,0.25); backdrop-filter: blur(12px);}
+  .glass-card {
+    background: rgb(196 175 175 / 22%);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(12px);
+  }
+
   /* .form-control:focus{box-shadow:0 0 0 .25rem rgba(231,79,122,.25); border-color:var(--brand)}
   .input-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#999}
   .input-with-icon{padding-left:38px}
   .toggle-passwords{position:absolute;right:12px;top:50%;transform:translateY(-50%);cursor:pointer;color:#6c757d;z-index:2} */
   /* Features */
-  .feature-card{
-    border-radius:20px;
-    overflow:hidden;
-    transition:transform .35s ease, box-shadow .35s ease;
+  .feature-card {
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform .35s ease, box-shadow .35s ease;
   }
-  .feature-card img{
-    display:block;
-    width:100%;
-    max-height:220px;
-    height:auto;
-    object-fit:contain;
-    padding:20px;
+
+  .feature-card img {
+    display: block;
+    width: 100%;
+    max-height: 220px;
+    height: auto;
+    object-fit: contain;
+    padding: 20px;
   }
-  .feature-card:hover{transform:translateY(-6px); box-shadow:0 16px 40px rgba(0,0,0,.08)}
+
+  .feature-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, .08)
+  }
 
   /* Timeline */
-  .timeline{display:flex;gap:24px;flex-wrap:wrap}
-  .timeline .step{
-    flex:1 1 200px;
-    position:relative;
-    padding:18px 16px 16px;
-    background:#ffffff;
-    border-radius:18px;
-    box-shadow:0 12px 30px rgba(0,0,0,.04);
-    z-index:1;
+  .timeline {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap
   }
-  .timeline .dot{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--brand);color:#fff;margin-bottom:8px}
-  .timeline .step:after{
-    content:'';
-    position:absolute;
-    top:20px;
-    left:60px;
-    right:16px;
-    height:2px;
-    background:linear-gradient(90deg, var(--brand), transparent);
-    z-index:0;
-  }
-  .timeline .step:last-child:after{display:none}
 
-  #how{
+  .timeline .step {
+    flex: 1 1 200px;
+    position: relative;
+    padding: 18px 16px 16px;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .04);
+    z-index: 1;
+  }
+
+  .timeline .dot {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--brand);
+    color: #fff;
+    margin-bottom: 8px
+  }
+
+  .timeline .step:after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 60px;
+    right: 16px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--brand), transparent);
+    z-index: 0;
+  }
+
+  .timeline .step:last-child:after {
+    display: none
+  }
+
+  #how {
     scroll-margin-top: 120px;
   }
 
-  @media (max-width: 767.98px){
-    .timeline{gap:16px;}
-    .timeline .step{
-      padding:16px 14px 14px;
+  @media (max-width: 767.98px) {
+    .timeline {
+      gap: 16px;
     }
-    .timeline .step:after{display:none;}
-    header.hero{
-      padding-top:10rem !important;
+
+    .timeline .step {
+      padding: 16px 14px 14px;
     }
+
+    .timeline .step:after {
+      display: none;
+    }
+
+    header.hero {
+      padding-top: 10rem !important;
+    }
+
     /* On small screens keep navbar background solid so hamburger/menu never float on transparent */
-    .navbar{
-      background:linear-gradient(120deg, rgba(15,23,42,0.98), rgba(148,27,89,0.9)) !important;
-      box-shadow:0 10px 30px rgba(15,23,42,0.75);
+    .navbar {
+      background: transparent !important;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     }
-    .navbar.navbar-transparent{
-      background:linear-gradient(120deg, rgba(15,23,42,0.98), rgba(148,27,89,0.9)) !important;
-      box-shadow:0 10px 30px rgba(15,23,42,0.75);
+
+    .navbar.navbar-transparent {
+      background: transparent !important;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .navbar .nav-link {
+      color: #111 !important;
+    }
+
+    .navbar .navbar-toggler-icon {
+      filter: invert(1);
     }
   }
 
   /* Support CTA */
-  .support-cta{
-    background:linear-gradient(135deg, rgba(231,79,122,0.08), rgba(93,63,211,0.08));
-    position:relative;
-    overflow:hidden;
+  .support-cta {
+    background: linear-gradient(135deg, rgba(231, 79, 122, 0.08), rgba(93, 63, 211, 0.08));
+    position: relative;
+    overflow: hidden;
   }
-  .support-cta:before{
-    content:'';
-    position:absolute;
-    width:180px;height:180px;
-    border-radius:50%;
-    background:rgba(231,79,122,0.12);
-    top:-60px;right:-40px;
-    z-index:0;
+
+  .support-cta:before {
+    content: '';
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: rgba(231, 79, 122, 0.12);
+    top: -60px;
+    right: -40px;
+    z-index: 0;
   }
-  .support-panel{
-    position:relative;
-    z-index:1;
-    background:#fff;
-    border-radius:26px;
-    padding:2.5rem;
-    box-shadow:0 20px 45px rgba(14,23,38,0.1);
+
+  .support-panel {
+    position: relative;
+    z-index: 1;
+    background: #fff;
+    border-radius: 26px;
+    padding: 2.5rem;
+    box-shadow: 0 20px 45px rgba(14, 23, 38, 0.1);
   }
-  .support-cta h3{
-    color:#111827;
+
+  .support-cta h3 {
+    color: #111827;
   }
-  .support-chip{
-    display:flex;
-    align-items:center;
-    gap:.85rem;
-    padding:.65rem 1rem;
-    border-radius:14px;
-    background:#f5f7ff;
-    color:#374151;
-    font-weight:500;
+
+  .support-chip {
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+    padding: .65rem 1rem;
+    border-radius: 14px;
+    background: #f5f7ff;
+    color: #374151;
+    font-weight: 500;
   }
-  .support-chip i{
-    width:36px;height:36px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:rgba(231,79,122,0.15);
-    color:var(--brand);
+
+  .support-chip i {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(231, 79, 122, 0.15);
+    color: var(--brand);
   }
 
   /* Stories */
-  .story-card{
-    border-radius:20px;
-    overflow:hidden;
-    transition:transform .35s ease, box-shadow .35s ease;
+  .story-card {
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform .35s ease, box-shadow .35s ease;
   }
-  .story-card img{
-    height:220px;
-    object-fit:cover;
+
+  .story-card img {
+    height: 220px;
+    object-fit: cover;
   }
-  .story-card:hover{
-    transform:translateY(-6px);
-    box-shadow:0 18px 40px rgba(0,0,0,.09);
+
+  .story-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .09);
   }
 
   /* CTA */
-  .cta{background:linear-gradient(120deg, #ff8fb1 0%, #ffbfa0 100%)}
-  /* Footer */
-  footer{background:#0f0f12;color:#bdbdc2}
-  footer a{color:#cfcfd6}
-  footer a:hover{color:#fff}
+  .cta {
+    background: linear-gradient(120deg, #ff8fb1 0%, #ffbfa0 100%)
+  }
 
-    .text-gradient {
+  /* Footer */
+  footer {
+    background: #0f0f12;
+    color: #bdbdc2
+  }
+
+  footer a {
+    color: #cfcfd6
+  }
+
+  footer a:hover {
+    color: #fff
+  }
+
+  .text-gradient {
     background: linear-gradient(90deg, #ff5f6d, #ffc371);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -291,7 +410,7 @@
     font-size: 0.95rem;
   }
 
-  .form-control:focus{
+  .form-control:focus {
     box-shadow: none !important;
     border-color: none !important;
   }
@@ -310,9 +429,9 @@
     border: none;
   }
 
-    .btn-bran-create {
-    background: #efc340;
-    border: none;
+  .btn-bran-create {
+    background: #a9e136;
+    border: 1px solid #000;
   }
 
   .btn-brand:hover {
@@ -326,7 +445,7 @@
     color: #fff;
     border: none;
     border-radius: 999px;
-    box-shadow: 0 12px 30px rgba(0,0,0,.35);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .35);
     transition: transform .25s ease, box-shadow .25s ease;
   }
 
@@ -334,7 +453,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 0% 50%, rgba(255,255,255,0.35), transparent 60%);
+    background: radial-gradient(circle at 0% 50%, rgba(255, 255, 255, 0.35), transparent 60%);
     transform: translateX(-120%);
     transition: transform .5s ease-out;
     opacity: .9;
@@ -346,71 +465,87 @@
 
   .btn-hero:hover {
     transform: translateY(-1px);
-    box-shadow: 0 18px 40px rgba(0,0,0,.45);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .45);
   }
 
   .btn-hero:active {
     transform: translateY(0) scale(.98);
-    box-shadow: 0 8px 18px rgba(0,0,0,.35);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, .35);
   }
 
-  .hero-typed-cursor{
-    display:inline-block;
-    width:2px;
-    height:1.2em;
-    margin-left:4px;
-    background:#ffc371;
-    vertical-align:bottom;
+  .hero-typed-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.2em;
+    margin-left: 4px;
+    background: #ffc371;
+    vertical-align: bottom;
     animation: hero-cursor-blink .9s steps(1) infinite;
   }
 
   @keyframes hero-cursor-blink {
-    0%, 50% { opacity:1; }
-    50.01%, 100% { opacity:0; }
+
+    0%,
+    50% {
+      opacity: 1;
+    }
+
+    50.01%,
+    100% {
+      opacity: 0;
+    }
   }
+
   /* Hero meta counters */
-  .hero-meta{
-    margin-top:1.75rem;
-    display:flex;
-    flex-wrap:wrap;
-    gap:2.5rem;
+  .hero-meta {
+    margin-top: 1.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
   }
-  .hero-meta-item{
-    flex:0 0 auto;
-    min-width:120px;
-    display:flex;
-    flex-direction:column;
-    gap:.4rem;
-    padding:0;
-    color:#fff;
+
+  .hero-meta-item {
+    flex: 0 0 auto;
+    min-width: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    padding: 0;
+    color: #fff;
   }
-  .hero-meta-count{
-    font-size:2.8rem;
-    line-height:1;
-    font-weight:700;
-    letter-spacing:.02em;
-    color:#ffc371;
+
+  .hero-meta-count {
+    font-size: 2.8rem;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: .02em;
+    color: #ffc371;
   }
-  .hero-meta-desc{
-    margin:0;
-    font-size:1rem;
-    font-weight:500;
-    letter-spacing:.01em;
-    color:#f9fafb;
+
+  .hero-meta-desc {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: .01em;
+    color: #f9fafb;
   }
-  @media (max-width: 767.98px){
-    .hero-meta{
-      margin-top:1.25rem;
-      gap:1.25rem;
+
+  @media (max-width: 767.98px) {
+    .hero-meta {
+      margin-top: 1.25rem;
+      gap: 1.25rem;
     }
-    .hero-meta-item{
-      flex:1 1 45%;
+
+    .hero-meta-item {
+      flex: 1 1 45%;
     }
-    .hero-meta-count{
-      font-size:2rem;
+
+    .hero-meta-count {
+      font-size: 2rem;
     }
-    .hero-meta-desc{
-      font-size:.95rem;
+
+    .hero-meta-desc {
+      font-size: .95rem;
     }
   }
 
@@ -422,54 +557,59 @@
     text-decoration: underline;
   }
 
-  .signup-highlight{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:6px;
-    padding:0;
-    border-radius:0;
-    background:transparent;
-    color:#374151; /* simple neutral text */
-    box-shadow:none;
-    font-size:0.95rem;
+  .signup-highlight {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #374151;
+    /* simple neutral text */
+    box-shadow: none;
+    font-size: 0.95rem;
   }
 
-  .signup-highlight span{
-    font-weight:400;
-    color:#dde9ff;
+  .signup-highlight span {
+    font-weight: 400;
+    color: #dde9ff;
   }
 
-  .signup-highlight a{
-    color:#25b6eb; /* new solid link color */
-    text-decoration:none;
+  .signup-highlight a {
+    color: #25b6eb;
+    /* new solid link color */
+    text-decoration: none;
   }
 
-  .signup-highlight a:hover{
-    text-decoration:underline;
+  .signup-highlight a:hover {
+    text-decoration: underline;
   }
 
   input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  background-color: transparent !important;
-  background-image: none !important;
-  -webkit-text-fill-color: #000 !important; /* ensure text stays visible */
-  transition: background-color 5000s ease-in-out 0s; /* prevents flash */
-}
-
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    background-color: transparent !important;
+    background-image: none !important;
+    -webkit-text-fill-color: #000 !important;
+    /* ensure text stays visible */
+    transition: background-color 5000s ease-in-out 0s;
+    /* prevents flash */
+  }
 </style>
+
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark navbar-transparent fixed-top">
     <div class="container">
       <a class="navbar-brand d-flex align-items-center" href="#home">
-        <img src="{{ static_asset('assets/img/logo2.1.png') }}" alt="No1Marry" class=" me-2" height="90" >
+        <img src="{{ static_asset('assets/img/logo2.1.png') }}" alt="No1Marry" class=" me-2" height="90">
         <!-- <span class="fw-bold">No1Marry </span> -->
       </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav" aria-controls="mainNav"
+        aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
+      </button> -->
       <div class="collapse navbar-collapse" id="mainNav">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
@@ -496,12 +636,23 @@ input:-webkit-autofill:active {
 
           <h1 class="display-4 fw-bold">Find Your Perfect Match, the Modern Way</h1>
           <p class="lead mb-4">
-            <span id="hero-typed-text">Join a trusted community of verified singles, smart matchmaking and private chats designed to help you find a partner who truly matches your values.</span>
+            <span id="hero-typed-text">Join a trusted community of verified singles, smart matchmaking and private chats
+              designed to help you find a partner who truly matches your values.</span>
             <span class="hero-typed-cursor"></span>
           </p>
           <div class="d-flex gap-3 flex-wrap">
-            <a href="{{ url('/user/registration') }}" class="btn btn-bran-create btn-lg  text-white">Create Account</a>
-            <a href="#features" class="btn btn-outline-light btn-lg ">Explore Matches</a>
+            <a href="{{ url('/user/registration') }}"
+              class="btn btn-bran-create btn-lg text-black d-inline-flex align-items-center justify-content-center font-weight-bold"
+              style="min-width: 200px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2">
+                <path
+                  d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z">
+                </path>
+              </svg>
+              Register Free
+            </a>
+            <!-- <a href="#features" class="btn btn-outline-light btn-lg d-inline-flex align-items-center justify-content-center" style="min-width: 200px;">Explore Matches</a> -->
           </div>
           <div class="hero-meta" data-aos="fade-up" data-aos-delay="200">
             <!-- <div class="hero-meta-item">
@@ -536,12 +687,8 @@ input:-webkit-autofill:active {
                     <div class="icon-wrap">
                       <i class="fa-solid fa-user-rectangle"></i>
                     </div>
-                    <input
-                      type="text"
-                      class="form-control custom-input"
-                      name="email"
-                      placeholder="Enter phone or email"
-                    >
+                    <input type="text" class="form-control custom-input" name="email"
+                      placeholder="Enter phone or email">
                   </div>
                   @error('email')
                     <span class="invalid-feedback" role="alert" style="display:block">{{ $message }}</span>
@@ -555,14 +702,8 @@ input:-webkit-autofill:active {
                     <div class="icon-wrap">
                       <i class="fa-solid fa-lock-heart"></i>
                     </div>
-                    <input
-                      type="password"
-                      id="passwordInput"
-                      class="form-control custom-input"
-                      name="password"
-                      placeholder="Enter password"
-                      required
-                    >
+                    <input type="password" id="passwordInput" class="form-control custom-input" name="password"
+                      placeholder="Enter password" required>
                     <div class="icon-wrap eye-toggle" onclick="togglePassword()">
                       <i id="eyeIcon" class="fa-regular fa-eye"></i>
                     </div>
@@ -597,44 +738,188 @@ input:-webkit-autofill:active {
     </div>
   </header>
 
-  <section id="features" class="py-5 bg-light">
+  <section id="plans" class="py-5 bg-white">
     <div class="container">
-      <div class="text-center mb-5">
-        <h2 class="fw-bold">Why Choose No1Marry</h2>
-        <p class="text-muted">Built for trust, designed for meaningful connections</p>
+      <div class="text-center mb-5" data-aos="fade-up">
+        <h2 class="fw-bold text-white">Membership Plans</h2>
+        <div class="mx-auto mb-3" style="width: 60px; height: 3px; background: #a8bb6eff;"></div>
+        <p class="text-white">Elevate your search with our premium features and personalized support</p>
       </div>
-      <div class="row g-4">
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
-          <div class="card h-100 border-0 shadow-sm feature-card">
-            <img src="{{ static_asset('assets/img/verified-account_11331186.png') }}" class="card-img-top" alt="Verified Profiles">
-            <div class="card-body">
-              <h5 class="card-title">Verified Profiles</h5>
-              <p class="card-text">Multi-step verification and moderation keep profiles genuine and respectful.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-          <div class="card h-100 border-0 shadow-sm feature-card">
-            <img src="{{ static_asset('assets/img/long-distance_5230891.png') }}" class="card-img-top" alt="Smart Matching">
-            <div class="card-body">
-              <h5 class="card-title">Smart Matchmaking</h5>
-              <p class="card-text">Personalized matches based on preferences, lifestyle, and values.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-          <div class="card h-100 border-0 shadow-sm feature-card">
-            <img src="{{ static_asset('assets/img/privacy_14247373.png') }}" class="card-img-top" alt="Private & Secure">
-            <div class="card-body">
-              <h5 class="card-title">Private & Secure</h5>
-              <p class="card-text">Control your privacy with secure messaging and profile visibility options.</p>
-            </div>
-          </div>
-        </div>
 
+      @php
+        $packages = \App\Models\Package::where('price', '>', 0)->get();
+      @endphp
+
+      <div class="row g-4 justify-content-center">
+        @foreach ($packages as $index => $package)
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
+            <div class="plan-card h-100 {{ $index == 1 ? 'featured' : '' }}">
+              <div class="plan-header text-center mb-4">
+                <h3 class="plan-name">{{ $package->name }}</h3>
+                <div class="plan-price">
+                  <span class="amount">{{ single_price($package->price) }}</span>
+                  <span class="period">/ {{ $package->validity }} {{ translate('Days') }}</span>
+                </div>
+              </div>
+
+              <div class="plan-features mb-5">
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fa-solid fa-check-double me-2"></i>
+                    <span>{{ $package->express_interest }} {{ translate('Express Interests') }}</span>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-check-double me-2"></i>
+                    <span>{{ $package->contact }} {{ translate('Contact Info Views') }}</span>
+                  </li>
+                  <!-- <li>
+                                                                                                                                                  <i class="fa-solid fa-check-double me-2"></i>
+                                                                                                                                                  <span>{{ $package->photo_gallery }} {{ translate('Gallery Photo Uploads') }}</span>
+                                                                                                                                                </li> -->
+                  <li>
+                    @if($package->auto_profile_match == 1)
+                      <i class="fa-solid fa-check-double me-2"></i>
+                      <span>{{ translate('Auto Profile Match') }}</span>
+                    @else
+                      <i class="fa-solid fa-minus me-2 opacity-50"></i>
+                      <span class="opacity-50">{{ translate('Auto Profile Match') }}</span>
+                    @endif
+                  </li>
+                </ul>
+              </div>
+
+              <div class="plan-footer mt-auto text-center">
+                <a href="{{ route('packages') }}" class="btn btn-plan w-100">
+                  {{ translate('Get Started') }}
+                </a>
+              </div>
+            </div>
+          </div>
+        @endforeach
       </div>
     </div>
   </section>
+
+  <style>
+    .plan-card {
+      background: #fff;
+      border: 1px solid #efefef;
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    }
+
+    .plan-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+      border-color: #000;
+    }
+
+    .plan-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #000;
+      margin-bottom: 1.5rem;
+    }
+
+    .plan-price .amount {
+      font-size: 2.75rem;
+      font-weight: 800;
+      color: #000;
+      display: block;
+      line-height: 1;
+    }
+
+    .plan-price .period {
+      font-size: 0.9rem;
+      color: #888;
+      font-weight: 500;
+      display: block;
+      margin-top: 0.5rem;
+    }
+
+    .plan-features ul li {
+      padding: 0.85rem 0;
+      color: #444;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #f8f8f8;
+    }
+
+    .plan-features ul li:last-child {
+      border-bottom: none;
+    }
+
+    .plan-features ul li i {
+      color: #000;
+      font-size: 0.8rem;
+    }
+
+    .btn-plan {
+      background: #000;
+      color: #fff;
+      border: 2px solid #000;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-plan:hover {
+      background: transparent;
+      color: #000;
+    }
+
+    /* Featured Card Styling */
+    .plan-card.featured {
+      background: #000;
+      border-color: #000;
+      color: #fff;
+    }
+
+    .plan-card.featured .plan-name,
+    .plan-card.featured .plan-price .amount,
+    .plan-card.featured .plan-features ul li {
+      color: #fff;
+    }
+
+    .plan-card.featured .plan-price .period {
+      color: #aaa;
+    }
+
+    .plan-card.featured .plan-features ul li {
+      border-bottom-color: #222;
+    }
+
+    .plan-card.featured .plan-features ul li i {
+      color: #fff;
+    }
+
+    .plan-card.featured .btn-plan {
+      background: #fff;
+      color: #000;
+      border-color: #fff;
+    }
+
+    .plan-card.featured .btn-plan:hover {
+      background: transparent;
+      color: #fff;
+    }
+
+    @media (max-width: 991.98px) {
+      .plan-card {
+        padding: 2.5rem 1.5rem;
+      }
+    }
+  </style>
 
   <section id="how" class="py-5">
     <div class="container">
@@ -687,7 +972,8 @@ input:-webkit-autofill:active {
           <div class="col-lg-8">
             <p class="text-uppercase text-muted small fw-semibold mb-1">Need assistance?</p>
             <h3 class="fw-bold mb-2">We're here 24/7 for Help & Support</h3>
-            <p class="mb-0 text-muted">Reach out to our dedicated support team via email or WhatsApp any time. We respond quickly to ensure your journey stays smooth.</p>
+            <p class="mb-0 text-muted">Reach out to our dedicated support team via email or WhatsApp any time. We
+              respond quickly to ensure your journey stays smooth.</p>
             <div class="d-flex flex-wrap gap-3 mt-4">
               <div class="support-chip">
                 <i class="fas fa-envelope"></i>
@@ -727,15 +1013,15 @@ input:-webkit-autofill:active {
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
     // AOS animations
-    AOS.init({ once:true, duration:700, offset:80, easing:'ease-out-cubic' });
+    AOS.init({ once: true, duration: 700, offset: 80, easing: 'ease-out-cubic' });
 
     // Header glass effect on scroll
     const nav = document.querySelector('.navbar');
     const toggleNavBg = () => {
-      if(window.scrollY > 24){
+      if (window.scrollY > 24) {
         nav.classList.add('navbar-glass');
         nav.classList.remove('navbar-transparent');
-      }else{
+      } else {
         nav.classList.add('navbar-transparent');
         nav.classList.remove('navbar-glass');
       }
@@ -774,10 +1060,10 @@ input:-webkit-autofill:active {
     window.addEventListener('scroll', updateHeroBg);
 
     // Toggle password visibility
-    function togglePassword(){
+    function togglePassword() {
       const passwordInput = document.getElementById('passwordInput');
       const eyeIcon = document.getElementById('eyeIcon');
-      if(!passwordInput || !eyeIcon) return;
+      if (!passwordInput || !eyeIcon) return;
 
       const isPassword = passwordInput.type === 'password';
       passwordInput.type = isPassword ? 'text' : 'password';
@@ -786,7 +1072,7 @@ input:-webkit-autofill:active {
     }
 
     // Hero typewriter effect
-    (function(){
+    (function () {
       const el = document.getElementById('hero-typed-text');
       if (!el) return;
 
@@ -841,4 +1127,5 @@ input:-webkit-autofill:active {
     })();
   </script>
 </body>
+
 </html>

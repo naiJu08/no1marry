@@ -119,7 +119,6 @@
     <div class="container">
         <div class="row">
             @foreach ($packages as $key => $package)
-            @if($package->id != 1) 
                 <div class="carousel-box col-md-4">
                     <div class="pricing-card">
                         @if($loop->first)
@@ -130,7 +129,7 @@
                                 <img src="{{ static_asset('assets/img/email-campaign.svg') }}" alt="{{ $package->name }}">
                             </div>
                             <h5 class="pricing-card__title">{{$package->name}}</h5>
-                            <div class="pricing-card__subtitle">{{ translate('Unlimited profiles with contacts') }}</div>
+                            <div class="pricing-card__subtitle">{{ translate('Premium Membership') }}</div>
                             <div class="pricing-card__price">
                                 <span class="pricing-card__amount">
                                     @if ($package->id == 1)
@@ -152,10 +151,10 @@
                                     <i class="las la-check text-success mr-2"></i>
                                     {{ $package->photo_gallery }} {{ translate('Galley Photo Upload') }}
                                 </li> --}}
-                                <!--<li class="list-group-item py-2">-->
-                                <!--    <i class="las la-check text-success mr-2"></i>-->
-                                <!--    {{ $package->contact }} {{ translate('Contact Info View') }}-->
-                                <!--</li>-->
+                                 <li>
+                                    <i class="las la-check text-success"></i>
+                                    <span>{{ $package->contact }} {{ translate('Contact Info Views') }}</span>
+                                </li>
                                 <li class="text-line-through">
                                     @if( $package->auto_profile_match == 0 )
                                         <i class="las la-times text-danger mr-2"></i>
@@ -184,7 +183,6 @@
                         </div>
                     </div>
                 </div>
-            @endif
             @endforeach
         </div>
     </div>

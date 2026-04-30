@@ -9,7 +9,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" onclick="confirmclosebasic()">{{ translate('Close') }}</button>
-          <button type="submit" class="btn btn-primary" id="confirm_button">{{translate('Confirm')}}</button>
+          <button type="button" class="btn btn-primary" id="confirm_button">{{translate('Confirm')}}</button>
         </div>
       </div>
   </div>

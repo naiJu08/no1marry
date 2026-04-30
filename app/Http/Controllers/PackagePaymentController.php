@@ -155,6 +155,9 @@ class PackagePaymentController extends Controller
         $package_payment->amount            = $payment_data['amount'];
         $package_payment->payment_details   = $payment_details;
         $package_payment->offline_payment   = 2;
+        $package                            = Package::where('id', $payment_data['package_id'])->first();
+        $package_payment->validity          = $package->validity;
+        $package_payment->contact           = $package->contact;
         $package_payment->save();
 
         $member                             = Member::where('user_id', $user->id)->first();
@@ -279,6 +282,8 @@ class PackagePaymentController extends Controller
 
       if($member->save()){
           $package_payment->payment_status = 'Paid';
+          $package_payment->validity = $package->validity;
+          $package_payment->contact = $package->contact;
           $package_payment->save();
 
           $user->membership = 2;

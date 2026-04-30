@@ -460,6 +460,20 @@ input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s; /* prevents flash */
 }
 
+
+
+    .navbar {
+      /* background: linear-gradient(120deg, rgba(15, 23, 42, 0.98), rgba(148, 27, 89, 0.9)) !important; */
+      background: #fff;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.75);
+    }
+
+    .navbar.navbar-transparent {
+      /* background: linear-gradient(120deg, rgba(15, 23, 42, 0.98), rgba(148, 27, 89, 0.9)) !important; */
+      background: #fff;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.75);
+    }
+
 </style>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark navbar-transparent fixed-top">
@@ -475,7 +489,7 @@ input:-webkit-autofill:active {
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="#how">How it works</a></li>
-          <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+          <li class="nav-item"><a class="nav-link" href="#plans">Plans</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ url('/help_and_support') }}">Help &amp; Support</a></li>
         </ul>
         <div class="d-none d-lg-flex ms-3 gap-2">
@@ -500,7 +514,7 @@ input:-webkit-autofill:active {
           </p>
           <div class="d-flex gap-3 flex-wrap">
             <a href="{{ url('/user/registration') }}" class="btn btn-bran-create btn-lg  text-white">Create Account</a>
-            <a href="#features" class="btn btn-outline-light btn-lg ">Explore Matches</a>
+            <a href="#plans" class="btn btn-outline-light btn-lg ">Explore Plans</a>
           </div>
           <div class="hero-meta" data-aos="fade-up" data-aos-delay="200">
             <div class="hero-meta-item">
@@ -602,44 +616,173 @@ input:-webkit-autofill:active {
     </div>
   </header>
 
-  <section id="features" class="py-5 bg-light">
+  <section id="plans" class="py-5 bg-white">
     <div class="container">
-      <div class="text-center mb-5">
-        <h2 class="fw-bold">Why Choose No1Marry</h2>
-        <p class="text-muted">Built for trust, designed for meaningful connections</p>
+      <div class="text-center mb-5" data-aos="fade-up">
+        <h2 class="fw-bold text-dark">Membership Plans</h2>
+        <div class="mx-auto mb-3" style="width: 60px; height: 3px; background: #000;"></div>
+        <p class="text-muted">Elevate your search with our premium features and personalized support</p>
       </div>
-      <div class="row g-4">
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
-          <div class="card h-100 border-0 shadow-sm feature-card">
-            <img src="{{ static_asset('assets/img/verified-account_11331186.png') }}" class="card-img-top" alt="Verified Profiles">
-            <div class="card-body">
-              <h5 class="card-title">Verified Profiles</h5>
-              <p class="card-text">Multi-step verification and moderation keep profiles genuine and respectful.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-          <div class="card h-100 border-0 shadow-sm feature-card">
-            <img src="{{ static_asset('assets/img/long-distance_5230891.png') }}" class="card-img-top" alt="Smart Matching">
-            <div class="card-body">
-              <h5 class="card-title">Smart Matchmaking</h5>
-              <p class="card-text">Personalized matches based on preferences, lifestyle, and values.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-          <div class="card h-100 border-0 shadow-sm feature-card">
-            <img src="{{ static_asset('assets/img/privacy_14247373.png') }}" class="card-img-top" alt="Private & Secure">
-            <div class="card-body">
-              <h5 class="card-title">Private & Secure</h5>
-              <p class="card-text">Control your privacy with secure messaging and profile visibility options.</p>
-            </div>
-          </div>
-        </div>
 
+      @php
+        $packages = \App\Models\Package::where('price', '>', 0)->get();
+      @endphp
+
+      <div class="row g-4 justify-content-center">
+        @foreach ($packages as $index => $package)
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
+            <div class="plan-card h-100 {{ $index == 1 ? 'featured' : '' }}">
+              <div class="plan-header text-center mb-4">
+                <h3 class="plan-name">{{ $package->name }}</h3>
+                <div class="plan-price">
+                  <span class="amount">{{ single_price($package->price) }}</span>
+                  <span class="period">/ {{ $package->validity }} {{ translate('Days') }}</span>
+                </div>
+              </div>
+
+              <div class="plan-features mb-5">
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fa-solid fa-check-double me-2"></i>
+                    <span>{{ $package->express_interest }} {{ translate('Express Interests') }}</span>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-check-double me-2"></i>
+                    <span>{{ $package->contact }} {{ translate('Contact Info Views') }}</span>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-check-double me-2"></i>
+                    <span>{{ $package->photo_gallery }} {{ translate('Gallery Photo Uploads') }}</span>
+                  </li>
+                  <li>
+                    @if($package->auto_profile_match == 1)
+                      <i class="fa-solid fa-check-double me-2"></i>
+                      <span>{{ translate('Auto Profile Match') }}</span>
+                    @else
+                      <i class="fa-solid fa-minus me-2 opacity-50"></i>
+                      <span class="opacity-50">{{ translate('Auto Profile Match') }}</span>
+                    @endif
+                  </li>
+                </ul>
+              </div>
+
+              <div class="plan-footer mt-auto text-center">
+                <a href="{{ route('packages') }}" class="btn btn-plan w-100">
+                  {{ translate('Get Started') }}
+                </a>
+              </div>
+            </div>
+          </div>
+        @endforeach
       </div>
     </div>
   </section>
+
+  <style>
+    .plan-card {
+      background: #fff;
+      border: 1px solid #efefef;
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+    }
+    .plan-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+      border-color: #000;
+    }
+    .plan-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #000;
+      margin-bottom: 1.5rem;
+    }
+    .plan-price .amount {
+      font-size: 2.75rem;
+      font-weight: 800;
+      color: #000;
+      display: block;
+      line-height: 1;
+    }
+    .plan-price .period {
+      font-size: 0.9rem;
+      color: #888;
+      font-weight: 500;
+      display: block;
+      margin-top: 0.5rem;
+    }
+    .plan-features ul li {
+      padding: 0.85rem 0;
+      color: #444;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #f8f8f8;
+    }
+    .plan-features ul li:last-child {
+      border-bottom: none;
+    }
+    .plan-features ul li i {
+      color: #000;
+      font-size: 0.8rem;
+    }
+    .btn-plan {
+      background: #000;
+      color: #fff;
+      border: 2px solid #000;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+    }
+    .btn-plan:hover {
+      background: transparent;
+      color: #000;
+    }
+    
+    /* Featured Card Styling */
+    .plan-card.featured {
+      background: #000;
+      border-color: #000;
+      color: #fff;
+    }
+    .plan-card.featured .plan-name,
+    .plan-card.featured .plan-price .amount,
+    .plan-card.featured .plan-features ul li {
+      color: #fff;
+    }
+    .plan-card.featured .plan-price .period {
+      color: #aaa;
+    }
+    .plan-card.featured .plan-features ul li {
+      border-bottom-color: #222;
+    }
+    .plan-card.featured .plan-features ul li i {
+      color: #fff;
+    }
+    .plan-card.featured .btn-plan {
+      background: #fff;
+      color: #000;
+      border-color: #fff;
+    }
+    .plan-card.featured .btn-plan:hover {
+      background: transparent;
+      color: #fff;
+    }
+
+    @media (max-width: 991.98px) {
+      .plan-card {
+        padding: 2.5rem 1.5rem;
+      }
+    }
+  </style>
 
   <section id="how" class="py-5">
     <div class="container">
