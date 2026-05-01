@@ -434,6 +434,10 @@
             width: 78vw;
         }
     }
+    .blur {
+        filter: blur(15px);
+        transition: filter 0.3s ease;
+    }
 </style>
 
 @php
@@ -451,6 +455,7 @@
         $interest_text     = $do_expressed_interest->status == 0 ? translate('Interest Expressed') : translate('Interest Accepted');
     }
     $next_profile_match = isset($similar_profiles) && count($similar_profiles) ? $similar_profiles->first() : null;
+    $should_blur = !Auth::check() || !in_array(Auth::user()->membership, [2, 4]);
 @endphp
 
 <section class="py-4">
@@ -458,7 +463,7 @@
         <div class="pp-hero">
             <div class="pp-hero-main">
                 <div class="pp-avatar" onclick="openProfileImage()">
-                    <img src="{{ $user->photo ? uploaded_asset($user->photo) : static_asset('assets/img/avatar-place.png') }}" onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';" alt="profile">
+                    <img src="{{ $user->photo ? uploaded_asset($user->photo) : static_asset('assets/img/avatar-place.png') }}" onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';" class="{{ $should_blur ? 'blur' : '' }}" alt="profile">
                 </div>
                 <div class="pp-hero-meta">
                     <h1>{{ $user->first_name.' '.$user->last_name }}</h1>
@@ -555,7 +560,7 @@
                         @if($nextUser)
                             <a href="{{ route('member_profile', $nextUser->id) }}" class="pp-suggestion-card">
                                 <span class="pp-suggestion-avatar">
-                                    <img src="{{ $nextUser->photo ? uploaded_asset($nextUser->photo) : static_asset('assets/img/avatar-place.png') }}" onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';" alt="{{ $nextUser->first_name }}">
+                                    <img src="{{ $nextUser->photo ? uploaded_asset($nextUser->photo) : static_asset('assets/img/avatar-place.png') }}" onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';" class="{{ $should_blur ? 'blur' : '' }}" alt="{{ $nextUser->first_name }}">
                                 </span>
                                 <span class="pp-suggestion-body">
                                     <span class="pp-suggestion-name">{{ $nextUser->first_name.' '.$nextUser->last_name }}</span>
@@ -579,7 +584,7 @@
         <div id="pp-photo-overlay" class="pp-photo-overlay d-none" onclick="closeProfileImage(event)">
             <div class="pp-photo-modal" onclick="event.stopPropagation()">
                 <button type="button" class="pp-photo-close" onclick="closeProfileImage(event)">&times;</button>
-                <img src="{{ $user->photo ? uploaded_asset($user->photo) : static_asset('assets/img/avatar-place.png') }}" onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';" alt="profile-full">
+                <img src="{{ $user->photo ? uploaded_asset($user->photo) : static_asset('assets/img/avatar-place.png') }}" onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';" class="{{ $should_blur ? 'blur' : '' }}" alt="profile-full">
             </div>
         </div>
 

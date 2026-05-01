@@ -431,7 +431,8 @@
 
   .btn-bran-create {
     background: #a9e136;
-    border: 1px solid #000;
+    border: 1px solid #d2094e;
+    color: #d2094e;
   }
 
   .btn-brand:hover {
@@ -631,7 +632,7 @@
     <div class="container">
       <div class="row align-items-center g-4">
         <div class="col-lg-7 text-white" data-aos="fade-right">
-          <h6 class="text-uppercase text-white mb-2">NO1MARRY - MATRIMONIAL WEBSITE</h6>
+          <h6 class="text-uppercase text-white mb-2">NO.1MARRY - MATRIMONIAL WEBSITE</h6>
           <h6 class="text-uppercase text-white mb-2">6 YEARS OF TRUST</h6>
 
           <h1 class="display-4 fw-bold">Find Your Perfect Match, the Modern Way</h1>
@@ -642,7 +643,7 @@
           </p>
           <div class="d-flex gap-3 flex-wrap">
             <a href="{{ url('/user/registration') }}"
-              class="btn btn-bran-create btn-lg text-black d-inline-flex align-items-center justify-content-center font-weight-bold"
+              class="btn btn-bran-create btn-lg d-inline-flex align-items-center justify-content-center font-weight-bold"
               style="min-width: 200px;">
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2">
@@ -773,9 +774,9 @@
                     <span>{{ $package->contact }} {{ translate('Contact Info Views') }}</span>
                   </li>
                   <!-- <li>
-                                                                                                                                                      <i class="fa-solid fa-check-double me-2"></i>
-                                                                                                                                                      <span>{{ $package->photo_gallery }} {{ translate('Gallery Photo Uploads') }}</span>
-                                                                                                                                                    </li> -->
+                                                                                                                                                                                                                    <i class="fa-solid fa-check-double me-2"></i>
+                                                                                                                                                                                                                    <span>{{ $package->photo_gallery }} {{ translate('Gallery Photo Uploads') }}</span>
+                                                                                                                                                                                                                  </li> -->
                   <li>
                     @if($package->auto_profile_match == 1)
                       <i class="fa-solid fa-check-double me-2"></i>
@@ -959,7 +960,7 @@
           <p class="mb-0">10K+ Matches Made • Trusted by thousands</p>
         </div>
         <div class="col-lg-4 text-lg-end">
-          <a href="{{ url('/user/registration') }}" class="btn btn-lg btn-dark">Join Now</a>
+          <a href="{{ url('/user/registration') }}" class="btn btn-lg btn-dark">Register Free</a>
         </div>
       </div>
     </div>
