@@ -430,9 +430,9 @@
   }
 
   .btn-bran-create {
-    background: #a9e136;
-    border: 1px solid #d2094e;
-    color: #d2094e;
+    background: #ff0000;
+    border: 1px solid #f7f7f7;
+    color: #f7f7f7;
   }
 
   .btn-brand:hover {
@@ -742,9 +742,9 @@
   <section id="plans" class="py-5 bg-white">
     <div class="container">
       <div class="text-center mb-5" data-aos="fade-up">
-        <h2 class="fw-bold text-white">Membership Plans</h2>
-        <div class="mx-auto mb-3" style="width: 60px; height: 3px; background: #a8bb6eff;"></div>
-        <p class="text-white">Elevate your search with our premium features and personalized support</p>
+        <h2 class="fw-bold text-dark">Membership Plans</h2>
+        <div class="mx-auto mb-3" style="width: 60px; height: 3px; background: #ff5f6d;"></div>
+        <p class="text-muted">Elevate your search with our premium features and personalized support</p>
       </div>
 
       @php
@@ -774,9 +774,9 @@
                     <span>{{ $package->contact }} {{ translate('Contact Info Views') }}</span>
                   </li>
                   <!-- <li>
-                                                                                                                                                                                                                    <i class="fa-solid fa-check-double me-2"></i>
-                                                                                                                                                                                                                    <span>{{ $package->photo_gallery }} {{ translate('Gallery Photo Uploads') }}</span>
-                                                                                                                                                                                                                  </li> -->
+                                                                                                                                                                                                                              <i class="fa-solid fa-check-double me-2"></i>
+                                                                                                                                                                                                                              <span>{{ $package->photo_gallery }} {{ translate('Gallery Photo Uploads') }}</span>
+                                                                                                                                                                                                                            </li> -->
                   <li>
                     @if($package->auto_profile_match == 1)
                       <i class="fa-solid fa-check-double me-2"></i>
@@ -804,19 +804,19 @@
   <style>
     .plan-card {
       background: #fff;
-      border: 1px solid #efefef;
+      border: 1px solid #ffebee;
       border-radius: 24px;
       padding: 3rem 2.5rem;
       transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
       display: flex;
       flex-direction: column;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+      box-shadow: 0 10px 30px rgba(255, 95, 109, 0.05);
     }
 
     .plan-card:hover {
       transform: translateY(-12px);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
-      border-color: #000;
+      box-shadow: 0 30px 60px rgba(255, 95, 109, 0.15);
+      border-color: #ff5f6d;
     }
 
     .plan-name {
@@ -824,14 +824,14 @@
       font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: #000;
+      color: #2d1024;
       margin-bottom: 1.5rem;
     }
 
     .plan-price .amount {
       font-size: 2.75rem;
       font-weight: 800;
-      color: #000;
+      color: #ff5f6d;
       display: block;
       line-height: 1;
     }
@@ -846,11 +846,11 @@
 
     .plan-features ul li {
       padding: 0.85rem 0;
-      color: #444;
+      color: #555;
       font-size: 0.95rem;
       display: flex;
       align-items: center;
-      border-bottom: 1px solid #f8f8f8;
+      border-bottom: 1px solid #fff5f5;
     }
 
     .plan-features ul li:last-child {
@@ -858,14 +858,14 @@
     }
 
     .plan-features ul li i {
-      color: #000;
+      color: #ff5f6d;
       font-size: 0.8rem;
     }
 
     .btn-plan {
-      background: #000;
+      background: #ff5f6d;
       color: #fff;
-      border: 2px solid #000;
+      border: 2px solid #ff5f6d;
       padding: 1rem 2rem;
       border-radius: 50px;
       font-weight: 700;
@@ -876,14 +876,15 @@
 
     .btn-plan:hover {
       background: transparent;
-      color: #000;
+      color: #ff5f6d;
     }
 
     /* Featured Card Styling */
     .plan-card.featured {
-      background: #000;
-      border-color: #000;
+      background: linear-gradient(145deg, #ff5f6d 0%, #ff8fb1 100%);
+      border-color: #ff5f6d;
       color: #fff;
+      box-shadow: 0 20px 40px rgba(255, 95, 109, 0.25);
     }
 
     .plan-card.featured .plan-name,
@@ -893,11 +894,11 @@
     }
 
     .plan-card.featured .plan-price .period {
-      color: #aaa;
+      color: #ffdce0;
     }
 
     .plan-card.featured .plan-features ul li {
-      border-bottom-color: #222;
+      border-bottom-color: rgba(255, 255, 255, 0.15);
     }
 
     .plan-card.featured .plan-features ul li i {
@@ -906,12 +907,12 @@
 
     .plan-card.featured .btn-plan {
       background: #fff;
-      color: #000;
+      color: #ff5f6d;
       border-color: #fff;
     }
 
     .plan-card.featured .btn-plan:hover {
-      background: transparent;
+      background: rgba(255, 255, 255, 0.1);
       color: #fff;
     }
 
@@ -960,7 +961,8 @@
           <p class="mb-0">10K+ Matches Made • Trusted by thousands</p>
         </div>
         <div class="col-lg-4 text-lg-end">
-          <a href="{{ url('/user/registration') }}" class="btn btn-lg btn-dark">Register Free</a>
+          <a href="{{ url('/user/registration') }}"
+            class="btn btn-lg btn-light rounded-pill px-4 fw-bold text-brand">Register Free</a>
         </div>
       </div>
     </div>
