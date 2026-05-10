@@ -742,7 +742,7 @@
   <section id="plans" class="py-5 bg-white">
     <div class="container">
       <div class="text-center mb-5" data-aos="fade-up">
-        <h2 class="fw-bold text-dark">Membership Plans</h2>
+        <h2 class="fw-bold text-white">Membership Plans</h2>
         <div class="mx-auto mb-3" style="width: 60px; height: 3px; background: #ff5f6d;"></div>
         <p class="text-muted">Elevate your search with our premium features and personalized support</p>
       </div>
@@ -774,9 +774,9 @@
                     <span>{{ $package->contact }} {{ translate('Contact Info Views') }}</span>
                   </li>
                   <!-- <li>
-                                                                                                                                                                                                                              <i class="fa-solid fa-check-double me-2"></i>
-                                                                                                                                                                                                                              <span>{{ $package->photo_gallery }} {{ translate('Gallery Photo Uploads') }}</span>
-                                                                                                                                                                                                                            </li> -->
+                                                                                                                                                                                                                                <i class="fa-solid fa-check-double me-2"></i>
+                                                                                                                                                                                                                                <span>{{ $package->photo_gallery }} {{ translate('Gallery Photo Uploads') }}</span>
+                                                                                                                                                                                                                              </li> -->
                   <li>
                     @if($package->auto_profile_match == 1)
                       <i class="fa-solid fa-check-double me-2"></i>
@@ -790,7 +790,7 @@
               </div>
 
               <div class="plan-footer mt-auto text-center">
-                <a href="{{ route('packages') }}" class="btn btn-plan w-100">
+                <a href="{{ url('/user/registration') }}" class="btn btn-plan w-100">
                   {{ translate('Get Started') }}
                 </a>
               </div>
